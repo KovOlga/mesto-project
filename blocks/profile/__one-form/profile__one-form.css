@@ -1,0 +1,12 @@
+.profile__one-form {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .profile__one-form {
+        flex-direction: column;
+        gap: 26px;
+    }
+}

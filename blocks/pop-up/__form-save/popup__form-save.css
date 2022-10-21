@@ -1,0 +1,12 @@
+.popup__form-save {
+    color: white;
+    background: #000000;
+    border: none;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
