@@ -1,12 +1,5 @@
 .profile__info-top {
-    /* display: flex; */
-    /* display: grid;
-    grid-template-columns: auto 37px;
-    grid-template-rows: min-content; */
-}
-
-@media (max-width: 768px) {
-    .profile__info-top {
-        display: flex;
-    }
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
 }

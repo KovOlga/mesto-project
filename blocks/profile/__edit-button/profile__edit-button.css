@@ -13,8 +13,6 @@
     background-repeat: no-repeat;
     background-position: center;
     transition: opacity .4s linear;
-    /* align-self: center; */
-    /* grid-area: edit; */
 }
 
 .profile__edit-button:hover {
@@ -23,7 +21,6 @@
 
 @media (max-width: 768px) {
     .profile__edit-button {
-        align-self: center;
         width: 18px;
     }
 }
