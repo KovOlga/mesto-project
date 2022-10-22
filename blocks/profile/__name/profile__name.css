@@ -6,14 +6,16 @@
     color: white;
     padding: 0;
     margin: 0;
-    margin: 0 19px 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 294px;
 }
 
 @media (max-width: 768px) {
     .profile__name {
         font-size: 27px;
         line-height: 33px;
-        padding: 0 0 0 46px;
-        margin: 0 10px 0 0;
+        max-width: 189px;
     }
 }

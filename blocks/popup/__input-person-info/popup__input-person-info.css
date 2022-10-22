@@ -5,6 +5,7 @@
     border: none;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     gap: 30px;
 }
 

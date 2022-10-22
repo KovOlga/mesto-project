@@ -14,8 +14,3 @@
 .photo-elements__like-button:hover {
     opacity: .5;
 }
-
-.photo-elements__like-button:active {
-    background-image: url('../../../images/vector-heart-black-whole.svg');
-    opacity: 1;
-}

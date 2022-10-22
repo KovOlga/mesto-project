@@ -10,6 +10,7 @@
 
 @media (max-width: 320px) {
     .footer__copyright {
-        margin: 48px 0 33px;
+        margin-top: 48px;
+        margin-bottom: 33px;
     }
 }
