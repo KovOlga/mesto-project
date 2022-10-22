@@ -21,9 +21,10 @@
                 <div class="profile__one-form">
                     <img class="profile__avatar" src="./images/image-profile.png" alt="Фото пользователя">
                     <div class="profile__info">
-                        <button class="profile__edit-button" type="button"></button>
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <p class="profile__about">Исследователь океана</p>
+                        <button class="profile__edit-button" type="button"></button>
+                        <p class="profile__about">Исследователь океана Исследователь океана Исследователь океана
+                            Исследователь океана</p>
                     </div>
                 </div>
                 <button class="profile__add-button" type="button"></button>
@@ -34,40 +35,35 @@
                         <img class="photo-elements__image" src="./images/karachaevsk.jpg" alt="Фото. Карачаевск">
                         <div class="photo-elements__footer">
                             <h2 class="photo-elements__title">Карачаевск</h2>
-                            <button class="photo-elements__like-button photo-elements__like-button_active"
-                                type="button"></button>
+                            <button class="photo-elements__like-button" type="button"></button>
                         </div>
                     </li>
                     <li class="photo-elements__item">
                         <img class="photo-elements__image" src="./images/elbrus.png" alt="Фото. Гора Эльбрус">
                         <div class="photo-elements__footer">
                             <h2 class="photo-elements__title">Гора Эльбрус</h2>
-                            <button class="photo-elements__like-button photo-elements__like-button_active"
-                                type="button"></button>
+                            <button class="photo-elements__like-button" type="button"></button>
                         </div>
                     </li>
                     <li class="photo-elements__item">
                         <img class="photo-elements__image" src="./images/dombai.png" alt="Фото. Домбай">
                         <div class="photo-elements__footer">
                             <h2 class="photo-elements__title">Домбай</h2>
-                            <button class="photo-elements__like-button photo-elements__like-button_active"
-                                type="button"></button>
+                            <button class="photo-elements__like-button" type="button"></button>
                         </div>
                     </li>
                     <li class="photo-elements__item">
                         <img class="photo-elements__image" src="./images/elbrus.png" alt="Фото. Гора Эльбрус">
                         <div class="photo-elements__footer">
                             <h2 class="photo-elements__title">Гора Эльбрус</h2>
-                            <button class="photo-elements__like-button photo-elements__like-button_active"
-                                type="button"></button>
+                            <button class="photo-elements__like-button" type="button"></button>
                         </div>
                     </li>
                     <li class="photo-elements__item">
                         <img class="photo-elements__image" src="./images/dombai.png" alt="Фото. Домбай">
                         <div class="photo-elements__footer">
                             <h2 class="photo-elements__title">Домбай</h2>
-                            <button class="photo-elements__like-button photo-elements__like-button_active"
-                                type="button"></button>
+                            <button class="photo-elements__like-button" type="button"></button>
                         </div>
                     </li>
                     <li class="photo-elements__item">
@@ -75,8 +71,7 @@
                             alt="Фото. Карачаево-Черкесия">
                         <div class="photo-elements__footer">
                             <h2 class="photo-elements__title">Карачаево-Черкесия</h2>
-                            <button class="photo-elements__like-button photo-elements__like-button_active"
-                                type="button"></button>
+                            <button class="photo-elements__like-button" type="button"></button>
                         </div>
                     </li>
                 </ul>
@@ -87,22 +82,20 @@
         </footer>
         <div class="popup">
             <!-- popup_opened -->
-            <div class="popup__body">
-                <div class="popup__container">
-                    <button class="popup__close-button" type="button"></button>
-                    <h2 class="popup__form-title">Редактировать профиль</h2>
-                    <form class="popup__form" name="popup-form-profile-edit">
-                        <fieldset class="popup__input-person-info">
-                            <input class="popup__item popup__item_input-name" type="text" name="person-name"
-                                value="Жак-Ив Кусто" placeholder="Введите имя" required>
-                            <input class="popup__item popup__item_input-about" type="text" name="person-about"
-                                value="Исследователь океана" placeholder="Расскажите о себе" required>
-                        </fieldset>
-                        <fieldset class="popup__form-handler">
-                            <button class="popup__form-save" type="submit">Сохранить</button>
-                        </fieldset>
-                    </form>
-                </div>
+            <div class="popup__container">
+                <button class="popup__close-button" type="button"></button>
+                <h2 class="popup__form-title">Редактировать профиль</h2>
+                <form class="popup__form" name="popup-form-profile-edit">
+                    <fieldset class="popup__input-person-info">
+                        <input class="popup__item popup__item_input_name" type="text" name="person-name"
+                            value="Жак-Ив Кусто" placeholder="Введите имя" required>
+                        <input class="popup__item popup__item_input_about" type="text" name="person-about"
+                            value="Исследователь океана" placeholder="Расскажите о себе" required>
+                    </fieldset>
+                    <fieldset class="popup__form-handler">
+                        <button class="popup__form-save" type="submit">Сохранить</button>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>

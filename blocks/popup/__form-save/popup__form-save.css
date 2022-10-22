@@ -2,9 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
     color: white;
     background: #000000;
     cursor: pointer;
+    border: none;
     border-radius: 2px;
     font-family: inherit;
     font-weight: 400;
@@ -13,8 +15,9 @@
     text-align: center;
     padding: 0;
     margin: 0;
+    padding-top: 14px;
+    padding-bottom: 14px;
     width: 100%;
-    height: 50px;
     transition: opacity .4s linear;
 }
 

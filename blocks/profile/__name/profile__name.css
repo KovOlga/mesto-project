@@ -1,5 +1,4 @@
 .profile__name {
-    display: inline-block;
     font-weight: 500;
     font-size: 42px;
     line-height: 48px;
@@ -9,13 +8,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 294px;
+    grid-area: name;
 }
 
 @media (max-width: 768px) {
     .profile__name {
         font-size: 27px;
         line-height: 33px;
-        max-width: 189px;
+        text-align: center;
     }
 }
