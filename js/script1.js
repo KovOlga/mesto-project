@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const editButton = document.querySelector('.profile__edit-button');
 editButton.addEventListener('click', function () {
+    openPopup(popupProfile);
+});
+editButton.addEventListener('click', function () {
     popupProfile.classList.add('popupProfile_opened');
 });
 const closePopupProfileButton = document.querySelector('.popupProfile__close-button');
