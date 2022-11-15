@@ -1,0 +1,33 @@
+.popupNewPlace__form-save {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: white;
+    background: #000000;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    width: 100%;
+    transition: opacity .4s linear;
+}
+
+.popupNewPlace__form-save:hover {
+    opacity: .8;
+}
+
+@media (max-width: 768px) {
+    .popupNewPlace__form-save {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

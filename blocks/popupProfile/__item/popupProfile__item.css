@@ -1,0 +1,15 @@
+.popupProfile__item {
+    border: 0;
+    padding: 0 0 9px;
+    margin: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    width: 100%;
+}
+
+.popupProfile__item:focus {
+    outline: none;
+}
