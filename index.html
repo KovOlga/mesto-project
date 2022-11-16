@@ -36,45 +36,41 @@
         <footer class="footer">
             <p class="footer__copyright">© 2022 Mesto Russia</p>
         </footer>
-        <div class="popupProfile">
-            <div class="popupProfile__container">
-                <button class="popupProfile__close-button" type="button"></button>
-                <h2 class="popupProfile__form-title">Редактировать профиль</h2>
-                <form class="popupProfile__form" name="popupProfile-form-profile-edit">
-                    <fieldset class="popupProfile__input-person-info">
-                        <input class="popupProfile__item popupProfile__item_input_name" type="text" name="person-name"
+        <div class="popup popup_profile popup_opened">
+            <div class="popup__container">
+                <button class="popup__btn-close" type="button"></button>
+                <h2 class="popup__form-title">Редактировать профиль</h2>
+                <form class="popup__form" name="popup-form-profile-edit">
+                    <div class="popup__input-field">
+                        <input class="popup__item popup__item_input_name" type="text" name="person-name"
                             placeholder="Введите имя" required>
-                        <input class="popupProfile__item popupProfile__item_input_job" type="text" name="person-job"
+                        <input class="popup__item popup__item_input_job" type="text" name="person-job"
                             placeholder="Расскажите о себе" required>
-                    </fieldset>
-                    <fieldset class="popupProfile__form-handler">
-                        <button class="popupProfile__form-save" type="submit">Сохранить</button>
-                    </fieldset>
+                    </div>
+                    <button class="popup__form-save" type="submit">Создать</button>
                 </form>
             </div>
         </div>
-        <div class="popupNewPlace">
-            <div class="popupNewPlace__container">
-                <button class="popupNewPlace__close-button" type="button"></button>
-                <h2 class="popupNewPlace__form-title">Новое место</h2>
-                <form class="popupNewPlace__form" name="popupNewPlace-form-place-add">
-                    <fieldset class="popupNewPlace__input-place-add">
-                        <input class="popupNewPlace__item popupNewPlace__item_input_place" type="text"
-                            name="person-name" placeholder="Название">
-                        <input class="popupNewPlace__item popupNewPlace__item_input_image" type="text"
-                            name="person-about" placeholder="Ссылка на картинку">
-                    </fieldset>
-                    <fieldset class="popupNewPlace__form-handler">
-                        <button class="popupNewPlace__form-save" type="submit">Создать</button>
-                    </fieldset>
+        <div class="popup popup_new-place">
+            <div class="popup__container">
+                <button class="popup__btn-close" type="button"></button>
+                <h2 class="popup__form-title">Новое место</h2>
+                <form class="popup__form" name="popup-form-place-add">
+                    <div class="popup__input-field">
+                        <input class="popup__item popup__item_input_place" type="text" name="photo-name"
+                            placeholder="Название">
+                        <input class="popup__item popup__item_input_image" type="text" name="photo-link"
+                            placeholder="Ссылка на картинку">
+                    </div>
+                    <button class="popup__form-save" type="submit">Создать</button>
                 </form>
             </div>
         </div>
-        <div class="popupImage__container">
-            <figure class="popupImage__figure">
-                <button class="popupImage__close-button" type="button"></button>
-                <img class="popupImage__image">
-                <figcaption class="popupImage__caption"></figcaption>
+        <div class="popup popup_image-window">
+            <figure class="popup__figure">
+                <button class="popup__btn-close" type="button"></button>
+                <img class="popup__image">
+                <figcaption class="popup__caption"></figcaption>
             </figure>
         </div>
     </div>
