@@ -9,7 +9,7 @@ const nameInput = document.querySelector('.popup__item_input_name');
 const jobInput = document.querySelector('.popup__item_input_job');
 
 const photoElementsGallery = document.querySelector('.photo-elements__list');
-const photoCardTemplateContent = document.querySelector('#photo-cards-template').content
+const photoCardTemplateContent = document.querySelector('#photo-cards-template').content;
 
 const formPlace = document.querySelector('.popup__form_place');
 const inputPlace = document.querySelector('.popup__item_input_place');
@@ -25,18 +25,18 @@ document.addEventListener('DOMContentLoaded', () => {
     popupImage.classList.add('popupTransitions');
 });
 
-function openPropfilePopup(openElement) {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-    openElement.classList.add('popup_opened');
-};
-
 function openPopup(openElement) {
     openElement.classList.add('popup_opened');
 };
 
 function closePopup(closElement) {
     closElement.classList.remove('popup_opened');
+};
+
+function openProfilePopup() {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+    openPopup(popupProfile);
 };
 
 function addClickEventOnElement(selector, callBackFn) {
@@ -80,13 +80,13 @@ function submitProfileForm(evt) {
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
 
-    popupProfile.classList.remove('popup_opened');
+    closePopup(popupProfile);
 };
 
 function submitNewCard(evt) {
     evt.preventDefault();
 
-    popupNewPlace.classList.remove('popup_opened');
+    closePopup(popupNewPlace);
 
     renderCard({ name: inputPlace.value, link: inputImage.value });
 
@@ -97,7 +97,7 @@ initialCards.forEach(renderCard);
 formProfile.addEventListener('submit', submitProfileForm);
 formPlace.addEventListener('submit', submitNewCard);
 
-addClickEventOnElement('.profile__edit-button', () => openPropfilePopup(popupProfile));
+addClickEventOnElement('.profile__edit-button', () => openProfilePopup());
 addClickEventOnElement('.popup__btn-close_profile', () => closePopup(popupProfile));
 addClickEventOnElement('.profile__add-button', () => openPopup(popupNewPlace));
 addClickEventOnElement('.popup__btn-close_place', () => closePopup(popupNewPlace));
