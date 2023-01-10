@@ -36,20 +36,15 @@ function openProfilePopup() {
   jobInput.value = profileJob.textContent;
   openPopup(popupProfile);
 }
-///////////////////
-
-function closeOnOverlayClick(evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupProfile);
-  }
-}
-
-popupProfile.addEventListener("click", closeOnOverlayClick);
-
-///////////////////
 
 function closePopup(closElement) {
   closElement.classList.remove("popup_opened");
+}
+
+function closePopupOnOverlayClick(evt, closElement) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(closElement);
+  }
 }
 
 function addClickEventOnElement(selector, callBackFn) {
@@ -128,3 +123,15 @@ addClickEventOnElement(".popup__btn-close_place", () =>
 );
 addClickEventOnElement(".photo-elements__image", () => openPopup(popupImage));
 addClickEventOnElement(".popup__btn-close_image", () => closePopup(popupImage));
+
+popupProfile.addEventListener("click", (evt) => {
+  closePopupOnOverlayClick(evt, popupProfile);
+});
+
+popupNewPlace.addEventListener("click", (evt) => {
+  closePopupOnOverlayClick(evt, popupNewPlace);
+});
+
+popupImage.addEventListener("click", (evt) => {
+  closePopupOnOverlayClick(evt, popupImage);
+});
