@@ -47,6 +47,31 @@ function closePopupOnOverlayClick(evt, closElement) {
   }
 }
 
+/////////////////////
+
+const popupArr = document.querySelectorAll(".popup");
+
+function closePopupOnEsc(evt, closElement) {
+  if (evt.key === "Escape") {
+    closePopup(closElement);
+  }
+}
+
+function validateEscOnPopup(evt) {
+  popupArr.forEach((element) => {
+    if (element.classList.contains("popup_opened")) {
+      closePopupOnEsc(evt, element);
+    }
+    console.log("uyf");
+  });
+}
+
+document.addEventListener("keydown", (evt) => {
+  validateEscOnPopup(evt);
+});
+
+/////////////////////
+
 function addClickEventOnElement(selector, callBackFn) {
   document.querySelector(selector).addEventListener("click", callBackFn);
 }
