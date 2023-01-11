@@ -14,7 +14,7 @@ const photoCardTemplateContent = document.querySelector(
   "#photo-cards-template"
 ).content;
 
-const formPlace = document.forms.place;
+const formPlace = document.forms.card;
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 
