@@ -4,18 +4,19 @@ const popupImage = document.querySelector(".popup_image-window");
 
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
-const formProfile = document.querySelector(".popup__form_profile");
-const nameInput = document.querySelector(".popup__item_input_name");
-const jobInput = document.querySelector(".popup__item_input_job");
+
+const formProfile = document.forms.profile;
+const nameInput = formProfile.name;
+const jobInput = formProfile.job;
 
 const photoElementsGallery = document.querySelector(".photo-elements__list");
 const photoCardTemplateContent = document.querySelector(
   "#photo-cards-template"
 ).content;
 
-const formPlace = document.querySelector(".popup__form_place");
-const inputPlace = document.querySelector(".popup__item_input_place");
-const inputImage = document.querySelector(".popup__item_input_image");
+const formPlace = document.forms.place;
+const inputPlace = formPlace.place;
+const inputImage = formPlace.link;
 
 const popupImagePicture = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__caption");
