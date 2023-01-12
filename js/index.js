@@ -64,7 +64,6 @@ function setSubmitBtnState(isFormValid, submitBtn) {
 
 formProfile.addEventListener("input", function (evt) {
   const isInputValid = nameInput.validity.valid && jobInput.validity.valid;
-  console.log(isInputValid);
   setSubmitBtnState(isInputValid, profileSubmitBtn);
 });
 
