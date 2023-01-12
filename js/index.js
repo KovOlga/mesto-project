@@ -63,7 +63,6 @@ function setSubmitBtnState(isFormValid) {
 
 formPlace.addEventListener("input", function (evt) {
   const isInputValid = inputPlace.validity.valid && inputImage.validity.valid;
-  console.log(isInputValid);
   setSubmitBtnState(isInputValid);
 });
 
