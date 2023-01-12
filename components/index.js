@@ -32,6 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ////////////////////////
 
+function showInputError(element) {
+  element.classList.add("popup__item_type_error");
+}
+
+function hideInputError(element) {
+  element.classList.remove("popup__item_type_error");
+}
+
+function isValid() {
+  if (!nameInput.validity.valid) {
+    showInputError(nameInput);
+  } else {
+    hideInputError(nameInput);
+  }
+}
+
+/////////////////////
 function setSubmitBtnState(isFormValid, submitBtn) {
   if (isFormValid) {
     submitBtn.removeAttribute("disabled");
@@ -45,6 +62,7 @@ function setSubmitBtnState(isFormValid, submitBtn) {
 formProfile.addEventListener("input", function (evt) {
   const isInputValid = nameInput.validity.valid && jobInput.validity.valid;
   setSubmitBtnState(isInputValid, profileSubmitBtn);
+  isValid();
 });
 
 formPlace.addEventListener("input", function (evt) {
