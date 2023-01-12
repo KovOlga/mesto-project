@@ -4,11 +4,11 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 18px;
 }
 
 @media (max-width: 768px) {
   .popup__form {
-    gap: 25px;
+    gap: 15px;
   }
 }

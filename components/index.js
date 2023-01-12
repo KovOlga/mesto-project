@@ -36,19 +36,25 @@ const nameError = formProfile.querySelector(`.${nameInput.id}-error`);
 console.log(nameInput);
 console.log(nameError);
 
-function showInputError(element) {
+function showInputError(element, errorMessage) {
   element.classList.add("popup__item_type_error");
+  if (element.length === 0) {
+    nameError.textContent = "Вы пропустили это поле.";
+  } else {
+    nameError.textContent = errorMessage;
+  }
   nameError.classList.add("popup__item-error_active");
 }
 
 function hideInputError(element) {
   element.classList.remove("popup__item_type_error");
   nameError.classList.remove("popup__item-error_active");
+  nameError.textContent = "";
 }
 
 function isValid() {
   if (!nameInput.validity.valid) {
-    showInputError(nameInput);
+    showInputError(nameInput, nameInput.validationMessage);
   } else {
     hideInputError(nameInput);
   }
