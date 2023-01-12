@@ -17,6 +17,7 @@ const photoCardTemplateContent = document.querySelector(
 const formPlace = document.forms.card;
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
+const placeSubmitBtn = formPlace.elements.submitPlace;
 
 const popupImagePicture = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__caption");
@@ -47,6 +48,24 @@ function closePopupOnOverlayClick(evt, closElement) {
     closePopup(closElement);
   }
 }
+
+////////////////////////
+
+function setSubmitBtnState(isFormValid) {
+  if (isFormValid) {
+    placeSubmitBtn.removeAttribute("disabled");
+    placeSubmitBtn.classList.remove("popup__form-save_disabled");
+  } else {
+    placeSubmitBtn.setAttribute("disabled", true);
+    placeSubmitBtn.classList.add("popup__form-save_disabled");
+  }
+}
+
+formPlace.addEventListener("input", function (evt) {
+  const isInputValid = inputPlace.validity.valid && inputImage.validity.valid;
+  console.log(isInputValid);
+  setSubmitBtnState(isInputValid);
+});
 
 /////////////////////
 
@@ -133,6 +152,8 @@ function submitNewCard(evt) {
   renderCard({ name: inputPlace.value, link: inputImage.value });
 
   formPlace.reset();
+
+  setSubmitBtnState(false);
 }
 
 initialCards.forEach(renderCard);

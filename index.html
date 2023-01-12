@@ -80,17 +80,22 @@
                 type="text"
                 name="place"
                 placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                required
               />
               <input
                 class="popup__item popup__item_input_image"
-                type="text"
+                type="url"
                 name="link"
                 placeholder="Ссылка на картинку"
+                required
               />
             </div>
             <button
               class="popup__form-save popup__form-save_disabled"
               type="submit"
+              name="submitPlace"
               disabled
             >
               Создать
