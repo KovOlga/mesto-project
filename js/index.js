@@ -8,6 +8,7 @@ const profileJob = document.querySelector(".profile__job");
 const formProfile = document.forms.profile;
 const nameInput = formProfile.name;
 const jobInput = formProfile.job;
+const profileSubmitBtn = formProfile.elements.submitProfile;
 
 const photoElementsGallery = document.querySelector(".photo-elements__list");
 const photoCardTemplateContent = document.querySelector(
@@ -51,19 +52,25 @@ function closePopupOnOverlayClick(evt, closElement) {
 
 ////////////////////////
 
-function setSubmitBtnState(isFormValid) {
+function setSubmitBtnState(isFormValid, submitBtn) {
   if (isFormValid) {
-    placeSubmitBtn.removeAttribute("disabled");
-    placeSubmitBtn.classList.remove("popup__form-save_disabled");
+    submitBtn.removeAttribute("disabled");
+    submitBtn.classList.remove("popup__form-save_disabled");
   } else {
-    placeSubmitBtn.setAttribute("disabled", true);
-    placeSubmitBtn.classList.add("popup__form-save_disabled");
+    submitBtn.setAttribute("disabled", true);
+    submitBtn.classList.add("popup__form-save_disabled");
   }
 }
 
+formProfile.addEventListener("input", function (evt) {
+  const isInputValid = nameInput.validity.valid && jobInput.validity.valid;
+  console.log(isInputValid);
+  setSubmitBtnState(isInputValid, profileSubmitBtn);
+});
+
 formPlace.addEventListener("input", function (evt) {
   const isInputValid = inputPlace.validity.valid && inputImage.validity.valid;
-  setSubmitBtnState(isInputValid);
+  setSubmitBtnState(isInputValid, placeSubmitBtn);
 });
 
 /////////////////////
@@ -152,7 +159,7 @@ function submitNewCard(evt) {
 
   formPlace.reset();
 
-  setSubmitBtnState(false);
+  setSubmitBtnState(false, placeSubmitBtn);
 }
 
 initialCards.forEach(renderCard);
