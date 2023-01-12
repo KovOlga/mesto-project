@@ -36,11 +36,7 @@ function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   inputElement.classList.add("popup__item_type_error");
-  if (inputElement.length === 0) {
-    errorElement.textContent = "Вы пропустили это поле.";
-  } else {
-    errorElement.textContent = errorMessage;
-  }
+  errorElement.textContent = errorMessage;
   errorElement.classList.add("popup__item-error_active");
 }
 
@@ -52,6 +48,12 @@ function hideInputError(formElement, inputElement) {
 }
 
 function isValid(formElement, inputElement) {
+  if (inputElement.value.length === 0) {
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+    inputElement.setCustomValidity("");
+  }
+
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -61,10 +63,13 @@ function isValid(formElement, inputElement) {
 
 function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll(".popup__item"));
+  const buttonElement = formElement.querySelector(".popup__form-save");
+  setSubmitBtnState(inputList, buttonElement);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       isValid(formElement, inputElement);
+      setSubmitBtnState(inputList, buttonElement);
     });
   });
 }
@@ -77,30 +82,25 @@ function enableValidation() {
   });
 }
 
-enableValidation();
-
 /////////////////////
-function setSubmitBtnState(isFormValid, submitBtn) {
-  if (isFormValid) {
-    submitBtn.removeAttribute("disabled");
-    submitBtn.classList.remove("popup__form-save_disabled");
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function setSubmitBtnState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.disabled = true;
+    buttonElement.classList.add("popup__form-save_disabled");
   } else {
-    submitBtn.setAttribute("disabled", true);
-    submitBtn.classList.add("popup__form-save_disabled");
+    buttonElement.disabled = false;
+    buttonElement.classList.remove("popup__form-save_disabled");
   }
 }
 
-formProfile.addEventListener("input", function (evt) {
-  const isInputValid = nameInput.validity.valid && jobInput.validity.valid;
-  setSubmitBtnState(isInputValid, profileSubmitBtn);
-  isValid();
-});
-
-formPlace.addEventListener("input", function (evt) {
-  const isInputValid = inputPlace.validity.valid && inputImage.validity.valid;
-  setSubmitBtnState(isInputValid, placeSubmitBtn);
-});
-
+enableValidation();
 /////////////////////
 const popupArr = document.querySelectorAll(".popup");
 document.addEventListener("keydown", (evt) => {

@@ -60,12 +60,10 @@
                   placeholder="Введите имя"
                   minlength="2"
                   maxlength="40"
-                  required
-                />
-                <span class="popup__item-error name-error"
-                  >Вы пропустили это поле.</span
-                ></label
-              >
+                  data-error-message="Вы пропустили это поле."
+                  required />
+                <span class="popup__item-error name-error"></span
+              ></label>
 
               <label for="job" class="popup__label">
                 <input
@@ -76,11 +74,10 @@
                   placeholder="Расскажите о себе"
                   minlength="2"
                   maxlength="200"
+                  data-error-message="Вы пропустили это поле."
                   required
                 />
-                <span class="popup__item-error job-error"
-                  >Вы пропустили это поле.</span
-                >
+                <span class="popup__item-error job-error"></span>
               </label>
             </div>
             <button class="popup__form-save" type="submit" name="submitProfile">
@@ -107,11 +104,10 @@
                   placeholder="Название"
                   minlength="2"
                   maxlength="30"
+                  data-error-message="Вы пропустили это поле."
                   required
                 />
-                <span class="popup__item-error place-error"
-                  >Вы пропустили это поле.</span
-                >
+                <span class="popup__item-error place-error"></span>
               </label>
               <label for="link" class="popup__label">
                 <input
@@ -122,9 +118,7 @@
                   placeholder="Ссылка на картинку"
                   required
                 />
-                <span class="popup__item-error link-error"
-                  >Вы пропустили это поле.</span
-                >
+                <span class="popup__item-error link-error"></span>
               </label>
             </div>
             <button
