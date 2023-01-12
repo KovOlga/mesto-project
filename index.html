@@ -1,91 +1,130 @@
 <!DOCTYPE html>
 <html lang="ru">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Ольга">
-    <meta name="description" content="Проект 2-го спринта">
-    <meta name="keywords" content="HTML,CSS">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Ольга" />
+    <meta name="description" content="Проект 2-го спринта" />
+    <meta name="keywords" content="HTML,CSS" />
     <title>Проект 'Место'</title>
-    <link rel="stylesheet" href="./pages/index.css">
-</head>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
 
-<body class="body">
+  <body class="body">
     <div class="page">
-        <header class="header page__header">
-            <img class="header__logo" src="./images/logo.svg" alt="Логотип сайта">
-        </header>
-        <main class="content">
-            <section class="profile">
-                <div class="profile__one-form">
-                    <img class="profile__avatar" src="./images/image-profile.png" alt="Фото пользователя">
-                    <div class="profile__info">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <button class="profile__edit-button" type="button"></button>
-                        <p class="profile__job">Исследователь океана Исследователь океана Исследователь океана</p>
-                    </div>
-                </div>
-                <button class="profile__add-button" type="button"></button>
-            </section>
-            <section class="photo-elements">
-                <ul class="photo-elements__list">
-                </ul>
-            </section>
-        </main>
-        <footer class="footer">
-            <p class="footer__copyright">© 2022 Mesto Russia</p>
-        </footer>
-        <div class="popup popup_profile">
-            <div class="popup__container">
-                <button class="popup__btn-close popup__btn-close_profile" type="button"></button>
-                <h2 class="popup__form-title">Редактировать профиль</h2>
-                <form class="popup__form popup__form_profile" name="popup-form-profile-edit">
-                    <div class="popup__input-field">
-                        <input class="popup__item popup__item_input_name" type="text" name="person-name"
-                            placeholder="Введите имя" required>
-                        <input class="popup__item popup__item_input_job" type="text" name="person-job"
-                            placeholder="Расскажите о себе" required>
-                    </div>
-                    <button class="popup__form-save" type="submit">Создать</button>
-                </form>
+      <header class="header page__header">
+        <img class="header__logo" src="./images/logo.svg" alt="Логотип сайта" />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <div class="profile__one-form">
+            <img
+              class="profile__avatar"
+              src="./images/image-profile.png"
+              alt="Фото пользователя"
+            />
+            <div class="profile__info">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button" type="button"></button>
+              <p class="profile__job">Исследователь океана</p>
             </div>
-        </div>
-        <div class="popup popup_new-place">
-            <div class="popup__container">
-                <button class="popup__btn-close popup__btn-close_place" type="button"></button>
-                <h2 class="popup__form-title">Новое место</h2>
-                <form class="popup__form popup__form_place" name="popup-form-place-add">
-                    <div class="popup__input-field">
-                        <input class="popup__item popup__item_input_place" type="text" name="photo-name"
-                            placeholder="Название">
-                        <input class="popup__item popup__item_input_image" type="text" name="photo-link"
-                            placeholder="Ссылка на картинку">
-                    </div>
-                    <button class="popup__form-save" type="submit">Создать</button>
-                </form>
+          </div>
+          <button class="profile__add-button" type="button"></button>
+        </section>
+        <section class="photo-elements">
+          <ul class="photo-elements__list"></ul>
+        </section>
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">© 2022 Mesto Russia</p>
+      </footer>
+      <div class="popup popup_profile">
+        <div class="popup__container">
+          <button
+            class="popup__btn-close popup__btn-close_profile"
+            type="button"
+          ></button>
+          <h2 class="popup__form-title">Редактировать профиль</h2>
+          <form class="popup__form popup__form_profile" name="profile">
+            <div class="popup__input-field">
+              <input
+                class="popup__item popup__item_input_name"
+                type="text"
+                name="name"
+                placeholder="Введите имя"
+                required
+              />
+              <input
+                class="popup__item popup__item_input_job"
+                type="text"
+                name="job"
+                placeholder="Расскажите о себе"
+                required
+              />
             </div>
+            <button class="popup__form-save" type="submit">Создать</button>
+          </form>
         </div>
-        <div class="popup popup_image-window">
-            <figure class="popup__figure">
-                <button class="popup__btn-close popup__btn-close_image" type="button"></button>
-                <img class="popup__image">
-                <figcaption class="popup__caption"></figcaption>
-            </figure>
+      </div>
+      <div class="popup popup_new-place">
+        <div class="popup__container">
+          <button
+            class="popup__btn-close popup__btn-close_place"
+            type="button"
+          ></button>
+          <h2 class="popup__form-title">Новое место</h2>
+          <form class="popup__form popup__form_place" name="card">
+            <div class="popup__input-field">
+              <input
+                class="popup__item popup__item_input_place"
+                type="text"
+                name="place"
+                placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <input
+                class="popup__item popup__item_input_image"
+                type="url"
+                name="link"
+                placeholder="Ссылка на картинку"
+                required
+              />
+            </div>
+            <button
+              class="popup__form-save popup__form-save_disabled"
+              type="submit"
+              name="submitPlace"
+              disabled
+            >
+              Создать
+            </button>
+          </form>
         </div>
+      </div>
+      <div class="popup popup_image-window">
+        <figure class="popup__figure">
+          <button
+            class="popup__btn-close popup__btn-close_image"
+            type="button"
+          ></button>
+          <img class="popup__image" />
+          <figcaption class="popup__caption"></figcaption>
+        </figure>
+      </div>
     </div>
     <template id="photo-cards-template">
-        <li class="photo-elements__item">
-            <button class="photo-elements__bin-button" type="button"></button>
-            <img class="photo-elements__image" alt="Фото">
-            <div class="photo-elements__footer">
-                <h2 class="photo-elements__title"></h2>
-                <button class="photo-elements__like-button" type="button"></button>
-            </div>
-        </li>
+      <li class="photo-elements__item">
+        <button class="photo-elements__bin-button" type="button"></button>
+        <img class="photo-elements__image" alt="Фото" />
+        <div class="photo-elements__footer">
+          <h2 class="photo-elements__title"></h2>
+          <button class="photo-elements__like-button" type="button"></button>
+        </div>
+      </li>
     </template>
     <script src="./js/cards.js"></script>
     <script src="./js/index.js"></script>
-</body>
-
+  </body>
 </html>
