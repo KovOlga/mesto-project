@@ -32,33 +32,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ////////////////////////
 
-const nameError = formProfile.querySelector(`.${nameInput.id}-error`);
-console.log(nameInput);
-console.log(nameError);
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-function showInputError(element, errorMessage) {
-  element.classList.add("popup__item_type_error");
-  if (element.length === 0) {
-    nameError.textContent = "Вы пропустили это поле.";
+  inputElement.classList.add("popup__item_type_error");
+  if (inputElement.length === 0) {
+    errorElement.textContent = "Вы пропустили это поле.";
   } else {
-    nameError.textContent = errorMessage;
+    errorElement.textContent = errorMessage;
   }
-  nameError.classList.add("popup__item-error_active");
+  errorElement.classList.add("popup__item-error_active");
 }
 
-function hideInputError(element) {
-  element.classList.remove("popup__item_type_error");
-  nameError.classList.remove("popup__item-error_active");
-  nameError.textContent = "";
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove("popup__item_type_error");
+  errorElement.classList.remove("popup__item-error_active");
+  errorElement.textContent = "";
 }
 
-function isValid() {
-  if (!nameInput.validity.valid) {
-    showInputError(nameInput, nameInput.validationMessage);
+function isValid(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
-    hideInputError(nameInput);
+    hideInputError(formElement, inputElement);
   }
 }
+
+function setEventListeners(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll(".popup__item"));
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", () => {
+      isValid(formElement, inputElement);
+    });
+  });
+}
+
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll(".popup__form"));
+
+  formList.forEach((formElement) => {
+    setEventListeners(formElement);
+  });
+}
+
+enableValidation();
 
 /////////////////////
 function setSubmitBtnState(isFormValid, submitBtn) {
