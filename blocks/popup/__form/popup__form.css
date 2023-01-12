@@ -1,14 +1,14 @@
 .popup__form {
-    width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 @media (max-width: 768px) {
-    .popup__form {
-        gap: 45px;
-    }
+  .popup__form {
+    gap: 25px;
+  }
 }

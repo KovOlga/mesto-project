@@ -32,12 +32,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ////////////////////////
 
+const nameError = formProfile.querySelector(`.${nameInput.id}-error`);
+console.log(nameInput);
+console.log(nameError);
+
 function showInputError(element) {
   element.classList.add("popup__item_type_error");
+  nameError.classList.add("popup__item-error_active");
 }
 
 function hideInputError(element) {
   element.classList.remove("popup__item_type_error");
+  nameError.classList.remove("popup__item-error_active");
 }
 
 function isValid() {

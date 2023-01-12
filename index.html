@@ -51,24 +51,37 @@
             name="profile"
           >
             <div class="popup__input-field">
-              <input
-                class="popup__item popup__item_input_name"
-                type="text"
-                name="name"
-                placeholder="Введите имя"
-                minlength="2"
-                maxlength="40"
-                required
-              />
-              <input
-                class="popup__item popup__item_input_job"
-                type="text"
-                name="job"
-                placeholder="Расскажите о себе"
-                minlength="2"
-                maxlength="200"
-                required
-              />
+              <label for="name" class="popup__label"
+                ><input
+                  class="popup__item popup__item_input_name"
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Введите имя"
+                  minlength="2"
+                  maxlength="40"
+                  required
+                />
+                <span class="popup__item-error name-error"
+                  >Вы пропустили это поле.</span
+                ></label
+              >
+
+              <label for="job" class="popup__label">
+                <input
+                  class="popup__item popup__item_input_job"
+                  type="text"
+                  name="job"
+                  id="job"
+                  placeholder="Расскажите о себе"
+                  minlength="2"
+                  maxlength="200"
+                  required
+                />
+                <span class="popup__item-error job-error"
+                  >Вы пропустили это поле.</span
+                >
+              </label>
             </div>
             <button class="popup__form-save" type="submit" name="submitProfile">
               Создать
