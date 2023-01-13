@@ -56,8 +56,6 @@ function submitNewCard(evt) {
   renderCard({ name: inputPlace.value, link: inputImage.value });
 
   formPlace.reset();
-
-  // setSubmitBtnState(true, btnSubmitPlace);
 }
 
 initialCards.forEach(renderCard);
