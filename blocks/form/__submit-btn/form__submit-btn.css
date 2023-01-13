@@ -1,4 +1,4 @@
-.popup__form-save {
+.form__submit-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,12 +22,12 @@
   transition: opacity 0.4s linear;
 }
 
-.popup__form-save:hover {
+.form__submit-btn:hover {
   opacity: 0.8;
 }
 
 @media (max-width: 768px) {
-  .popup__form-save {
+  .form__submit-btn {
     font-size: 14px;
     line-height: 17px;
   }

@@ -45,24 +45,40 @@
             type="button"
           ></button>
           <h2 class="popup__form-title">Редактировать профиль</h2>
-          <form class="popup__form popup__form_profile" name="profile">
-            <div class="popup__input-field">
-              <input
-                class="popup__item popup__item_input_name"
-                type="text"
-                name="name"
-                placeholder="Введите имя"
-                required
-              />
-              <input
-                class="popup__item popup__item_input_job"
-                type="text"
-                name="job"
-                placeholder="Расскажите о себе"
-                required
-              />
+          <form novalidate class="form form_profile" name="profile">
+            <div class="form__input-field">
+              <label for="name" class="form__label"
+                ><input
+                  class="form__input form__input_name"
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Введите имя"
+                  minlength="2"
+                  maxlength="40"
+                  data-error-message="Вы пропустили это поле."
+                  required />
+                <span class="form__input-error-message name-error"></span
+              ></label>
+
+              <label for="job" class="form__label">
+                <input
+                  class="form__input form__input_job"
+                  type="text"
+                  name="job"
+                  id="job"
+                  placeholder="Расскажите о себе"
+                  minlength="2"
+                  maxlength="200"
+                  data-error-message="Вы пропустили это поле."
+                  required
+                />
+                <span class="form__input-error-message job-error"></span>
+              </label>
             </div>
-            <button class="popup__form-save" type="submit">Создать</button>
+            <button class="form__submit-btn" type="submit" name="submitProfile">
+              Создать
+            </button>
           </form>
         </div>
       </div>
@@ -73,27 +89,37 @@
             type="button"
           ></button>
           <h2 class="popup__form-title">Новое место</h2>
-          <form class="popup__form popup__form_place" name="card">
-            <div class="popup__input-field">
-              <input
-                class="popup__item popup__item_input_place"
-                type="text"
-                name="place"
-                placeholder="Название"
-                minlength="2"
-                maxlength="30"
-                required
-              />
-              <input
-                class="popup__item popup__item_input_image"
-                type="url"
-                name="link"
-                placeholder="Ссылка на картинку"
-                required
-              />
+          <form novalidate class="form form_profile" name="card">
+            <div class="form__input-field">
+              <label for="place" class="form__label">
+                <input
+                  class="form__input form__input_place"
+                  type="text"
+                  name="place"
+                  id="place"
+                  placeholder="Название"
+                  minlength="2"
+                  maxlength="30"
+                  data-error-message="Вы пропустили это поле."
+                  required
+                />
+                <span class="form__input-error-message place-error"></span>
+              </label>
+              <label for="link" class="form__label">
+                <input
+                  class="form__input form__input_link"
+                  type="url"
+                  name="link"
+                  id="link"
+                  data-error-message="Введите адрес сайта."
+                  placeholder="Ссылка на картинку"
+                  required
+                />
+                <span class="form__input-error-message link-error"></span>
+              </label>
             </div>
             <button
-              class="popup__form-save popup__form-save_disabled"
+              class="form__submit-btn form__submit-btn_disabled"
               type="submit"
               name="submitPlace"
               disabled
@@ -124,7 +150,9 @@
         </div>
       </li>
     </template>
-    <script src="./js/cards.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./components/card.js"></script>
+    <script src="./components/validate.js"></script>
+    <script src="./components/modal.js"></script>
+    <script src="./components/index.js"></script>
   </body>
 </html>
