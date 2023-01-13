@@ -1,4 +1,4 @@
-.popup__item {
+.form__input {
   border: 0;
   padding: 0 0 10px;
   margin: 0;
@@ -10,6 +10,6 @@
   width: 100%;
 }
 
-.popup__item:focus {
+.form__input:focus {
   outline: none;
 }

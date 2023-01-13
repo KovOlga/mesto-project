@@ -1,4 +1,4 @@
-.popup__form {
+.form {
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -8,7 +8,7 @@
 }
 
 @media (max-width: 768px) {
-  .popup__form {
+  .form {
     gap: 15px;
   }
 }
