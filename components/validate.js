@@ -1,16 +1,28 @@
-function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll(".form"));
 
-  inputElement.classList.add("form__input_type_error");
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add("form__input-error-message_active");
+  formList.forEach((formElement) => {
+    setEventListeners(formElement);
+  });
 }
 
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("form__input_type_error");
-  errorElement.classList.remove("form__input-error-message_active");
-  errorElement.textContent = "";
+function setEventListeners(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll(".form__input"));
+  const buttonElement = formElement.querySelector(".form__submit-btn");
+  setSubmitBtnState(inputList, buttonElement);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", () => {
+      isValid(formElement, inputElement);
+      setSubmitBtnState(inputList, buttonElement);
+    });
+  });
+}
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
 }
 
 function isValid(formElement, inputElement) {
@@ -27,31 +39,20 @@ function isValid(formElement, inputElement) {
   }
 }
 
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(".form__input"));
-  const buttonElement = formElement.querySelector(".form__submit-btn");
-  setSubmitBtnState(inputList, buttonElement);
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
-      isValid(formElement, inputElement);
-      setSubmitBtnState(inputList, buttonElement);
-    });
-  });
+  inputElement.classList.add("form__input_type_error");
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("form__input-error-message_active");
 }
 
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll(".form"));
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  formList.forEach((formElement) => {
-    setEventListeners(formElement);
-  });
-}
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
+  inputElement.classList.remove("form__input_type_error");
+  errorElement.classList.remove("form__input-error-message_active");
+  errorElement.textContent = "";
 }
 
 function setSubmitBtnState(inputList, buttonElement) {

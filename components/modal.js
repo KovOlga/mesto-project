@@ -1,4 +1,7 @@
 function openPopup(openElement) {
+  if (openElement.classList.contains("popup_new-place")) {
+    formPlace.reset();
+  }
   openElement.classList.add("popup_opened");
 }
 

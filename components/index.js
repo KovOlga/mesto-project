@@ -17,6 +17,7 @@ const photoCardTemplateContent = document.querySelector(
 const formPlace = document.forms.card;
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
+const btnSubmitPlace = formPlace.elements.submitPlace;
 
 const popupImagePicture = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__caption");
@@ -57,7 +58,7 @@ function submitNewCard(evt) {
 
   formPlace.reset();
 
-  setSubmitBtnState(false, buttonElement);
+  // setSubmitBtnState(true, btnSubmitPlace);
 }
 
 initialCards.forEach(renderCard);
