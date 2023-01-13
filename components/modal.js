@@ -1,14 +1,10 @@
 function openPopup(openElement) {
   if (openElement.classList.contains("popup_profile")) {
-    hideInputError(formProfile, formProfile.elements.name);
-    hideInputError(formProfile, formProfile.elements.job);
-    console.log("reset profile");
+    resetErrorOnOpen(formProfile);
   }
   if (openElement.classList.contains("popup_new-place")) {
     formPlace.reset();
-    hideInputError(formPlace, formPlace.elements.place);
-    hideInputError(formPlace, formPlace.elements.link);
-    console.log("reset place");
+    resetErrorOnOpen(formPlace);
   }
   openElement.classList.add("popup_opened");
 }

@@ -55,6 +55,14 @@ function hideInputError(formElement, inputElement) {
   errorElement.textContent = "";
 }
 
+function resetErrorOnOpen(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll(".form__input"));
+
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement);
+  });
+}
+
 function setSubmitBtnState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
     buttonElement.disabled = true;
