@@ -45,15 +45,11 @@
             type="button"
           ></button>
           <h2 class="popup__form-title">Редактировать профиль</h2>
-          <form
-            novalidate
-            class="form form_profile /// popup__form popup__form_profile"
-            name="profile"
-          >
-            <div class="form__input-field /// popup__input-field">
-              <label for="name" class="form__label /// popup__label"
+          <form novalidate class="form form_profile" name="profile">
+            <div class="form__input-field">
+              <label for="name" class="form__label"
                 ><input
-                  class="form__input form__input_name ///// popup__item popup__item_input_name"
+                  class="form__input form__input_name"
                   type="text"
                   name="name"
                   id="name"
@@ -62,14 +58,12 @@
                   maxlength="40"
                   data-error-message="Вы пропустили это поле."
                   required />
-                <span
-                  class="form__input-error name-error ////// popup__item-error name-error"
-                ></span
+                <span class="form__input-error-message name-error"></span
               ></label>
 
-              <label for="job" class="form__label /// popup__label">
+              <label for="job" class="form__label">
                 <input
-                  class="form__input form__input_job ////// popup__item popup__item_input_job"
+                  class="form__input form__input_job"
                   type="text"
                   name="job"
                   id="job"
@@ -79,16 +73,10 @@
                   data-error-message="Вы пропустили это поле."
                   required
                 />
-                <span
-                  class="form__input-error job-error ////// popup__item-error job-error"
-                ></span>
+                <span class="form__input-error-message job-error"></span>
               </label>
             </div>
-            <button
-              class="form__submit-btn ///// popup__form-save"
-              type="submit"
-              name="submitProfile"
-            >
+            <button class="form__submit-btn" type="submit" name="submitProfile">
               Создать
             </button>
           </form>
@@ -101,15 +89,11 @@
             type="button"
           ></button>
           <h2 class="popup__form-title">Новое место</h2>
-          <form
-            novalidate
-            class="form form_profile /// popup__form popup__form_place"
-            name="card"
-          >
-            <div class="form__input-field /// popup__input-field">
-              <label for="place" class="form__label /// popup__label">
+          <form novalidate class="form form_profile" name="card">
+            <div class="form__input-field">
+              <label for="place" class="form__label">
                 <input
-                  class="form__input form__input_place ///// popup__item popup__item_input_place"
+                  class="form__input form__input_place"
                   type="text"
                   name="place"
                   id="place"
@@ -119,26 +103,22 @@
                   data-error-message="Вы пропустили это поле."
                   required
                 />
-                <span
-                  class="form__input-error place-error ////// popup__item-error place-error"
-                ></span>
+                <span class="form__input-error-message place-error"></span>
               </label>
-              <label for="link" class="form__label /// popup__label">
+              <label for="link" class="form__label">
                 <input
-                  class="form__input form__input_link ///// popup__item popup__item_input_image"
+                  class="form__input form__input_link"
                   type="url"
                   name="link"
                   id="link"
                   placeholder="Ссылка на картинку"
                   required
                 />
-                <span
-                  class="form__input-error link-error ////// popup__item-error link-error"
-                ></span>
+                <span class="form__input-error-message link-error"></span>
               </label>
             </div>
             <button
-              class="form__submit-btn ///// popup__form-save popup__form-save_disabled"
+              class="form__submit-btn form__submit-btn_disabled"
               type="submit"
               name="submitPlace"
               disabled

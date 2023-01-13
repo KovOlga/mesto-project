@@ -76,9 +76,9 @@
 
 @import url("../blocks/form/__input/_type/form__input_type_error.css");
 
-@import url("../blocks/form/__input-error/form__input-error.css");
+@import url("../blocks/form/__input-error-message/form__input-error-message.css");
 
-@import url("../blocks/form/__input-error/_active/form__input-error_active.css");
+@import url("../blocks/form/__input-error-message/_active/form__input-error-message_active.css");
 
 @import url("../blocks/form/__submit-btn/form__submit-btn.css");
 

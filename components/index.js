@@ -57,7 +57,7 @@ function submitNewCard(evt) {
 
   formPlace.reset();
 
-  setSubmitBtnState(false, placeSubmitBtn);
+  setSubmitBtnState(false, buttonElement);
 }
 
 initialCards.forEach(renderCard);
