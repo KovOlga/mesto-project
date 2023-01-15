@@ -38,8 +38,6 @@ formValidation({
   errorVisibleClass: "form__input-error-message_active",
 }).enableValidation();
 
-// formValidation.enableValidation
-
 const popupArr = document.querySelectorAll(".popup");
 document.addEventListener("keydown", (evt) => {
   validateEscOnPopup(evt);

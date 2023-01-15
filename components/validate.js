@@ -18,24 +18,36 @@ const formValidation = function (customClassHolder) {
   // }
 
   return {
-    showInputError: function (formElement, inputElement, errorMessage) {
-      const errorElement = formElement.querySelector(
-        `.${inputElement.id}-error`
+    enableValidation: function () {
+      const formList = Array.from(
+        document.querySelectorAll(classHolder.formSelector)
       );
-
-      inputElement.classList.add(classHolder.inputErrorClass);
-      errorElement.textContent = errorMessage;
-      errorElement.classList.add(classHolder.errorVisibleClass);
+      formList.forEach((formElement) => {
+        this.setEventListeners(formElement);
+      });
     },
 
-    hideInputError: function (formElement, inputElement) {
-      const errorElement = formElement.querySelector(
-        `.${inputElement.id}-error`
+    setEventListeners: function (formElement) {
+      const inputList = Array.from(
+        formElement.querySelectorAll(classHolder.inputSelector)
       );
+      const buttonElement = formElement.querySelector(
+        classHolder.submitButtonSelector
+      );
+      this.setSubmitBtnState(inputList, buttonElement);
 
-      inputElement.classList.remove(classHolder.inputErrorClass);
-      errorElement.classList.remove(classHolder.errorVisibleClass);
-      errorElement.textContent = "";
+      inputList.forEach((inputElement) => {
+        inputElement.addEventListener("input", () => {
+          this.isValid(formElement, inputElement);
+          this.setSubmitBtnState(inputList, buttonElement);
+        });
+      });
+    },
+
+    hasInvalidInput: function (inputList) {
+      return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+      });
     },
 
     isValid: function (formElement, inputElement) {
@@ -56,22 +68,6 @@ const formValidation = function (customClassHolder) {
       }
     },
 
-    hasInvalidInput: function (inputList) {
-      return inputList.some((inputElement) => {
-        return !inputElement.validity.valid;
-      });
-    },
-
-    resetErrorOnOpen: function (formElement) {
-      const inputList = Array.from(
-        formElement.querySelectorAll(classHolder.inputSelector)
-      );
-
-      inputList.forEach((inputElement) => {
-        hideInputError(formElement, inputElement);
-      });
-    },
-
     setSubmitBtnState: function (inputList, buttonElement) {
       if (this.hasInvalidInput(inputList)) {
         buttonElement.disabled = true;
@@ -82,29 +78,33 @@ const formValidation = function (customClassHolder) {
       }
     },
 
-    setEventListeners: function (formElement) {
+    showInputError: function (formElement, inputElement, errorMessage) {
+      const errorElement = formElement.querySelector(
+        `.${inputElement.id}-error`
+      );
+
+      inputElement.classList.add(classHolder.inputErrorClass);
+      errorElement.textContent = errorMessage;
+      errorElement.classList.add(classHolder.errorVisibleClass);
+    },
+
+    hideInputError: function (formElement, inputElement) {
+      const errorElement = formElement.querySelector(
+        `.${inputElement.id}-error`
+      );
+
+      inputElement.classList.remove(classHolder.inputErrorClass);
+      errorElement.classList.remove(classHolder.errorVisibleClass);
+      errorElement.textContent = "";
+    },
+
+    resetErrorOnOpen: function (formElement) {
       const inputList = Array.from(
         formElement.querySelectorAll(classHolder.inputSelector)
       );
-      const buttonElement = formElement.querySelector(
-        classHolder.submitButtonSelector
-      );
-      this.setSubmitBtnState(inputList, buttonElement);
 
       inputList.forEach((inputElement) => {
-        inputElement.addEventListener("input", () => {
-          this.isValid(formElement, inputElement);
-          this.setSubmitBtnState(inputList, buttonElement);
-        });
-      });
-    },
-
-    enableValidation: function () {
-      const formList = Array.from(
-        document.querySelectorAll(classHolder.formSelector)
-      );
-      formList.forEach((formElement) => {
-        this.setEventListeners(formElement);
+        this.hideInputError(formElement, inputElement);
       });
     },
   };
