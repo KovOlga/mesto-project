@@ -1,11 +1,11 @@
 function openPopup(openElement) {
-  if (openElement.classList.contains("popup_profile")) {
-    resetErrorOnOpen(formProfile);
-  }
-  if (openElement.classList.contains("popup_new-place")) {
-    formPlace.reset();
-    resetErrorOnOpen(formPlace);
-  }
+  // if (openElement.classList.contains("popup_profile")) {
+  //   resetErrorOnOpen(formProfile);
+  // }
+  // if (openElement.classList.contains("popup_new-place")) {
+  //   formPlace.reset();
+  //   resetErrorOnOpen(formPlace);
+  // }
   openElement.classList.add("popup_opened");
 }
 
