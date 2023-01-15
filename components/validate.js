@@ -61,15 +61,16 @@ const formValidation = function (customClassHolder) {
         return !inputElement.validity.valid;
       });
     },
-    // resetErrorOnOpen: function (formElement) {
-    //   const inputList = Array.from(
-    //     formElement.querySelectorAll(classHolder.inputSelector)
-    //   );
 
-    //   inputList.forEach((inputElement) => {
-    //     hideInputError(formElement, inputElement);
-    //   });
-    // },
+    resetErrorOnOpen: function (formElement) {
+      const inputList = Array.from(
+        formElement.querySelectorAll(classHolder.inputSelector)
+      );
+
+      inputList.forEach((inputElement) => {
+        hideInputError(formElement, inputElement);
+      });
+    },
 
     setSubmitBtnState: function (inputList, buttonElement) {
       if (this.hasInvalidInput(inputList)) {
@@ -86,7 +87,7 @@ const formValidation = function (customClassHolder) {
         formElement.querySelectorAll(classHolder.inputSelector)
       );
       const buttonElement = formElement.querySelector(
-        classHolder.inputSelector
+        classHolder.submitButtonSelector
       );
       this.setSubmitBtnState(inputList, buttonElement);
 
