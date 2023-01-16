@@ -9,13 +9,11 @@ const formValidation = function (customClassHolder) {
     errorVisibleClass: "form__input-error-message_active",
   };
 
-  // function rewriteClasses(customClassHolder) {
   for (const key of Object.keys(customClassHolder)) {
     if (customClassHolder[key]) {
       classHolder[key] = customClassHolder[key];
     }
   }
-  // }
 
   return {
     enableValidation: function () {
@@ -96,16 +94,6 @@ const formValidation = function (customClassHolder) {
       inputElement.classList.remove(classHolder.inputErrorClass);
       errorElement.classList.remove(classHolder.errorVisibleClass);
       errorElement.textContent = "";
-    },
-
-    resetErrorOnOpen: function (formElement) {
-      const inputList = Array.from(
-        formElement.querySelectorAll(classHolder.inputSelector)
-      );
-
-      inputList.forEach((inputElement) => {
-        this.hideInputError(formElement, inputElement);
-      });
     },
   };
 };
