@@ -18,6 +18,10 @@ const popupNewPlace = document.querySelector(".popup_new-place");
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 
+function addClickEventOnElement(selector, callBackFn) {
+  document.querySelector(selector).addEventListener("click", callBackFn);
+}
+
 document.addEventListener("keydown", (evt) => {
   popupFunctionality.validateEscOnPopup(evt);
 });
@@ -37,10 +41,6 @@ formValidation({
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
 }).enableValidation();
-
-function addClickEventOnElement(selector, callBackFn) {
-  document.querySelector(selector).addEventListener("click", callBackFn);
-}
 
 function submitProfileForm(evt) {
   evt.preventDefault();

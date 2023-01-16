@@ -7,8 +7,6 @@ import {
 } from "./data.js";
 import { openPopup } from "./utils.js";
 
-const popupArr = document.querySelectorAll(".popup");
-
 const popupFunctionality = {
   openProfilePopup: function () {
     nameInput.value = profileName.textContent;
@@ -26,18 +24,19 @@ const popupFunctionality = {
     }
   },
 
-  closePopupOnEsc: function (evt, closElement) {
-    if (evt.key === "Escape") {
-      this.closePopup(closElement);
+  closePopupOnEsc: function (popupElement) {
+    if (popupElement.classList.contains("popup_opened")) {
+      this.closePopup(popupElement);
     }
   },
 
   validateEscOnPopup: function (evt) {
-    popupArr.forEach((element) => {
-      if (element.classList.contains("popup_opened")) {
-        this.closePopupOnEsc(evt, element);
-      }
-    });
+    if (evt.key === "Escape") {
+      const popupArr = document.querySelectorAll(".popup");
+      popupArr.forEach((popupElement) => {
+        this.closePopupOnEsc(popupElement);
+      });
+    }
   },
 };
 
