@@ -1,3 +1,4 @@
+import { openPopup } from "./utils.js";
 import { initialCards } from "./data.js";
 import { renderCard } from "./card.js";
 import { popupFunctionality } from "./modal.js";
@@ -82,15 +83,11 @@ addClickEventOnElement(".profile__edit-button", () =>
 addClickEventOnElement(".popup__btn-close_profile", () =>
   popupFunctionality.closePopup(popupProfile)
 );
-addClickEventOnElement(".profile__add-button", () =>
-  popupFunctionality.openPopup(popupNewPlace)
-);
+addClickEventOnElement(".profile__add-button", () => openPopup(popupNewPlace));
 addClickEventOnElement(".popup__btn-close_place", () =>
   popupFunctionality.closePopup(popupNewPlace)
 );
-addClickEventOnElement(".photo-elements__image", () =>
-  popupFunctionality.openPopup(popupImage)
-);
+addClickEventOnElement(".photo-elements__image", () => openPopup(popupImage));
 addClickEventOnElement(".popup__btn-close_image", () =>
   popupFunctionality.closePopup(popupImage)
 );
