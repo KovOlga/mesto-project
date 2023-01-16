@@ -61,12 +61,14 @@ function submitNewCard(evt) {
 
   popupFunctionality.closePopup(popupNewPlace);
 
-  renderCard({ name: inputPlace.value, link: inputImage.value });
+  renderCard().addCard({ name: inputPlace.value, link: inputImage.value });
 
   formPlace.reset();
 }
 
-initialCards.forEach(renderCard);
+initialCards.forEach(function (cardElement) {
+  renderCard().addCard(cardElement);
+});
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
