@@ -1,3 +1,5 @@
+import { openPopup } from "./utils.js";
+
 const popupFunctionality = {
   hideInputErrorOnReopen: function (formElement, inputElement) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -29,7 +31,7 @@ const popupFunctionality = {
   openProfilePopup: function () {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
-    this.openPopup(popupProfile);
+    openPopup(popupProfile);
   },
 
   closePopup: function (closElement) {

@@ -1,3 +1,5 @@
+import { openPopup } from "./utils.js";
+
 const renderCard = function () {
   return {
     createCard: function (card) {
@@ -29,7 +31,7 @@ const renderCard = function () {
         popupImagePicture.alt = photoElementImage.alt;
         popupImageCaption.textContent = photoElementTitle.textContent;
 
-        popupFunctionality.openPopup(popupImage);
+        openPopup(popupImage);
       });
 
       return photoCardElement;
