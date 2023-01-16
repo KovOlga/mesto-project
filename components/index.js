@@ -22,27 +22,6 @@ document.addEventListener("keydown", (evt) => {
   popupFunctionality.validateEscOnPopup(evt);
 });
 
-// const popupArr = document.querySelectorAll(".popup");
-
-// const profileName = document.querySelector(".profile__name");
-// const profileJob = document.querySelector(".profile__job");
-
-// const popupProfile = document.querySelector(".popup_profile");
-// const popupImage = document.querySelector(".popup_image-window");
-
-// const formProfile = document.forms.profile;
-// const nameInput = formProfile.name;
-// const jobInput = formProfile.job;
-// const formPlace = document.forms.card;
-
-// const photoElementsGallery = document.querySelector(".photo-elements__list");
-// const photoCardTemplateContent = document.querySelector(
-//   "#photo-cards-template"
-// ).content;
-
-// const popupImagePicture = document.querySelector(".popup__image");
-// const popupImageCaption = document.querySelector(".popup__caption");
-
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
   popupNewPlace.classList.add("popupTransitions");
