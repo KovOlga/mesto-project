@@ -1,5 +1,5 @@
-import { openPopup } from "./utils.js";
 import { initialCards } from "./data.js";
+import { openPopup } from "./utils.js";
 import { renderCard } from "./card.js";
 import { popupFunctionality } from "./modal.js";
 import { formValidation } from "./validate.js";
@@ -15,17 +15,22 @@ const formProfile = document.forms.profile;
 const nameInput = formProfile.name;
 const jobInput = formProfile.job;
 
-const photoElementsGallery = document.querySelector(".photo-elements__list");
-const photoCardTemplateContent = document.querySelector(
-  "#photo-cards-template"
-).content;
-
 const formPlace = document.forms.card;
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 
-const popupImagePicture = document.querySelector(".popup__image");
-const popupImageCaption = document.querySelector(".popup__caption");
+const popupArr = document.querySelectorAll(".popup");
+document.addEventListener("keydown", (evt) => {
+  popupFunctionality.validateEscOnPopup(evt);
+});
+
+// const photoElementsGallery = document.querySelector(".photo-elements__list");
+// const photoCardTemplateContent = document.querySelector(
+//   "#photo-cards-template"
+// ).content;
+
+// const popupImagePicture = document.querySelector(".popup__image");
+// const popupImageCaption = document.querySelector(".popup__caption");
 
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
@@ -42,11 +47,6 @@ formValidation({
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
 }).enableValidation();
-
-const popupArr = document.querySelectorAll(".popup");
-document.addEventListener("keydown", (evt) => {
-  popupFunctionality.validateEscOnPopup(evt);
-});
 
 function addClickEventOnElement(selector, callBackFn) {
   document.querySelector(selector).addEventListener("click", callBackFn);

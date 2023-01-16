@@ -1,12 +1,12 @@
 const formValidation = function (customClassHolder) {
   const classHolder = {
-    formSelector: ".form",
-    inputSelector: ".form__input",
-    submitButtonSelector: ".form__submit-btn",
-    inactiveButtonClass: "form__submit-btn_disabled",
-    inputErrorClass: "form__input_type_error",
-    errorClass: "form__input-error-message",
-    errorVisibleClass: "form__input-error-message_active",
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_disabled",
+    inputErrorClass: "fpopup__input_type_error",
+    errorClass: "popup__error",
+    errorVisibleClass: "popup__error_visible",
   };
 
   for (const key of Object.keys(customClassHolder)) {
