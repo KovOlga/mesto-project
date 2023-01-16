@@ -1,21 +1,32 @@
 import { openPopup } from "./utils.js";
 
+const popupProfile = document.querySelector(".popup_profile");
+const profileName = document.querySelector(".profile__name");
+const profileJob = document.querySelector(".profile__job");
+const formProfile = document.forms.profile;
+const nameInput = formProfile.name;
+const jobInput = formProfile.job;
+const popupArr = document.querySelectorAll(".popup");
+document.addEventListener("keydown", (evt) => {
+  popupFunctionality.validateEscOnPopup(evt);
+});
+
 const popupFunctionality = {
-  hideInputErrorOnReopen: function (formElement, inputElement) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  // hideInputErrorOnReopen: function (formElement, inputElement) {
+  //   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-    inputElement.classList.remove("form__input_type_error");
-    errorElement.classList.remove("form__input-error-message_active");
-    errorElement.textContent = "";
-  },
+  //   inputElement.classList.remove("form__input_type_error");
+  //   errorElement.classList.remove("form__input-error-message_active");
+  //   errorElement.textContent = "";
+  // },
 
-  resetErrorOnOpen: function (formElement) {
-    const inputList = Array.from(formElement.querySelectorAll(".form__input"));
+  // resetErrorOnOpen: function (formElement) {
+  //   const inputList = Array.from(formElement.querySelectorAll(".form__input"));
 
-    inputList.forEach((inputElement) => {
-      this.hideInputErrorOnReopen(formElement, inputElement);
-    });
-  },
+  //   inputList.forEach((inputElement) => {
+  //     this.hideInputErrorOnReopen(formElement, inputElement);
+  //   });
+  // },
 
   // openPopup: function (openElement) {
   //   if (openElement.classList.contains("popup_profile")) {
@@ -55,7 +66,6 @@ const popupFunctionality = {
       if (element.classList.contains("popup_opened")) {
         this.closePopupOnEsc(evt, element);
       }
-      console.log("uyf");
     });
   },
 };

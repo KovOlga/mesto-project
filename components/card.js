@@ -1,5 +1,13 @@
 import { openPopup } from "./utils.js";
 
+const popupImage = document.querySelector(".popup_image-window");
+const photoElementsGallery = document.querySelector(".photo-elements__list");
+const photoCardTemplateContent = document.querySelector(
+  "#photo-cards-template"
+).content;
+const popupImagePicture = document.querySelector(".popup__image");
+const popupImageCaption = document.querySelector(".popup__caption");
+
 const renderCard = function () {
   return {
     createCard: function (card) {
