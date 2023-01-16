@@ -57,3 +57,5 @@ const popupFunctionality = {
     });
   },
 };
+
+export { popupFunctionality };

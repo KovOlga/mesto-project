@@ -97,3 +97,5 @@ const formValidation = function (customClassHolder) {
     },
   };
 };
+
+export { formValidation };

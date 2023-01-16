@@ -1,3 +1,8 @@
+import { initialCards } from "./data.js";
+import { renderCard } from "./card.js";
+import { popupFunctionality } from "./modal.js";
+import { formValidation } from "./validate.js";
+
 const popupProfile = document.querySelector(".popup_profile");
 const popupNewPlace = document.querySelector(".popup_new-place");
 const popupImage = document.querySelector(".popup_image-window");

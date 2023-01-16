@@ -40,3 +40,5 @@ const renderCard = function () {
     },
   };
 };
+
+export { renderCard };
