@@ -54,7 +54,7 @@ function createCard(card) {
     popupImagePicture.alt = photoElementImage.alt;
     popupImageCaption.textContent = photoElementTitle.textContent;
 
-    openPopup(popupImage);
+    popupFunctionality.openPopup(popupImage);
   });
 
   return photoCardElement;

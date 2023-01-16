@@ -40,7 +40,7 @@ formValidation({
 
 const popupArr = document.querySelectorAll(".popup");
 document.addEventListener("keydown", (evt) => {
-  validateEscOnPopup(evt);
+  popupFunctionality.validateEscOnPopup(evt);
 });
 
 function addClickEventOnElement(selector, callBackFn) {
@@ -53,13 +53,13 @@ function submitProfileForm(evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  closePopup(popupProfile);
+  popupFunctionality.closePopup(popupProfile);
 }
 
 function submitNewCard(evt) {
   evt.preventDefault();
 
-  closePopup(popupNewPlace);
+  popupFunctionality.closePopup(popupNewPlace);
 
   renderCard({ name: inputPlace.value, link: inputImage.value });
 
@@ -70,25 +70,33 @@ initialCards.forEach(renderCard);
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
-addClickEventOnElement(".profile__edit-button", () => openProfilePopup());
+addClickEventOnElement(".profile__edit-button", () =>
+  popupFunctionality.openProfilePopup()
+);
 addClickEventOnElement(".popup__btn-close_profile", () =>
-  closePopup(popupProfile)
+  popupFunctionality.closePopup(popupProfile)
 );
-addClickEventOnElement(".profile__add-button", () => openPopup(popupNewPlace));
+addClickEventOnElement(".profile__add-button", () =>
+  popupFunctionality.openPopup(popupNewPlace)
+);
 addClickEventOnElement(".popup__btn-close_place", () =>
-  closePopup(popupNewPlace)
+  popupFunctionality.closePopup(popupNewPlace)
 );
-addClickEventOnElement(".photo-elements__image", () => openPopup(popupImage));
-addClickEventOnElement(".popup__btn-close_image", () => closePopup(popupImage));
+addClickEventOnElement(".photo-elements__image", () =>
+  popupFunctionality.openPopup(popupImage)
+);
+addClickEventOnElement(".popup__btn-close_image", () =>
+  popupFunctionality.closePopup(popupImage)
+);
 
 popupProfile.addEventListener("click", (evt) => {
-  closePopupOnOverlayClick(evt, popupProfile);
+  popupFunctionality.closePopupOnOverlayClick(evt, popupProfile);
 });
 
 popupNewPlace.addEventListener("click", (evt) => {
-  closePopupOnOverlayClick(evt, popupNewPlace);
+  popupFunctionality.closePopupOnOverlayClick(evt, popupNewPlace);
 });
 
 popupImage.addEventListener("click", (evt) => {
-  closePopupOnOverlayClick(evt, popupImage);
+  popupFunctionality.closePopupOnOverlayClick(evt, popupImage);
 });
