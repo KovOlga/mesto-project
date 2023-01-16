@@ -25,7 +25,6 @@ const inputImage = formPlace.link;
 
 const popupImagePicture = document.querySelector(".popup__image");
 const popupImageCaption = document.querySelector(".popup__caption");
-const popupImageCloseBtn = document.querySelector(".popup__btn-close_image");
 
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
