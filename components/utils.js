@@ -1,5 +1,4 @@
-const formProfile = document.forms.profile;
-const formPlace = document.forms.card;
+import { formProfile, formPlace } from "./data.js";
 
 function hideInputErrorOnReopen(formElement, inputElement) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);

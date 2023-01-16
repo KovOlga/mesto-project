@@ -1,15 +1,18 @@
+import {
+  profileName,
+  profileJob,
+  popupProfile,
+  nameInput,
+  jobInput,
+} from "./data.js";
 import { openPopup } from "./utils.js";
 
-const popupProfile = document.querySelector(".popup_profile");
-const profileName = document.querySelector(".profile__name");
-const profileJob = document.querySelector(".profile__job");
-const formProfile = document.forms.profile;
-const nameInput = formProfile.name;
-const jobInput = formProfile.job;
+// const formProfile = document.forms.profile;
+
 const popupArr = document.querySelectorAll(".popup");
-document.addEventListener("keydown", (evt) => {
-  popupFunctionality.validateEscOnPopup(evt);
-});
+// document.addEventListener("keydown", (evt) => {
+//   popupFunctionality.validateEscOnPopup(evt);
+// });
 
 const popupFunctionality = {
   // hideInputErrorOnReopen: function (formElement, inputElement) {

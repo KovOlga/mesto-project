@@ -1,28 +1,39 @@
-import { initialCards } from "./data.js";
+import {
+  initialCards,
+  popupImage,
+  formProfile,
+  formPlace,
+  popupProfile,
+  profileName,
+  profileJob,
+  nameInput,
+  jobInput,
+} from "./data.js";
 import { openPopup } from "./utils.js";
 import { renderCard } from "./card.js";
 import { popupFunctionality } from "./modal.js";
 import { formValidation } from "./validate.js";
 
-const popupProfile = document.querySelector(".popup_profile");
 const popupNewPlace = document.querySelector(".popup_new-place");
-const popupImage = document.querySelector(".popup_image-window");
-
-const profileName = document.querySelector(".profile__name");
-const profileJob = document.querySelector(".profile__job");
-
-const formProfile = document.forms.profile;
-const nameInput = formProfile.name;
-const jobInput = formProfile.job;
-
-const formPlace = document.forms.card;
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 
-const popupArr = document.querySelectorAll(".popup");
 document.addEventListener("keydown", (evt) => {
   popupFunctionality.validateEscOnPopup(evt);
 });
+
+// const popupArr = document.querySelectorAll(".popup");
+
+// const profileName = document.querySelector(".profile__name");
+// const profileJob = document.querySelector(".profile__job");
+
+// const popupProfile = document.querySelector(".popup_profile");
+// const popupImage = document.querySelector(".popup_image-window");
+
+// const formProfile = document.forms.profile;
+// const nameInput = formProfile.name;
+// const jobInput = formProfile.job;
+// const formPlace = document.forms.card;
 
 // const photoElementsGallery = document.querySelector(".photo-elements__list");
 // const photoCardTemplateContent = document.querySelector(
