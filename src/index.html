@@ -12,14 +12,18 @@
   <body class="body">
     <div class="page">
       <header class="header page__header">
-        <img class="header__logo" src="./images/logo.svg" alt="Логотип сайта" />
+        <img
+          class="header__logo"
+          src="<%=require('./images/logo.svg')%>"
+          alt="Логотип сайта"
+        />
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__one-form">
             <img
               class="profile__avatar"
-              src="./images/image-profile.png"
+              src="<%=require('./images/image-profile.png')%>"
               alt="Фото пользователя"
             />
             <div class="profile__info">
