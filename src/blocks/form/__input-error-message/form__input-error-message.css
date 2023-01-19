@@ -7,5 +7,5 @@
   visibility: hidden;
   color: #ff0000;
   box-sizing: border-box;
-  height: 30px;
+  min-height: 30px;
 }
