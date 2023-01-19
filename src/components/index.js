@@ -14,7 +14,7 @@ import {
 import { openPopup } from "./utils.js";
 import { renderCard } from "./card.js";
 import { popupFunctionality } from "./modal.js";
-import { formValidation } from "./validate.js";
+import { enableValidation } from "./validate.js";
 
 const popupNewPlace = document.querySelector(".popup_new-place");
 const inputPlace = formPlace.place;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   popupImage.classList.add("popupTransitions");
 });
 
-formValidation({
+enableValidation({
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit-btn",
@@ -42,7 +42,7 @@ formValidation({
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
-}).enableValidation();
+}).enableForms();
 
 function submitProfileForm(evt) {
   evt.preventDefault();

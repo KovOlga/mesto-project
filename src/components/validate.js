@@ -1,4 +1,4 @@
-const formValidation = function (customClassHolder) {
+const enableValidation = function (customClassHolder) {
   const classHolder = {
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
@@ -16,7 +16,7 @@ const formValidation = function (customClassHolder) {
   }
 
   return {
-    enableValidation: function () {
+    enableForms: function () {
       const formList = Array.from(
         document.querySelectorAll(classHolder.formSelector)
       );
@@ -98,4 +98,4 @@ const formValidation = function (customClassHolder) {
   };
 };
 
-export { formValidation };
+export { enableValidation };
