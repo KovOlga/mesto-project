@@ -24,10 +24,6 @@ function addClickEventOnElement(selector, callBackFn) {
   document.querySelector(selector).addEventListener("click", callBackFn);
 }
 
-document.addEventListener("keydown", (evt) => {
-  popupFunctionality.validateEscOnPopup(evt);
-});
-
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
   popupNewPlace.classList.add("popupTransitions");
@@ -75,23 +71,13 @@ addClickEventOnElement(".profile__edit-button", () =>
 addClickEventOnElement(".popup__btn-close_profile", () =>
   popupFunctionality.closePopup(popupProfile)
 );
+
 addClickEventOnElement(".profile__add-button", () => openPopup(popupNewPlace));
 addClickEventOnElement(".popup__btn-close_place", () =>
   popupFunctionality.closePopup(popupNewPlace)
 );
+
 addClickEventOnElement(".photo-elements__image", () => openPopup(popupImage));
 addClickEventOnElement(".popup__btn-close_image", () =>
   popupFunctionality.closePopup(popupImage)
 );
-
-popupProfile.addEventListener("click", (evt) => {
-  popupFunctionality.closePopupOnOverlayClick(evt, popupProfile);
-});
-
-popupNewPlace.addEventListener("click", (evt) => {
-  popupFunctionality.closePopupOnOverlayClick(evt, popupNewPlace);
-});
-
-popupImage.addEventListener("click", (evt) => {
-  popupFunctionality.closePopupOnOverlayClick(evt, popupImage);
-});

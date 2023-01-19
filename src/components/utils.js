@@ -1,4 +1,5 @@
 import { formProfile, formPlace } from "./data.js";
+import { popupFunctionality } from "./modal.js";
 
 function hideInputErrorOnReopen(formElement, inputElement) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -31,7 +32,26 @@ function openPopup(openElement) {
     resetErrorOnOpen(formPlace);
     disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
   }
+
+  openElement.addEventListener("click", (evt) =>
+    popupFunctionality.closePopupOnOverlayClick(evt, openElement)
+  );
+
+  document.addEventListener("keydown", closePopupOnEsc);
+
   openElement.classList.add("popup_opened");
+}
+
+function closePopupOnEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupArr = document.querySelectorAll(".popup");
+    popupArr.forEach((popupElement) => {
+      if (popupElement.classList.contains("popup_opened")) {
+        popupFunctionality.closePopup(popupElement);
+        document.removeEventListener("keydown", closePopupOnEsc);
+      }
+    });
+  }
 }
 
 export { openPopup };

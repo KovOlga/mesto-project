@@ -18,24 +18,9 @@ const popupFunctionality = {
     closElement.classList.remove("popup_opened");
   },
 
-  closePopupOnOverlayClick: function (evt, closElement) {
+  closePopupOnOverlayClick: function (evt, popupElement) {
     if (evt.target === evt.currentTarget) {
-      this.closePopup(closElement);
-    }
-  },
-
-  closePopupOnEsc: function (popupElement) {
-    if (popupElement.classList.contains("popup_opened")) {
       this.closePopup(popupElement);
-    }
-  },
-
-  validateEscOnPopup: function (evt) {
-    if (evt.key === "Escape") {
-      const popupArr = document.querySelectorAll(".popup");
-      popupArr.forEach((popupElement) => {
-        this.closePopupOnEsc(popupElement);
-      });
     }
   },
 };
