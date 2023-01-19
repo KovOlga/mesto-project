@@ -42,14 +42,8 @@ const formValidation = function (customClassHolder) {
       });
     },
 
-    hasInvalidInput: function (inputList) {
-      return inputList.some((inputElement) => {
-        return !inputElement.validity.valid;
-      });
-    },
-
     isValid: function (formElement, inputElement) {
-      if (inputElement.value.length === 0) {
+      if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
       } else {
         inputElement.setCustomValidity("");
@@ -64,6 +58,12 @@ const formValidation = function (customClassHolder) {
       } else {
         this.hideInputError(formElement, inputElement);
       }
+    },
+
+    hasInvalidInput: function (inputList) {
+      return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+      });
     },
 
     setSubmitBtnState: function (inputList, buttonElement) {
