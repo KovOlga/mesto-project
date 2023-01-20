@@ -5,24 +5,37 @@ import {
   nameInput,
   jobInput,
 } from "./data.js";
-import { openPopup } from "./utils.js";
 
-const popupFunctionality = {
-  openProfilePopup: function () {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-    openPopup(popupProfile);
-  },
+function openPopup(popupElement) {
+  document.addEventListener("keydown", closePopupOnEsc);
+  popupElement.addEventListener("click", closePopupOnOverlayClick);
+  popupElement.classList.add("popup_opened");
+}
 
-  closePopup: function (closElement) {
-    closElement.classList.remove("popup_opened");
-  },
+function openProfilePopup() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  openPopup(popupProfile);
+}
 
-  closePopupOnOverlayClick: function (evt, popupElement) {
-    if (evt.target === evt.currentTarget) {
-      this.closePopup(popupElement);
-    }
-  },
-};
+function closePopup(popupElement) {
+  popupElement.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupOnEsc);
+  popupElement.removeEventListener("click", closePopupOnOverlayClick);
+}
 
-export { popupFunctionality };
+function closePopupOnOverlayClick(evt) {
+  if (evt.target === evt.currentTarget) {
+    const popupOpened = document.querySelector(".popup_opened");
+    closePopup(popupOpened);
+  }
+}
+
+function closePopupOnEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
+    closePopup(popupOpened);
+  }
+}
+
+export { openPopup, openProfilePopup, closePopup };
