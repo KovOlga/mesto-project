@@ -20,9 +20,11 @@ const popupNewPlace = document.querySelector(".popup_new-place");
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 
-function addClickEventOnElement(selector, callBackFn) {
-  document.querySelector(selector).addEventListener("click", callBackFn);
-}
+const btnEditProfile = document.querySelector(".profile__edit-button");
+const btnCloseProfile = document.querySelector(".popup__btn-close_profile");
+const btnAddCard = document.querySelector(".profile__add-button");
+const btnClosePopupNewCard = document.querySelector(".popup__btn-close_place");
+const btnClosePopupImage = document.querySelector(".popup__btn-close_image");
 
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
@@ -65,19 +67,18 @@ initialCards.forEach(function (cardElement) {
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
-addClickEventOnElement(".profile__edit-button", () =>
-  popupFunctionality.openProfilePopup()
-);
-addClickEventOnElement(".popup__btn-close_profile", () =>
+btnEditProfile.addEventListener("click", popupFunctionality.openProfilePopup);
+
+btnCloseProfile.addEventListener("click", () =>
   popupFunctionality.closePopup(popupProfile)
 );
 
-addClickEventOnElement(".profile__add-button", () => openPopup(popupNewPlace));
-addClickEventOnElement(".popup__btn-close_place", () =>
+btnAddCard.addEventListener("click", () => openPopup(popupNewPlace));
+
+btnClosePopupNewCard.addEventListener("click", () =>
   popupFunctionality.closePopup(popupNewPlace)
 );
 
-addClickEventOnElement(".photo-elements__image", () => openPopup(popupImage));
-addClickEventOnElement(".popup__btn-close_image", () =>
+btnClosePopupImage.addEventListener("click", () =>
   popupFunctionality.closePopup(popupImage)
 );
