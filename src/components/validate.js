@@ -1,5 +1,5 @@
 const enableValidation = function (customClassHolder) {
-  const classHolder = {
+  const validationConfig = {
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
     submitButtonSelector: ".popup__button",
@@ -11,14 +11,14 @@ const enableValidation = function (customClassHolder) {
 
   for (const key of Object.keys(customClassHolder)) {
     if (customClassHolder[key]) {
-      classHolder[key] = customClassHolder[key];
+      validationConfig[key] = customClassHolder[key];
     }
   }
 
   return {
     enableForms: function () {
       const formList = Array.from(
-        document.querySelectorAll(classHolder.formSelector)
+        document.querySelectorAll(validationConfig.formSelector)
       );
       formList.forEach((formElement) => {
         this.setEventListeners(formElement);
@@ -27,10 +27,10 @@ const enableValidation = function (customClassHolder) {
 
     setEventListeners: function (formElement) {
       const inputList = Array.from(
-        formElement.querySelectorAll(classHolder.inputSelector)
+        formElement.querySelectorAll(validationConfig.inputSelector)
       );
       const buttonElement = formElement.querySelector(
-        classHolder.submitButtonSelector
+        validationConfig.submitButtonSelector
       );
       this.setSubmitBtnState(inputList, buttonElement);
 
@@ -69,10 +69,10 @@ const enableValidation = function (customClassHolder) {
     setSubmitBtnState: function (inputList, buttonElement) {
       if (this.hasInvalidInput(inputList)) {
         buttonElement.disabled = true;
-        buttonElement.classList.add(classHolder.inactiveButtonClass);
+        buttonElement.classList.add(validationConfig.inactiveButtonClass);
       } else {
         buttonElement.disabled = false;
-        buttonElement.classList.remove(classHolder.inactiveButtonClass);
+        buttonElement.classList.remove(validationConfig.inactiveButtonClass);
       }
     },
 
@@ -81,9 +81,9 @@ const enableValidation = function (customClassHolder) {
         `.${inputElement.id}-error`
       );
 
-      inputElement.classList.add(classHolder.inputErrorClass);
+      inputElement.classList.add(validationConfig.inputErrorClass);
       errorElement.textContent = errorMessage;
-      errorElement.classList.add(classHolder.errorVisibleClass);
+      errorElement.classList.add(validationConfig.errorVisibleClass);
     },
 
     hideInputError: function (formElement, inputElement) {
@@ -91,8 +91,8 @@ const enableValidation = function (customClassHolder) {
         `.${inputElement.id}-error`
       );
 
-      inputElement.classList.remove(classHolder.inputErrorClass);
-      errorElement.classList.remove(classHolder.errorVisibleClass);
+      inputElement.classList.remove(validationConfig.inputErrorClass);
+      errorElement.classList.remove(validationConfig.errorVisibleClass);
       errorElement.textContent = "";
     },
   };
