@@ -1,14 +1,14 @@
 import { popupImage } from "./data.js";
-import { openPopup } from "./utils.js";
+import { openPopup } from "./modal.js";
+
+const popupImagePicture = popupImage.querySelector(".popup__image");
+const popupImageCaption = popupImage.querySelector(".popup__caption");
+const photoElementsGallery = document.querySelector(".photo-elements__list");
+const photoCardTemplateContent = document.querySelector(
+  "#photo-cards-template"
+).content;
 
 const renderCard = function () {
-  const photoElementsGallery = document.querySelector(".photo-elements__list");
-  const photoCardTemplateContent = document.querySelector(
-    "#photo-cards-template"
-  ).content;
-  const popupImagePicture = document.querySelector(".popup__image");
-  const popupImageCaption = document.querySelector(".popup__caption");
-
   return {
     createCard: function (card) {
       const photoCardElement = photoCardTemplateContent.cloneNode(true);
