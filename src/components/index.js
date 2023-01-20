@@ -11,7 +11,7 @@ import {
   nameInput,
   jobInput,
 } from "./data.js";
-import { openPopup, openProfilePopup, closePopup } from "./modal";
+import { openPopup, openProfilePopup, closePopup } from "./modal.js";
 import { renderCard } from "./card.js";
 import {
   enableValidation,
