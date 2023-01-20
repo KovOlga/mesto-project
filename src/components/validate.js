@@ -95,6 +95,21 @@ const enableValidation = function (customClassHolder) {
       errorElement.classList.remove(validationConfig.errorVisibleClass);
       errorElement.textContent = "";
     },
+
+    resetErrorOnOpen: function (formElement) {
+      const inputList = Array.from(
+        formElement.querySelectorAll(validationConfig.inputSelector)
+      );
+
+      inputList.forEach((inputElement) => {
+        this.hideInputError(formElement, inputElement);
+      });
+    },
+
+    disableSubmitBtnOnReopen: function (btnElement) {
+      btnElement.setAttribute("disabled", true);
+      btnElement.classList.add(validationConfig.inactiveButtonClass);
+    },
   };
 };
 

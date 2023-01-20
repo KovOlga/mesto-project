@@ -5,7 +5,12 @@ import {
   nameInput,
   jobInput,
 } from "./data.js";
-import { openPopup } from "./utils.js";
+
+function openPopup(popupElement) {
+  document.addEventListener("keydown", closePopupOnEsc);
+  popupElement.addEventListener("click", closePopupOnOverlayClick);
+  popupElement.classList.add("popup_opened");
+}
 
 function openProfilePopup() {
   nameInput.value = profileName.textContent;
@@ -13,14 +18,24 @@ function openProfilePopup() {
   openPopup(popupProfile);
 }
 
-function closePopup(closElement) {
-  closElement.classList.remove("popup_opened");
+function closePopup(popupElement) {
+  popupElement.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupOnEsc);
+  popupElement.removeEventListener("click", closePopupOnOverlayClick);
 }
 
-function closePopupOnOverlayClick(evt, popupElement) {
+function closePopupOnOverlayClick(evt) {
   if (evt.target === evt.currentTarget) {
-    closePopup(popupElement);
+    const popupOpened = document.querySelector(".popup_opened");
+    closePopup(popupOpened);
   }
 }
 
-export { openProfilePopup, closePopup, closePopupOnOverlayClick };
+function closePopupOnEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
+    closePopup(popupOpened);
+  }
+}
+
+export { openPopup, openProfilePopup, closePopup };

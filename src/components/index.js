@@ -11,9 +11,8 @@ import {
   nameInput,
   jobInput,
 } from "./data.js";
-import { openPopup } from "./utils.js";
+import { openPopup, openProfilePopup, closePopup } from "./modal";
 import { renderCard } from "./card.js";
-import { openProfilePopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
 
 const popupNewPlace = document.querySelector(".popup_new-place");
@@ -41,6 +40,7 @@ enableValidation({
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
 }).enableForms();
+console.log(enableValidation);
 
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -67,11 +67,22 @@ initialCards.forEach(function (cardElement) {
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
-btnEditProfile.addEventListener("click", openProfilePopup);
+btnEditProfile.addEventListener("click", () => {
+  console.log(enableValidation);
+  // enableValidation().resetErrorOnOpen();
+  // enableValidation().disableSubmitBtnOnReopen(
+  //   formProfile.elements.submitProfile
+  // );
+  openProfilePopup();
+});
 
 btnCloseProfile.addEventListener("click", () => closePopup(popupProfile));
 
-btnAddCard.addEventListener("click", () => openPopup(popupNewPlace));
+btnAddCard.addEventListener("click", () => {
+  // enableValidation().resetErrorOnOpen(formPlace);
+  // enableValidation().disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
+  openPopup(popupNewPlace);
+});
 
 btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewPlace));
 
