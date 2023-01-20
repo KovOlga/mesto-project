@@ -13,7 +13,11 @@ import {
 } from "./data.js";
 import { openPopup, openProfilePopup, closePopup } from "./modal";
 import { renderCard } from "./card.js";
-import { enableValidation } from "./validate.js";
+import {
+  enableValidation,
+  resetErrorOnOpen,
+  disableSubmitBtnOnReopen,
+} from "./validate.js";
 
 const popupNewPlace = document.querySelector(".popup_new-place");
 const inputPlace = formPlace.place;
@@ -39,7 +43,7 @@ enableValidation({
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
-}).enableForms();
+});
 console.log(enableValidation);
 
 function submitProfileForm(evt) {
@@ -68,19 +72,16 @@ formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
 btnEditProfile.addEventListener("click", () => {
-  console.log(enableValidation);
-  // enableValidation().resetErrorOnOpen();
-  // enableValidation().disableSubmitBtnOnReopen(
-  //   formProfile.elements.submitProfile
-  // );
+  resetErrorOnOpen(formProfile);
+  disableSubmitBtnOnReopen(formProfile.elements.submitProfile);
   openProfilePopup();
 });
 
 btnCloseProfile.addEventListener("click", () => closePopup(popupProfile));
 
 btnAddCard.addEventListener("click", () => {
-  // enableValidation().resetErrorOnOpen(formPlace);
-  // enableValidation().disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
+  resetErrorOnOpen(formPlace);
+  disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
   openPopup(popupNewPlace);
 });
 
