@@ -1,5 +1,5 @@
 import { formProfile, formPlace } from "./data.js";
-import { popupFunctionality } from "./modal.js";
+import { closePopup, closePopupOnOverlayClick } from "./modal.js";
 
 function hideInputErrorOnReopen(formElement, inputElement) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -34,7 +34,7 @@ function openPopup(openElement) {
   }
 
   openElement.addEventListener("click", (evt) =>
-    popupFunctionality.closePopupOnOverlayClick(evt, openElement)
+    closePopupOnOverlayClick(evt, openElement)
   );
 
   document.addEventListener("keydown", closePopupOnEsc);
@@ -47,7 +47,7 @@ function closePopupOnEsc(evt) {
     const popupArr = document.querySelectorAll(".popup");
     popupArr.forEach((popupElement) => {
       if (popupElement.classList.contains("popup_opened")) {
-        popupFunctionality.closePopup(popupElement);
+        closePopup(popupElement);
         document.removeEventListener("keydown", closePopupOnEsc);
       }
     });

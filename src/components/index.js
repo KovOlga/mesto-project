@@ -13,7 +13,7 @@ import {
 } from "./data.js";
 import { openPopup } from "./utils.js";
 import { renderCard } from "./card.js";
-import { popupFunctionality } from "./modal.js";
+import { openProfilePopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
 
 const popupNewPlace = document.querySelector(".popup_new-place");
@@ -48,13 +48,13 @@ function submitProfileForm(evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  popupFunctionality.closePopup(popupProfile);
+  closePopup(popupProfile);
 }
 
 function submitNewCard(evt) {
   evt.preventDefault();
 
-  popupFunctionality.closePopup(popupNewPlace);
+  closePopup(popupNewPlace);
 
   renderCard().addCard({ name: inputPlace.value, link: inputImage.value });
 
@@ -67,18 +67,12 @@ initialCards.forEach(function (cardElement) {
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
-btnEditProfile.addEventListener("click", popupFunctionality.openProfilePopup);
+btnEditProfile.addEventListener("click", openProfilePopup);
 
-btnCloseProfile.addEventListener("click", () =>
-  popupFunctionality.closePopup(popupProfile)
-);
+btnCloseProfile.addEventListener("click", () => closePopup(popupProfile));
 
 btnAddCard.addEventListener("click", () => openPopup(popupNewPlace));
 
-btnClosePopupNewCard.addEventListener("click", () =>
-  popupFunctionality.closePopup(popupNewPlace)
-);
+btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewPlace));
 
-btnClosePopupImage.addEventListener("click", () =>
-  popupFunctionality.closePopup(popupImage)
-);
+btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
