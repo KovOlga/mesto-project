@@ -79,6 +79,7 @@ btnEditProfile.addEventListener("click", () => {
 btnCloseProfile.addEventListener("click", () => closePopup(popupProfile));
 
 btnAddCard.addEventListener("click", () => {
+  formPlace.reset();
   resetErrorOnReOpen(formPlace);
   disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
   openPopup(popupNewPlace);

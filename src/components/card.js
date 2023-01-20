@@ -1,5 +1,5 @@
 import { popupImage } from "./data.js";
-import { openPopup } from "./modal";
+import { openPopup } from "./modal.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
