@@ -85,7 +85,7 @@ function hideInputError(formElement, inputElement) {
   errorElement.textContent = "";
 }
 
-function resetErrorOnOpen(formElement) {
+function resetErrorOnReOpen(formElement) {
   const inputList = Array.from(
     formElement.querySelectorAll(validationConfig.inputSelector)
   );
@@ -100,4 +100,4 @@ function disableSubmitBtnOnReopen(btnElement) {
   btnElement.classList.add(validationConfig.inactiveButtonClass);
 }
 
-export { enableValidation, resetErrorOnOpen, disableSubmitBtnOnReopen };
+export { enableValidation, resetErrorOnReOpen, disableSubmitBtnOnReopen };

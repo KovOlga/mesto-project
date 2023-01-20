@@ -15,7 +15,7 @@ import { openPopup, openProfilePopup, closePopup } from "./modal";
 import { renderCard } from "./card.js";
 import {
   enableValidation,
-  resetErrorOnOpen,
+  resetErrorOnReOpen,
   disableSubmitBtnOnReopen,
 } from "./validate.js";
 
@@ -44,7 +44,6 @@ enableValidation({
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
 });
-console.log(enableValidation);
 
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -72,7 +71,7 @@ formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
 btnEditProfile.addEventListener("click", () => {
-  resetErrorOnOpen(formProfile);
+  resetErrorOnReOpen(formProfile);
   disableSubmitBtnOnReopen(formProfile.elements.submitProfile);
   openProfilePopup();
 });
@@ -80,7 +79,7 @@ btnEditProfile.addEventListener("click", () => {
 btnCloseProfile.addEventListener("click", () => closePopup(popupProfile));
 
 btnAddCard.addEventListener("click", () => {
-  resetErrorOnOpen(formPlace);
+  resetErrorOnReOpen(formPlace);
   disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
   openPopup(popupNewPlace);
 });
