@@ -11,18 +11,23 @@ import {
   nameInput,
   jobInput,
 } from "./data.js";
-import { openPopup } from "./utils.js";
+import { openPopup, openProfilePopup, closePopup } from "./modal.js";
 import { renderCard } from "./card.js";
-import { popupFunctionality } from "./modal.js";
-import { enableValidation } from "./validate.js";
+import {
+  enableValidation,
+  resetErrorOnReOpen,
+  disableSubmitBtnOnReopen,
+} from "./validate.js";
 
 const popupNewPlace = document.querySelector(".popup_new-place");
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 
-function addClickEventOnElement(selector, callBackFn) {
-  document.querySelector(selector).addEventListener("click", callBackFn);
-}
+const btnEditProfile = document.querySelector(".profile__edit-button");
+const btnCloseProfile = document.querySelector(".popup__btn-close_profile");
+const btnAddCard = document.querySelector(".profile__add-button");
+const btnClosePopupNewCard = document.querySelector(".popup__btn-close_place");
+const btnClosePopupImage = document.querySelector(".popup__btn-close_image");
 
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
@@ -38,7 +43,7 @@ enableValidation({
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
-}).enableForms();
+});
 
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -46,13 +51,13 @@ function submitProfileForm(evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  popupFunctionality.closePopup(popupProfile);
+  closePopup(popupProfile);
 }
 
 function submitNewCard(evt) {
   evt.preventDefault();
 
-  popupFunctionality.closePopup(popupNewPlace);
+  closePopup(popupNewPlace);
 
   renderCard().addCard({ name: inputPlace.value, link: inputImage.value });
 
@@ -65,19 +70,21 @@ initialCards.forEach(function (cardElement) {
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
-addClickEventOnElement(".profile__edit-button", () =>
-  popupFunctionality.openProfilePopup()
-);
-addClickEventOnElement(".popup__btn-close_profile", () =>
-  popupFunctionality.closePopup(popupProfile)
-);
+btnEditProfile.addEventListener("click", () => {
+  resetErrorOnReOpen(formProfile);
+  disableSubmitBtnOnReopen(formProfile.elements.submitProfile);
+  openProfilePopup();
+});
 
-addClickEventOnElement(".profile__add-button", () => openPopup(popupNewPlace));
-addClickEventOnElement(".popup__btn-close_place", () =>
-  popupFunctionality.closePopup(popupNewPlace)
-);
+btnCloseProfile.addEventListener("click", () => closePopup(popupProfile));
 
-addClickEventOnElement(".photo-elements__image", () => openPopup(popupImage));
-addClickEventOnElement(".popup__btn-close_image", () =>
-  popupFunctionality.closePopup(popupImage)
-);
+btnAddCard.addEventListener("click", () => {
+  formPlace.reset();
+  resetErrorOnReOpen(formPlace);
+  disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
+  openPopup(popupNewPlace);
+});
+
+btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewPlace));
+
+btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
