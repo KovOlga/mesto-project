@@ -90,12 +90,12 @@ btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewPlace));
 
 btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
 
-const showData = () => {
+const showCards = () => {
   getCards().then((result) => {
     console.log(result);
   });
 };
-showData();
+showCards();
 
 const showUserData = () => {
   getUserData().then((result) => {
