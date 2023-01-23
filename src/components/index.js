@@ -19,6 +19,8 @@ import {
   disableSubmitBtnOnReopen,
 } from "./validate.js";
 
+const profileAvatar = document.querySelector(".profile__avatar");
+
 const popupNewPlace = document.querySelector(".popup_new-place");
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
@@ -44,6 +46,34 @@ enableValidation({
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
 });
+
+const loadUserData = () => {
+  getUserData()
+    .then((data) => {
+      console.log(data);
+      profileName.textContent = data.name;
+      profileJob.textContent = data.about;
+      profileAvatar.src = data.avatar;
+    })
+    .catch((err) => {
+      console.log(`Ошибка при загрузке данных пользователя ${err}`);
+    });
+};
+loadUserData();
+
+const loadCards = () => {
+  getCards()
+    .then((cardsArr) => {
+      console.log(cardsArr);
+      cardsArr.forEach(function (cardElement) {
+        renderCard().addCard(cardElement);
+      });
+    })
+    .catch((err) => {
+      console.log(`Ошибка при загрузке карточек ${err}`);
+    });
+};
+loadCards();
 
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -85,20 +115,3 @@ btnAddCard.addEventListener("click", () => {
 btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewPlace));
 
 btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
-
-const showCards = () => {
-  getCards().then((cardsArr) => {
-    console.log(cardsArr);
-    cardsArr.forEach(function (cardElement) {
-      renderCard().addCard(cardElement);
-    });
-  });
-};
-showCards();
-
-const showUserData = () => {
-  getUserData().then((result) => {
-    console.log(result);
-  });
-};
-showUserData();
