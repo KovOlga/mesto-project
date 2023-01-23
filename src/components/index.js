@@ -1,5 +1,6 @@
 import "../pages/index.css";
 
+import { getCardData } from "./api.js";
 import {
   initialCards,
   popupImage,
@@ -88,3 +89,10 @@ btnAddCard.addEventListener("click", () => {
 btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewPlace));
 
 btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
+
+const showData = () => {
+  getCardData().then((result) => {
+    console.log(result);
+  });
+};
+showData();
