@@ -2,7 +2,6 @@ import "../pages/index.css";
 
 import { getCards, getUserData } from "./api.js";
 import {
-  initialCards,
   popupImage,
   formProfile,
   formPlace,
@@ -65,9 +64,6 @@ function submitNewCard(evt) {
   formPlace.reset();
 }
 
-initialCards.forEach(function (cardElement) {
-  renderCard().addCard(cardElement);
-});
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
@@ -91,8 +87,11 @@ btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewPlace));
 btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
 
 const showCards = () => {
-  getCards().then((result) => {
-    console.log(result);
+  getCards().then((cardsArr) => {
+    console.log(cardsArr);
+    cardsArr.forEach(function (cardElement) {
+      renderCard().addCard(cardElement);
+    });
   });
 };
 showCards();
