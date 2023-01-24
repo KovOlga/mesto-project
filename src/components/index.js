@@ -1,6 +1,12 @@
 import "../pages/index.css";
 
-import { getCards, getUserData } from "./api.js";
+import {
+  getCards,
+  getUserData,
+  patchProfile,
+  postCard,
+  deleteCard,
+} from "./api.js";
 import {
   popupImage,
   formProfile,
@@ -50,13 +56,12 @@ enableValidation({
 const loadUserData = () => {
   getUserData()
     .then((data) => {
-      console.log(data);
       profileName.textContent = data.name;
       profileJob.textContent = data.about;
       profileAvatar.src = data.avatar;
     })
     .catch((err) => {
-      console.log(`Ошибка при загрузке данных пользователя ${err}`);
+      console.log(`Ошибка при загрузке данных пользователя с сервера ${err}`);
     });
 };
 loadUserData();
@@ -64,13 +69,12 @@ loadUserData();
 const loadCards = () => {
   getCards()
     .then((cardsArr) => {
-      console.log(cardsArr);
       cardsArr.forEach(function (cardElement) {
         renderCard().addCard(cardElement);
       });
     })
     .catch((err) => {
-      console.log(`Ошибка при загрузке карточек ${err}`);
+      console.log(`Ошибка при загрузке карточек с сервера ${err}`);
     });
 };
 loadCards();
@@ -78,20 +82,29 @@ loadCards();
 function submitProfileForm(evt) {
   evt.preventDefault();
 
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-
-  closePopup(popupProfile);
+  patchProfile(nameInput.value, jobInput.value)
+    .then(() => {
+      profileName.textContent = nameInput.value;
+      profileJob.textContent = jobInput.value;
+      closePopup(popupProfile);
+    })
+    .catch((err) => {
+      console.log(`Ошибка при отправке обновленных данных пользователя ${err}`);
+    });
 }
 
 function submitNewCard(evt) {
   evt.preventDefault();
 
-  closePopup(popupNewPlace);
-
-  renderCard().addCard({ name: inputPlace.value, link: inputImage.value });
-
-  formPlace.reset();
+  postCard(inputPlace.value, inputImage.value)
+    .then(() => {
+      closePopup(popupNewPlace);
+      renderCard().addCard({ name: inputPlace.value, link: inputImage.value });
+      formPlace.reset();
+    })
+    .catch((err) => {
+      console.log(`Ошибка при отправке карточки на сервер ${err}`);
+    });
 }
 
 formProfile.addEventListener("submit", submitProfileForm);
