@@ -77,7 +77,11 @@
                 <span class="form__input-error-message job-error"></span>
               </label>
             </div>
-            <button class="form__submit-btn" type="submit" name="submitProfile">
+            <button
+              class="popup__button form__submit-btn"
+              type="submit"
+              name="submitProfile"
+            >
               Создать
             </button>
           </form>
@@ -121,7 +125,7 @@
               </label>
             </div>
             <button
-              class="form__submit-btn form__submit-btn_disabled"
+              class="popup__button form__submit-btn form__submit-btn_disabled"
               type="submit"
               name="submitPlace"
               disabled
@@ -140,6 +144,18 @@
           <img class="popup__image" />
           <figcaption class="popup__caption"></figcaption>
         </figure>
+      </div>
+      <div class="popup popup_agree-delete">
+        <div class="popup__container">
+          <button
+            class="popup__btn-close popup__btn-close_agree"
+            type="button"
+          ></button>
+          <h2 class="popup__agree-question">Вы уверены?</h2>
+          <button class="popup__button" type="button" name="agreeDelete">
+            Да
+          </button>
+        </div>
       </div>
     </div>
     <template id="photo-cards-template">
