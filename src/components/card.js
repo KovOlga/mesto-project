@@ -41,7 +41,7 @@ const renderCard = function () {
               dlt.remove();
             })
             .catch((err) => {
-              console.log(`Ошибка при удалении карточки ${err}`);
+              console.log(`Ошибка при удалении карточки: ${err.message}`);
             });
         });
       } else {

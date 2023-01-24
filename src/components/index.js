@@ -67,14 +67,16 @@ const renderInitialData = () => {
       updateUserData(data);
     })
     .catch((err) => {
-      console.log(`Ошибка при загрузке данных пользователя с сервера ${err}`);
+      console.log(
+        `Ошибка при загрузке данных пользователя с сервера: ${err.message}`
+      );
     });
   getCards()
     .then((cardsArr) => {
       loadCards(cardsArr);
     })
     .catch((err) => {
-      console.log(`Ошибка при загрузке карточек с сервера ${err}`);
+      console.log(`Ошибка при загрузке карточек с сервера: ${err.message}`);
     });
 };
 renderInitialData();
@@ -90,13 +92,15 @@ function submitProfileForm(evt) {
         })
         .catch((err) => {
           console.log(
-            `Ошибка при загрузке данных пользователя с сервера ${err}`
+            `Ошибка при загрузке данных пользователя с сервера: ${err.message}`
           );
         });
       closePopup(popupProfile);
     })
     .catch((err) => {
-      console.log(`Ошибка при отправке обновленных данных пользователя ${err}`);
+      console.log(
+        `Ошибка при отправке обновленных данных пользователя: ${err.message}`
+      );
     });
 }
 
@@ -110,7 +114,7 @@ function submitNewCard(evt) {
       formPlace.reset();
     })
     .catch((err) => {
-      console.log(`Ошибка при отправке карточки на сервер ${err}`);
+      console.log(`Ошибка при отправке карточки на сервер: ${err.message}`);
     });
 }
 
