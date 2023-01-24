@@ -1,6 +1,7 @@
 import { popupImage } from "./data.js";
 import { openPopup } from "./modal.js";
 import { userId } from "./index.js";
+import { deleteCard } from "./api.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
@@ -32,8 +33,16 @@ const renderCard = function () {
       );
       if (userId === card.owner._id) {
         btnDeletePhotoElement.addEventListener("click", () => {
-          const dlt = btnDeletePhotoElement.closest(".photo-elements__item");
-          dlt.remove();
+          deleteCard(card._id)
+            .then(() => {
+              const dlt = btnDeletePhotoElement.closest(
+                ".photo-elements__item"
+              );
+              dlt.remove();
+            })
+            .catch((err) => {
+              console.log(`Ошибка при удалении карточки ${err}`);
+            });
         });
       } else {
         btnDeletePhotoElement.remove();
