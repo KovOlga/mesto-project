@@ -23,11 +23,24 @@ const renderCard = function () {
       );
       photoElementImage.src = card.link;
       photoElementImage.alt = card.name;
-      photoCardElement
-        .querySelector(".photo-elements__like-button")
-        .addEventListener("click", (evt) => {
-          evt.target.classList.toggle("photo-elements__like-button_active");
-        });
+
+      const btnLike = photoCardElement.querySelector(
+        ".photo-elements__like-button"
+      );
+      btnLike.addEventListener("click", (evt) => {
+        evt.target.classList.toggle("photo-elements__like-button_active");
+      });
+      const counterLike = photoCardElement.querySelector(
+        ".photo-elements__like-counter"
+      );
+      if (card.likes.length === 0) {
+        counterLike.remove();
+      } else {
+        const str = card.likes.length.toString();
+        counterLike.textContent = str;
+        console.log(str);
+      }
+
       const btnDeletePhotoElement = photoCardElement.querySelector(
         ".photo-elements__bin-button"
       );
