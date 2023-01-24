@@ -1,5 +1,6 @@
 import { popupImage } from "./data.js";
 import { openPopup } from "./modal.js";
+import { userId } from "./index.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
@@ -26,13 +27,17 @@ const renderCard = function () {
         .addEventListener("click", (evt) => {
           evt.target.classList.toggle("photo-elements__like-button_active");
         });
-      const photoElementDeleteBtn = photoCardElement.querySelector(
+      const btnDeletePhotoElement = photoCardElement.querySelector(
         ".photo-elements__bin-button"
       );
-      photoElementDeleteBtn.addEventListener("click", () => {
-        const dlt = photoElementDeleteBtn.closest(".photo-elements__item");
-        dlt.remove();
-      });
+      if (userId === card.owner._id) {
+        btnDeletePhotoElement.addEventListener("click", () => {
+          const dlt = btnDeletePhotoElement.closest(".photo-elements__item");
+          dlt.remove();
+        });
+      } else {
+        btnDeletePhotoElement.remove();
+      }
 
       photoElementImage.addEventListener("click", () => {
         popupImagePicture.src = photoElementImage.src;

@@ -1,12 +1,6 @@
 import "../pages/index.css";
 
-import {
-  getCards,
-  getUserData,
-  patchProfile,
-  postCard,
-  deleteCard,
-} from "./api.js";
+import { getCards, getUserData, patchProfile, postCard } from "./api.js";
 import {
   popupImage,
   formProfile,
@@ -53,39 +47,52 @@ enableValidation({
   errorVisibleClass: "form__input-error-message_active",
 });
 
-const loadUserData = () => {
+function updateUserData(user) {
+  profileName.textContent = user.name;
+  profileJob.textContent = user.about;
+  profileAvatar.src = user.avatar;
+  userId = user._id;
+}
+
+function loadCards(cardsArr) {
+  cardsArr.forEach(function (cardElement) {
+    renderCard().addCard(cardElement);
+  });
+}
+
+export let userId;
+const renderInitialData = () => {
   getUserData()
     .then((data) => {
-      profileName.textContent = data.name;
-      profileJob.textContent = data.about;
-      profileAvatar.src = data.avatar;
+      updateUserData(data);
     })
     .catch((err) => {
       console.log(`Ошибка при загрузке данных пользователя с сервера ${err}`);
     });
-};
-loadUserData();
-
-const loadCards = () => {
   getCards()
     .then((cardsArr) => {
-      cardsArr.forEach(function (cardElement) {
-        renderCard().addCard(cardElement);
-      });
+      loadCards(cardsArr);
     })
     .catch((err) => {
       console.log(`Ошибка при загрузке карточек с сервера ${err}`);
     });
 };
-loadCards();
+renderInitialData();
 
 function submitProfileForm(evt) {
   evt.preventDefault();
 
   patchProfile(nameInput.value, jobInput.value)
     .then(() => {
-      profileName.textContent = nameInput.value;
-      profileJob.textContent = jobInput.value;
+      getUserData()
+        .then((data) => {
+          updateUserData(data);
+        })
+        .catch((err) => {
+          console.log(
+            `Ошибка при загрузке данных пользователя с сервера ${err}`
+          );
+        });
       closePopup(popupProfile);
     })
     .catch((err) => {
