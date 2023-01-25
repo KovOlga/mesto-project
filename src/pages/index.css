@@ -50,6 +50,8 @@
 
 @import url("../blocks/photo-elements/__like-counter/photo-elements__like-counter.css");
 
+@import url("../blocks/photo-elements/__like-container/_disabled/photo-elements__like-container_disabled.css");
+
 @import url("../blocks/footer/footer.css");
 
 @import url("../blocks/footer/__copyright/footer__copyright.css");

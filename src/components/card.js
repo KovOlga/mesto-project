@@ -10,17 +10,6 @@ const photoCardTemplateContent = document.querySelector(
   "#photo-cards-template"
 ).content;
 
-//обновляет класс у лайка и число лайков
-function renewLikeState(evt, likesArr) {
-  evt.target.classList.toggle("photo-elements__like-button_active");
-  if (likesArr.length === 0) {
-    counterLike.remove();
-  } else {
-    const str = likesArr.length.toString();
-    counterLike.textContent = str;
-  }
-}
-
 const renderCard = function () {
   return {
     createCard: function (card) {
@@ -42,30 +31,45 @@ const renderCard = function () {
         ".photo-elements__like-button"
       );
 
-      // card.likes.forEach((likeElement) => {
-      //   if (likeElement._id === userId) {
-      //     btnLike.classList.add("photo-elements__like-button_active");
-      //   }
-      // });
-
       //отрисовали при первоначальном рендеринге, где уже есть лайк юзера
       function hasUserLike(likesArr) {
         likesArr.forEach((likeElement) => {
           if (likeElement._id === userId) {
+            console.log(likeElement);
             btnLike.classList.add("photo-elements__like-button_active");
           }
         });
       }
       hasUserLike(card.likes);
 
-      //повесили слушатель добавления/удаления лайка
+      //при первоначальном рендеринге отрисовываем количество лайков
+      if (card.likes.length === 0) {
+        counterLike.classList.add("photo-elements__like-container_disabled");
+      } else {
+        const str = card.likes.length.toString();
+        counterLike.textContent = str;
+      }
+
+      //слушатель добавления/удаления лайка
       btnLike.addEventListener("click", (evt) => {
         if (btnLike.classList.contains("photo-elements__like-button_active")) {
-          console.log("remove");
           removeLike(card._id)
             .then((newLikesArr) => {
+              console.log("remove like");
               console.log(newLikesArr.likes);
-              renewLikeState(evt, newLikesArr.likes);
+
+              evt.target.classList.toggle("photo-elements__like-button_active");
+              if (newLikesArr.likes.length === 0) {
+                counterLike.classList.add(
+                  "photo-elements__like-container_disabled"
+                );
+              } else {
+                counterLike.classList.remove(
+                  "photo-elements__like-container_disabled"
+                );
+                const likeNumber = newLikesArr.likes.length.toString();
+                counterLike.textContent = likeNumber;
+              }
             })
             .catch((err) => {
               console.log(
@@ -73,11 +77,17 @@ const renderCard = function () {
               );
             });
         } else {
-          console.log("add");
           addLike(card._id)
             .then((newLikesArr) => {
+              console.log("add like");
               console.log(newLikesArr.likes);
-              renewLikeState(evt, newLikesArr.likes);
+
+              evt.target.classList.toggle("photo-elements__like-button_active");
+              counterLike.classList.remove(
+                "photo-elements__like-container_disabled"
+              );
+              const likeNumber = newLikesArr.likes.length.toString();
+              counterLike.textContent = likeNumber;
             })
             .catch((err) => {
               console.log(
@@ -86,14 +96,6 @@ const renderCard = function () {
             });
         }
       });
-
-      //при первоначальном рендеринге отрисовываем количество лайков
-      if (card.likes.length === 0) {
-        counterLike.remove();
-      } else {
-        const str = card.likes.length.toString();
-        counterLike.textContent = str;
-      }
 
       const btnDeletePhotoElement = photoCardElement.querySelector(
         ".photo-elements__bin-button"

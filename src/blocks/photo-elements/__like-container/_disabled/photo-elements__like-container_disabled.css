@@ -1,0 +1,4 @@
+.photo-elements__like-container_disabled {
+  opacity: 0;
+  visibility: hidden;
+}
