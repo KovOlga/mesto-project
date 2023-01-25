@@ -1,6 +1,5 @@
 import { popupImage } from "./data.js";
 import { openPopup, closePopup } from "./modal.js";
-import { userId } from "./index.js";
 import { deleteCard, addLike, removeLike } from "./api.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
@@ -12,7 +11,8 @@ const photoCardTemplateContent = document.querySelector(
 
 const renderCard = function () {
   return {
-    createCard: function (card) {
+    createCard: function (card, userId) {
+      console.log(userId);
       const photoCardElement = photoCardTemplateContent.cloneNode(true);
       const photoElementTitle = photoCardElement.querySelector(
         ".photo-elements__title"
@@ -135,8 +135,8 @@ const renderCard = function () {
       return photoCardElement;
     },
 
-    addCard: function (card) {
-      photoElementsGallery.prepend(this.createCard(card));
+    addCard: function (card, userId) {
+      photoElementsGallery.prepend(this.createCard(card, userId));
     },
   };
 };

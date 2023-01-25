@@ -31,6 +31,8 @@ const btnAddCard = document.querySelector(".profile__add-button");
 const btnClosePopupNewCard = document.querySelector(".popup__btn-close_place");
 const btnClosePopupImage = document.querySelector(".popup__btn-close_image");
 
+let userId;
+
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
   popupNewPlace.classList.add("popupTransitions");
@@ -54,29 +56,32 @@ function updateUserData(user) {
   userId = user._id;
 }
 
-function loadCards(cardsArr) {
-  cardsArr.forEach(function (cardElement) {
-    renderCard().addCard(cardElement);
+function loadCards(cardsArr, userId) {
+  cardsArr.forEach((cardElement) => {
+    renderCard().addCard(cardElement, userId);
   });
 }
 
-export let userId;
 const renderInitialData = () => {
   getUserData()
     .then((data) => {
       updateUserData(data);
+      console.log(userId);
+      return data;
+    })
+    .then(() => {
+      getCards()
+        .then((cardsArr) => {
+          loadCards(cardsArr, userId);
+        })
+        .catch((err) => {
+          console.log(`Ошибка при загрузке карточек с сервера: ${err.message}`);
+        });
     })
     .catch((err) => {
       console.log(
         `Ошибка при загрузке данных пользователя с сервера: ${err.message}`
       );
-    });
-  getCards()
-    .then((cardsArr) => {
-      loadCards(cardsArr);
-    })
-    .catch((err) => {
-      console.log(`Ошибка при загрузке карточек с сервера: ${err.message}`);
     });
 };
 renderInitialData();
