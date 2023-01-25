@@ -64,7 +64,7 @@ const addLike = (cardId) => {
     body: JSON.stringify({
       _id: cardId,
     }),
-  });
+  }).then(getResponse);
 };
 
 const removeLike = (cardId) => {
@@ -74,7 +74,7 @@ const removeLike = (cardId) => {
     body: JSON.stringify({
       _id: cardId,
     }),
-  });
+  }).then(getResponse);
 };
 
 export {
