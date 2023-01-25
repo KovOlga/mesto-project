@@ -57,4 +57,32 @@ const deleteCard = (cardId) => {
   });
 };
 
-export { getCards, getUserData, patchProfile, postCard, deleteCard };
+const addLike = (cardId) => {
+  return fetch(`${mestoApiConfig.baseURL}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: mestoApiConfig.headers,
+    body: JSON.stringify({
+      _id: cardId,
+    }),
+  });
+};
+
+const removeLike = (cardId) => {
+  return fetch(`${mestoApiConfig.baseURL}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: mestoApiConfig.headers,
+    body: JSON.stringify({
+      _id: cardId,
+    }),
+  });
+};
+
+export {
+  getCards,
+  getUserData,
+  patchProfile,
+  postCard,
+  deleteCard,
+  addLike,
+  removeLike,
+};

@@ -1,7 +1,7 @@
 import { popupImage } from "./data.js";
 import { openPopup, closePopup } from "./modal.js";
 import { userId } from "./index.js";
-import { deleteCard } from "./api.js";
+import { deleteCard, addLike, removeLike } from "./api.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
