@@ -12,7 +12,7 @@ import {
   jobInput,
 } from "./data.js";
 import { openPopup, openProfilePopup, closePopup } from "./modal.js";
-import { renderCard } from "./card.js";
+import { renderCard, setCurrentUserId } from "./card.js";
 import {
   enableValidation,
   resetErrorOnReOpen,
@@ -53,12 +53,12 @@ function updateUserData(user) {
   profileName.textContent = user.name;
   profileJob.textContent = user.about;
   profileAvatar.src = user.avatar;
-  userId = user._id;
+  setCurrentUserId(user._id);
 }
 
-function loadCards(cardsArr, userId) {
+function loadCards(cardsArr) {
   cardsArr.forEach((cardElement) => {
-    renderCard().addCard(cardElement, userId);
+    renderCard(cardElement);
   });
 }
 
@@ -66,13 +66,12 @@ const renderInitialData = () => {
   getUserData()
     .then((data) => {
       updateUserData(data);
-      console.log(userId);
       return data;
     })
     .then(() => {
       getCards()
         .then((cardsArr) => {
-          loadCards(cardsArr, userId);
+          loadCards(cardsArr);
         })
         .catch((err) => {
           console.log(`Ошибка при загрузке карточек с сервера: ${err.message}`);
