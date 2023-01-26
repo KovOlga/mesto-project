@@ -30,14 +30,14 @@ const patchProfile = (newName, newAbout) => {
   });
 };
 
-const patchAvatar = (avatar) => {
+const patchAvatar = (newAvatar) => {
   return fetch(`${mestoApiConfig.baseURL}/users/me/avatar`, {
     method: "PATCH",
     headers: mestoApiConfig.headers,
     body: JSON.stringify({
-      avatar,
+      avatar: newAvatar,
     }),
-  });
+  }).then(getResponse);
 };
 
 const getCards = () => {
@@ -95,4 +95,5 @@ export {
   deleteCard,
   addLike,
   removeLike,
+  patchAvatar,
 };

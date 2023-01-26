@@ -11,6 +11,8 @@ const popupProfile = document.querySelector(".popup_profile");
 
 const popupImage = document.querySelector(".popup_image-window");
 
+const popupAgreeDelete = document.querySelector(".popup_agree-delete");
+
 export {
   profileName,
   profileJob,
@@ -20,4 +22,5 @@ export {
   jobInput,
   popupProfile,
   popupImage,
+  popupAgreeDelete,
 };

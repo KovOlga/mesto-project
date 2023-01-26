@@ -1,4 +1,4 @@
-import { popupImage } from "./data.js";
+import { popupImage, popupAgreeDelete } from "./data.js";
 import { openPopup, closePopup } from "./modal.js";
 import { deleteCard, addLike, removeLike } from "./api.js";
 
@@ -20,7 +20,7 @@ function renderCard(card) {
 }
 
 function createCardElement(card) {
-  console.log(currentUserId);
+  // console.log(currentUserId);
   const photoCardElement = photoCardTemplateContent.cloneNode(true);
   const photoElementTitle = photoCardElement.querySelector(
     ".photo-elements__title"
@@ -43,7 +43,7 @@ function createCardElement(card) {
   function hasUserLike(likesArr) {
     likesArr.forEach((likeElement) => {
       if (likeElement._id === currentUserId) {
-        console.log(likeElement);
+        // console.log(likeElement);
         btnLike.classList.add("photo-elements__like-button_active");
       }
     });
@@ -63,8 +63,8 @@ function createCardElement(card) {
     if (btnLike.classList.contains("photo-elements__like-button_active")) {
       removeLike(card._id)
         .then((newLikesArr) => {
-          console.log("remove like");
-          console.log(newLikesArr.likes);
+          // console.log("remove like");
+          // console.log(newLikesArr.likes);
 
           evt.target.classList.toggle("photo-elements__like-button_active");
           if (newLikesArr.likes.length === 0) {
@@ -87,8 +87,8 @@ function createCardElement(card) {
     } else {
       addLike(card._id)
         .then((newLikesArr) => {
-          console.log("add like");
-          console.log(newLikesArr.likes);
+          // console.log("add like");
+          // console.log(newLikesArr.likes);
 
           evt.target.classList.toggle("photo-elements__like-button_active");
           counterLike.classList.remove(
@@ -109,16 +109,16 @@ function createCardElement(card) {
     ".photo-elements__bin-button"
   );
 
-  //отрисовываем иконку корзины и вешаем слушатель попапа и удаления, если айди юзера совпадает
+  //отрисовываем иконку корзины и вешаем слушатель открытия попапа/удаления, если айди юзера совпадает
   if (currentUserId === card.owner._id) {
     btnDeletePhotoElement.addEventListener("click", () => {
-      openPopup(document.querySelector(".popup_agree-delete"));
+      openPopup(popupAgreeDelete);
       const btnAgreeDelete = document.querySelector(".popup__btn-agree");
       btnAgreeDelete.addEventListener("click", () => {
         deleteCard(card._id)
           .then(() => {
             const dlt = btnDeletePhotoElement.closest(".photo-elements__item");
-            closePopup(document.querySelector(".popup_agree-delete"));
+            closePopup(popupAgreeDelete);
             dlt.remove();
           })
           .catch((err) => {
