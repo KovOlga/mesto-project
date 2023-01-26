@@ -67,7 +67,7 @@ const deleteCard = (cardId) => {
   });
 };
 
-const addLike = (cardId) => {
+const putLike = (cardId) => {
   return fetch(`${mestoApiConfig.baseURL}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: mestoApiConfig.headers,
@@ -77,7 +77,7 @@ const addLike = (cardId) => {
   }).then(getResponse);
 };
 
-const removeLike = (cardId) => {
+const deleteLike = (cardId) => {
   return fetch(`${mestoApiConfig.baseURL}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: mestoApiConfig.headers,
@@ -93,7 +93,7 @@ export {
   patchProfile,
   postCard,
   deleteCard,
-  addLike,
-  removeLike,
+  putLike,
+  deleteLike,
   patchAvatar,
 };
