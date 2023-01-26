@@ -54,7 +54,7 @@ const postCard = (newName, newLink) => {
       name: newName,
       link: newLink,
     }),
-  });
+  }).then(getResponse);
 };
 
 const deleteCard = (cardId) => {

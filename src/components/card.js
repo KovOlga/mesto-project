@@ -15,22 +15,22 @@ function setCurrentUserId(userId) {
   currentUserId = userId;
 }
 
-function renderCard(card) {
-  photoElementsGallery.prepend(createCardElement(card));
+function renderCard(cardData) {
+  photoElementsGallery.prepend(createCardElement(cardData));
 }
 
-function createCardElement(card) {
+function createCardElement(cardData) {
   // console.log(currentUserId);
   const photoCardElement = photoCardTemplateContent.cloneNode(true);
   const photoElementTitle = photoCardElement.querySelector(
     ".photo-elements__title"
   );
-  photoElementTitle.textContent = card.name;
+  photoElementTitle.textContent = cardData.name;
   const photoElementImage = photoCardElement.querySelector(
     ".photo-elements__image"
   );
-  photoElementImage.src = card.link;
-  photoElementImage.alt = card.name;
+  photoElementImage.src = cardData.link;
+  photoElementImage.alt = cardData.name;
 
   const counterLike = photoCardElement.querySelector(
     ".photo-elements__like-counter"
@@ -39,29 +39,29 @@ function createCardElement(card) {
     ".photo-elements__like-button"
   );
 
-  //отрисовали при первоначальном рендеринге, где уже есть лайк юзера
-  function hasUserLike(likesArr) {
-    likesArr.forEach((likeElement) => {
+  //отрисовали, где уже есть лайк юзера
+  console.log(cardData.likes);
+  if (cardData.likes) {
+    cardData.likes.forEach((likeElement) => {
       if (likeElement._id === currentUserId) {
         // console.log(likeElement);
         btnLike.classList.add("photo-elements__like-button_active");
       }
     });
   }
-  hasUserLike(card.likes);
 
-  //отрисовали при первоначальном рендеринге количество лайков
-  if (card.likes.length === 0) {
+  //отрисовали количество лайков
+  if (cardData.likes.length === 0) {
     counterLike.classList.add("photo-elements__like-container_disabled");
   } else {
-    const str = card.likes.length.toString();
+    const str = cardData.likes.length.toString();
     counterLike.textContent = str;
   }
 
   //слушатель добавления/удаления лайка
   btnLike.addEventListener("click", (evt) => {
     if (btnLike.classList.contains("photo-elements__like-button_active")) {
-      removeLike(card._id)
+      removeLike(cardData._id)
         .then((newLikesArr) => {
           // console.log("remove like");
           // console.log(newLikesArr.likes);
@@ -85,7 +85,7 @@ function createCardElement(card) {
           );
         });
     } else {
-      addLike(card._id)
+      addLike(cardData._id)
         .then((newLikesArr) => {
           // console.log("add like");
           // console.log(newLikesArr.likes);
@@ -110,12 +110,12 @@ function createCardElement(card) {
   );
 
   //отрисовываем иконку корзины и вешаем слушатель открытия попапа/удаления, если айди юзера совпадает
-  if (currentUserId === card.owner._id) {
+  if (currentUserId === cardData.owner._id) {
     btnDeletePhotoElement.addEventListener("click", () => {
       openPopup(popupAgreeDelete);
       const btnAgreeDelete = document.querySelector(".popup__btn-agree");
       btnAgreeDelete.addEventListener("click", () => {
-        deleteCard(card._id)
+        deleteCard(cardData._id)
           .then(() => {
             const dlt = btnDeletePhotoElement.closest(".photo-elements__item");
             closePopup(popupAgreeDelete);

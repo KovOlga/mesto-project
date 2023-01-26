@@ -140,9 +140,10 @@ function submitNewCard(evt) {
   evt.preventDefault();
 
   postCard(inputPlace.value, inputImage.value)
-    .then(() => {
+    .then((newCardData) => {
       closePopup(popupNewCard);
-      renderCard({ name: inputPlace.value, link: inputImage.value });
+      console.log(newCardData);
+      renderCard(newCardData);
       formPlace.reset();
     })
     .catch((err) => {
@@ -154,9 +155,9 @@ function submitNewAvatar(evt) {
   evt.preventDefault();
 
   patchAvatar(inputAvatar.value)
-    .then((res) => {
-      console.log(res);
-      updateAvatar(res);
+    .then((newAvatarURL) => {
+      console.log(newAvatarURL);
+      updateAvatar(newAvatarURL);
       closePopup(popupEditAvatar);
       formAvatar.reset();
     })
