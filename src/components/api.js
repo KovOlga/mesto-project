@@ -30,6 +30,16 @@ const patchProfile = (newName, newAbout) => {
   });
 };
 
+const patchAvatar = (avatar) => {
+  return fetch(`${mestoApiConfig.baseURL}/users/me/avatar`, {
+    method: "PATCH",
+    headers: mestoApiConfig.headers,
+    body: JSON.stringify({
+      avatar,
+    }),
+  });
+};
+
 const getCards = () => {
   return fetch(`${mestoApiConfig.baseURL}/cards`, {
     headers: mestoApiConfig.headers,
