@@ -73,19 +73,19 @@ enableValidation({
   errorVisibleClass: "form__input-error-message_active",
 });
 
-function updateUserData(user) {
-  profileName.textContent = user.name;
-  profileJob.textContent = user.about;
+function updateUserData(userData) {
+  profileName.textContent = userData.name;
+  profileJob.textContent = userData.about;
 }
 
-function updateAvatar(user) {
-  avatar.src = user.avatar;
+function updateAvatar(userData) {
+  avatar.src = userData.avatar;
 }
 
-function loadInitialUserData(user) {
-  updateUserData(user);
-  updateAvatar(user);
-  setCurrentUserId(user._id);
+function loadInitialUserData(userData) {
+  updateUserData(userData);
+  updateAvatar(userData);
+  setCurrentUserId(userData._id);
 }
 
 function loadCards(cardsArr) {
@@ -95,19 +95,10 @@ function loadCards(cardsArr) {
 }
 
 const renderInitialData = () => {
-  getUserData()
-    .then((data) => {
-      loadInitialUserData(data);
-      return data;
-    })
-    .then(() => {
-      getCards()
-        .then((cardsArr) => {
-          loadCards(cardsArr);
-        })
-        .catch((err) => {
-          console.log(`Ошибка при загрузке карточек с сервера: ${err.message}`);
-        });
+  Promise.all([getUserData(), getCards()])
+    .then(([userData, cardsArr]) => {
+      loadInitialUserData(userData);
+      loadCards(cardsArr);
     })
     .catch((err) => {
       console.log(
