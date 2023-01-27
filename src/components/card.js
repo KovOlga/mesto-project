@@ -10,7 +10,8 @@ const photoCardTemplateContent = document.querySelector(
 ).content;
 const btnAgreeDelete = document.querySelector(".popup__btn-agree");
 const btnLikeActiveClass = "photo-elements__like-button_active";
-const likeCounterDisabledClass = "photo-elements__like-container_disabled";
+const likeContainerDisabledClass = "photo-elements__like-container_disabled";
+const likeCounterDisabledClass = "photo-elements__like-counter_disabled";
 
 let currentUserId;
 
@@ -34,6 +35,9 @@ function createCardElement(cardData) {
   photoElementImage.src = cardData.link;
   photoElementImage.alt = cardData.name;
 
+  const counterContainer = photoCardElement.querySelector(
+    ".photo-elements__like-container"
+  );
   const counterLike = photoCardElement.querySelector(
     ".photo-elements__like-counter"
   );
@@ -58,6 +62,7 @@ function createCardElement(cardData) {
   //отрисовали количество лайков
   if (cardData.likes.length === 0) {
     counterLike.classList.add(likeCounterDisabledClass);
+    counterContainer.classList.add(likeContainerDisabledClass);
   } else {
     counterLike.textContent = cardData.likes.length.toString();
   }
@@ -77,8 +82,10 @@ function createCardElement(cardData) {
           console.log("remove like");
           evt.target.classList.toggle(btnLikeActiveClass);
           if (res.likes.length === 0) {
+            counterContainer.classList.add(likeContainerDisabledClass);
             counterLike.classList.add(likeCounterDisabledClass);
           } else {
+            counterContainer.classList.remove(likeContainerDisabledClass);
             counterLike.classList.remove(likeCounterDisabledClass);
             counterLike.textContent = res.likes.length.toString();
           }
@@ -94,6 +101,7 @@ function createCardElement(cardData) {
         .then((res) => {
           console.log("add like");
           evt.target.classList.toggle(btnLikeActiveClass);
+          counterContainer.classList.remove(likeContainerDisabledClass);
           counterLike.classList.remove(likeCounterDisabledClass);
           counterLike.textContent = res.likes.length.toString();
           cardData = res;

@@ -95,3 +95,5 @@
 @import url("../blocks/popup/__agree-question/popup__agree-question.css");
 
 @import url("../blocks/popup/__button/popup__button.css");
+
+@import url("../blocks/photo-elements/__like-counter/disabled/photo-elements__like-container_disabled.css");
