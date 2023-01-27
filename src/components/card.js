@@ -78,18 +78,14 @@ function createCardElement(cardData) {
     processLike();
     if (isLike) {
       return deleteLike(cardData._id)
-        .then((res) => {
-          console.log("remove like");
+        .then((newLikesArr) => {
           evt.target.classList.toggle(btnLikeActiveClass);
-          if (res.likes.length === 0) {
+          if (newLikesArr.likes.length === 0) {
             counterContainer.classList.add(likeContainerDisabledClass);
             counterLike.classList.add(likeCounterDisabledClass);
-          } else {
-            counterContainer.classList.remove(likeContainerDisabledClass);
-            counterLike.classList.remove(likeCounterDisabledClass);
-            counterLike.textContent = res.likes.length.toString();
           }
-          cardData = res;
+          counterLike.textContent = newLikesArr.likes.length.toString();
+          cardData = newLikesArr;
         })
         .catch((err) => {
           console.log(
@@ -98,13 +94,12 @@ function createCardElement(cardData) {
         });
     } else {
       return putLike(cardData._id)
-        .then((res) => {
-          console.log("add like");
+        .then((newLikesArr) => {
           evt.target.classList.toggle(btnLikeActiveClass);
           counterContainer.classList.remove(likeContainerDisabledClass);
           counterLike.classList.remove(likeCounterDisabledClass);
-          counterLike.textContent = res.likes.length.toString();
-          cardData = res;
+          counterLike.textContent = newLikesArr.likes.length.toString();
+          cardData = newLikesArr;
         })
         .catch((err) => {
           console.log(

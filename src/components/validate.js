@@ -95,9 +95,9 @@ function resetErrorOnReOpen(formElement) {
   });
 }
 
-function disableSubmitBtnOnReopen(btnElement) {
+function disableSubmitBtnOnOpen(btnElement) {
   btnElement.setAttribute("disabled", true);
   btnElement.classList.add(validationConfig.inactiveButtonClass);
 }
 
-export { enableValidation, resetErrorOnReOpen, disableSubmitBtnOnReopen };
+export { enableValidation, resetErrorOnReOpen, disableSubmitBtnOnOpen };
