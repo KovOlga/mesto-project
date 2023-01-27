@@ -7,6 +7,7 @@ import {
   patchProfile,
   postCard,
 } from "./api.js";
+import { showPreloader, hidePreloader } from "./utils.js";
 import {
   popupImage,
   formProfile,
@@ -35,17 +36,20 @@ const btnClosePopupAvatarEdit = document.querySelector(
 );
 const formAvatar = document.forms.avatar;
 const inputAvatar = formAvatar.elements.avatar;
+const btnSubmitAvatar = formAvatar.elements.submitAvatar;
 //профайл
 const btnEditProfile = document.querySelector(".profile__edit-button");
 const btnClosePopupProfile = document.querySelector(
   ".popup__btn-close_profile"
 );
+const btnSubmitProfile = formProfile.elements.submitProfile;
 //новая карточка
 const btnAddCard = document.querySelector(".profile__add-button");
 const popupNewCard = document.querySelector(".popup_new-place");
 const btnClosePopupNewCard = document.querySelector(".popup__btn-close_place");
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
+const btnSubmitPlace = formPlace.elements.submitPlace;
 //попап фото
 const btnClosePopupImage = document.querySelector(".popup__btn-close_image");
 //попап согласия на удаление
@@ -115,6 +119,7 @@ renderInitialData();
 
 function submitProfileForm(evt) {
   evt.preventDefault();
+  showPreloader(btnSubmitProfile);
 
   patchProfile(nameInput.value, jobInput.value)
     .then(() => {
@@ -133,11 +138,15 @@ function submitProfileForm(evt) {
       console.log(
         `Ошибка при отправке обновленных данных пользователя: ${err.message}`
       );
+    })
+    .finally(() => {
+      hidePreloader(btnSubmitProfile);
     });
 }
 
 function submitNewCard(evt) {
   evt.preventDefault();
+  showPreloader(btnSubmitPlace);
 
   postCard(inputPlace.value, inputImage.value)
     .then((newCardData) => {
@@ -148,11 +157,15 @@ function submitNewCard(evt) {
     })
     .catch((err) => {
       console.log(`Ошибка при отправке карточки на сервер: ${err.message}`);
+    })
+    .finally(() => {
+      hidePreloader(btnSubmitPlace);
     });
 }
 
 function submitNewAvatar(evt) {
   evt.preventDefault();
+  showPreloader(btnSubmitAvatar);
 
   patchAvatar(inputAvatar.value)
     .then((newAvatarURL) => {
@@ -163,6 +176,9 @@ function submitNewAvatar(evt) {
     })
     .catch((err) => {
       console.log(`Ошибка при отправке URL аватара на сервер: ${err.message}`);
+    })
+    .finally(() => {
+      hidePreloader(btnSubmitAvatar);
     });
 }
 

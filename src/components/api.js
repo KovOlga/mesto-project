@@ -64,6 +64,10 @@ const deleteCard = (cardId) => {
     body: JSON.stringify({
       _id: cardId,
     }),
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка ${res.status}`);
+    }
   });
 };
 
