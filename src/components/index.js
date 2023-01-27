@@ -1,12 +1,12 @@
 import "../pages/index.css";
 
-// import {
-//   getCards,
-//   getUserData,
-//   patchAvatar,
-//   patchProfile,
-//   postCard,
-// } from "./api.js";
+import {
+  getCards,
+  getUserData,
+  patchAvatar,
+  patchProfile,
+  postCard,
+} from "./api.js";
 import { showPreloader, hidePreloader } from "./utils.js";
 import {
   popupImage,
