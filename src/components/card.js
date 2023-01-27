@@ -79,7 +79,6 @@ function createCardElement(cardData) {
     if (isLike) {
       return deleteLike(cardData._id)
         .then((res) => {
-          console.log("remove like");
           evt.target.classList.toggle(btnLikeActiveClass);
           if (res.likes.length === 0) {
             counterContainer.classList.add(likeContainerDisabledClass);
@@ -99,7 +98,6 @@ function createCardElement(cardData) {
     } else {
       return putLike(cardData._id)
         .then((res) => {
-          console.log("add like");
           evt.target.classList.toggle(btnLikeActiveClass);
           counterContainer.classList.remove(likeContainerDisabledClass);
           counterLike.classList.remove(likeCounterDisabledClass);

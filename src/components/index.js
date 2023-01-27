@@ -134,7 +134,6 @@ function submitNewCard(evt) {
   postCard(inputPlace.value, inputImage.value)
     .then((newCardData) => {
       closePopup(popupNewCard);
-      console.log(newCardData);
       renderCard(newCardData);
       formPlace.reset();
     })
@@ -152,7 +151,6 @@ function submitNewAvatar(evt) {
 
   patchAvatar(inputAvatar.value)
     .then((newAvatarURL) => {
-      console.log(newAvatarURL);
       updateAvatar(newAvatarURL);
       closePopup(popupEditAvatar);
       formAvatar.reset();
