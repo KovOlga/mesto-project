@@ -122,16 +122,8 @@ function submitProfileForm(evt) {
   showPreloader(btnSubmitProfile);
 
   patchProfile(nameInput.value, jobInput.value)
-    .then(() => {
-      getUserData()
-        .then((data) => {
-          updateUserData(data);
-        })
-        .catch((err) => {
-          console.log(
-            `Ошибка при загрузке данных пользователя с сервера: ${err.message}`
-          );
-        });
+    .then((newCardData) => {
+      updateUserData(newCardData);
       closePopup(popupProfile);
     })
     .catch((err) => {

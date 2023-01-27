@@ -27,7 +27,7 @@ const patchProfile = (newName, newAbout) => {
       name: newName,
       about: newAbout,
     }),
-  });
+  }).then(getResponse);
 };
 
 const patchAvatar = (newAvatar) => {
