@@ -1,6 +1,6 @@
 import { popupImage, popupAgreeDelete } from "./data.js";
 import { openPopup, closePopup } from "./modal.js";
-// import { deleteCard, putLike, deleteLike } from "./api.js";
+import { deleteCard, putLike, deleteLike } from "./api.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
