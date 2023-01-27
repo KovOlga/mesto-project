@@ -24,7 +24,7 @@ import { renderCard, setCurrentUserId } from "./card.js";
 import {
   enableValidation,
   resetErrorOnReOpen,
-  disableSubmitBtnOnReopen,
+  disableSubmitBtnOnOpen,
 } from "./validate.js";
 
 //аватар
@@ -113,8 +113,8 @@ function submitProfileForm(evt) {
   showPreloader(btnSubmitProfile);
 
   patchProfile(nameInput.value, jobInput.value)
-    .then((newCardData) => {
-      updateUserData(newCardData);
+    .then((newUserData) => {
+      updateUserData(newUserData);
       closePopup(popupProfile);
     })
     .catch((err) => {
@@ -170,8 +170,8 @@ formPlace.addEventListener("submit", submitNewCard);
 //аватар
 btnAvatarEdit.addEventListener("click", () => {
   formAvatar.reset();
-  resetErrorOnReOpen(popupEditAvatar);
-  disableSubmitBtnOnReopen(formAvatar.elements.submitAvatar);
+  resetErrorOnReOpen(formAvatar);
+  disableSubmitBtnOnOpen(btnSubmitAvatar);
   openPopup(popupEditAvatar);
 });
 btnClosePopupAvatarEdit.addEventListener("click", () =>
@@ -181,7 +181,7 @@ btnClosePopupAvatarEdit.addEventListener("click", () =>
 //профайл
 btnEditProfile.addEventListener("click", () => {
   resetErrorOnReOpen(formProfile);
-  disableSubmitBtnOnReopen(formProfile.elements.submitProfile);
+  disableSubmitBtnOnOpen(btnSubmitProfile);
   openProfilePopup();
 });
 btnClosePopupProfile.addEventListener("click", () => closePopup(popupProfile));
@@ -189,7 +189,7 @@ btnClosePopupProfile.addEventListener("click", () => closePopup(popupProfile));
 btnAddCard.addEventListener("click", () => {
   formPlace.reset();
   resetErrorOnReOpen(formPlace);
-  disableSubmitBtnOnReopen(formPlace.elements.submitPlace);
+  disableSubmitBtnOnOpen(btnSubmitPlace);
   openPopup(popupNewCard);
 });
 btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewCard));
