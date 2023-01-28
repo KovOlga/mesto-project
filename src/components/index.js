@@ -27,33 +27,24 @@ import {
   disableSubmitBtnOnOpen,
 } from "./validate.js";
 
+const closeButtons = document.querySelectorAll(".popup__btn-close");
+
 //аватар
 const avatar = document.querySelector(".profile__avatar");
 const btnAvatarEdit = document.querySelector(".profile__avatar-container");
 const popupEditAvatar = document.querySelector(".popup_edit-avatar");
-const btnClosePopupAvatarEdit = document.querySelector(
-  ".popup__btn-close_avatar"
-);
 const formAvatar = document.forms.avatar;
 const inputAvatar = formAvatar.elements.avatar;
 const btnSubmitAvatar = formAvatar.elements.submitAvatar;
 //профайл
 const btnEditProfile = document.querySelector(".profile__edit-button");
-const btnClosePopupProfile = document.querySelector(
-  ".popup__btn-close_profile"
-);
 const btnSubmitProfile = formProfile.elements.submitProfile;
 //новая карточка
 const btnAddCard = document.querySelector(".profile__add-button");
 const popupNewCard = document.querySelector(".popup_new-place");
-const btnClosePopupNewCard = document.querySelector(".popup__btn-close_place");
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 const btnSubmitPlace = formPlace.elements.submitPlace;
-//попап фото
-const btnClosePopupImage = document.querySelector(".popup__btn-close_image");
-//попап согласия на удаление
-const btnClosePopupAgree = document.querySelector(".popup__btn-close_agree");
 
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
@@ -63,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   popupAgreeDelete.classList.add("popupTransitions");
 });
 
-enableValidation({
+const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit-btn",
@@ -71,7 +62,8 @@ enableValidation({
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
-});
+};
+enableValidation(validationConfig);
 
 function updateUserData(userData) {
   profileName.textContent = userData.name;
@@ -89,7 +81,7 @@ function loadInitialUserData(userData) {
 }
 
 function loadCards(cardsArr) {
-  cardsArr.forEach((cardElement) => {
+  cardsArr.reverse().forEach((cardElement) => {
     renderCard(cardElement);
   });
 }
@@ -167,35 +159,30 @@ formAvatar.addEventListener("submit", submitNewAvatar);
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
+closeButtons.forEach((closeButtonElement) => {
+  const popupOpened = closeButtonElement.closest(".popup");
+  closeButtonElement.addEventListener("click", () => closePopup(popupOpened));
+});
+
 //аватар
 btnAvatarEdit.addEventListener("click", () => {
   formAvatar.reset();
-  resetErrorOnReOpen(formAvatar);
-  disableSubmitBtnOnOpen(btnSubmitAvatar);
+  resetErrorOnReOpen(formAvatar, validationConfig);
+  disableSubmitBtnOnOpen(btnSubmitAvatar, validationConfig);
   openPopup(popupEditAvatar);
 });
-btnClosePopupAvatarEdit.addEventListener("click", () =>
-  closePopup(popupEditAvatar)
-);
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
-  resetErrorOnReOpen(formProfile);
-  disableSubmitBtnOnOpen(btnSubmitProfile);
+  resetErrorOnReOpen(formProfile, validationConfig);
+  disableSubmitBtnOnOpen(btnSubmitProfile, validationConfig);
   openProfilePopup();
 });
-btnClosePopupProfile.addEventListener("click", () => closePopup(popupProfile));
+
 //новая карточка
 btnAddCard.addEventListener("click", () => {
   formPlace.reset();
-  resetErrorOnReOpen(formPlace);
-  disableSubmitBtnOnOpen(btnSubmitPlace);
+  resetErrorOnReOpen(formPlace, validationConfig);
+  disableSubmitBtnOnOpen(btnSubmitPlace, validationConfig);
   openPopup(popupNewCard);
-});
-btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewCard));
-//попап фото
-btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
-//попап согласия на удаление
-btnClosePopupAgree.addEventListener("click", () => {
-  closePopup(popupAgreeDelete);
 });

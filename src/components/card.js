@@ -14,6 +14,23 @@ const likeContainerDisabledClass = "photo-elements__like-container_disabled";
 const likeCounterDisabledClass = "photo-elements__like-counter_disabled";
 
 let currentUserId;
+let cardId;
+let binBtnTarget;
+
+function agreeDelete() {
+  deleteCard(cardId)
+    .then(() => {
+      closePopup(popupAgreeDelete);
+      binBtnTarget.closest(".photo-elements__item").remove();
+    })
+    .catch((err) => {
+      console.log(`Ошибка при удалении карточки: ${err.message}`);
+    });
+}
+
+btnAgreeDelete.addEventListener("click", () => {
+  agreeDelete();
+});
 
 function setCurrentUserId(userId) {
   currentUserId = userId;
@@ -109,20 +126,12 @@ function createCardElement(cardData) {
     }
   });
 
-  //отрисовываем иконку корзины и вешаем слушатель открытия попапа/удаления, если айди юзера совпадает
+  //отрисовываем иконку корзины и вешаем слушатель открытия попапа, если айди юзера совпадает
   if (currentUserId === cardData.owner._id) {
-    btnDeletePhotoElement.addEventListener("click", () => {
+    btnDeletePhotoElement.addEventListener("click", (evt) => {
+      cardId = cardData._id;
+      binBtnTarget = evt.target;
       openPopup(popupAgreeDelete);
-      btnAgreeDelete.addEventListener("click", () => {
-        deleteCard(cardData._id)
-          .then(() => {
-            closePopup(popupAgreeDelete);
-            btnDeletePhotoElement.closest(".photo-elements__item").remove();
-          })
-          .catch((err) => {
-            console.log(`Ошибка при удалении карточки: ${err.message}`);
-          });
-      });
     });
   } else {
     btnDeletePhotoElement.remove();

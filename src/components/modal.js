@@ -8,7 +8,7 @@ import {
 
 function openPopup(popupElement) {
   document.addEventListener("keydown", closePopupOnEsc);
-  popupElement.addEventListener("click", closePopupOnOverlayClick);
+  popupElement.addEventListener("mousedown", closePopupOnOverlayClick);
   popupElement.classList.add("popup_opened");
 }
 
@@ -21,13 +21,12 @@ function openProfilePopup() {
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupOnEsc);
-  popupElement.removeEventListener("click", closePopupOnOverlayClick);
+  popupElement.removeEventListener("mousedown", closePopupOnOverlayClick);
 }
 
 function closePopupOnOverlayClick(evt) {
   if (evt.target === evt.currentTarget) {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
+    closePopup(evt.target);
   }
 }
 
