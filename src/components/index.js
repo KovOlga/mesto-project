@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   popupAgreeDelete.classList.add("popupTransitions");
 });
 
-enableValidation({
+const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit-btn",
@@ -62,7 +62,8 @@ enableValidation({
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
-});
+};
+enableValidation(validationConfig);
 
 function updateUserData(userData) {
   profileName.textContent = userData.name;
@@ -166,22 +167,22 @@ closeButtons.forEach((button) => {
 //аватар
 btnAvatarEdit.addEventListener("click", () => {
   formAvatar.reset();
-  resetErrorOnReOpen(formAvatar);
-  disableSubmitBtnOnOpen(btnSubmitAvatar);
+  resetErrorOnReOpen(formAvatar, validationConfig);
+  disableSubmitBtnOnOpen(btnSubmitAvatar, validationConfig);
   openPopup(popupEditAvatar);
 });
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
-  resetErrorOnReOpen(formProfile);
-  disableSubmitBtnOnOpen(btnSubmitProfile);
+  resetErrorOnReOpen(formProfile, validationConfig);
+  disableSubmitBtnOnOpen(btnSubmitProfile, validationConfig);
   openProfilePopup();
 });
 
 //новая карточка
 btnAddCard.addEventListener("click", () => {
   formPlace.reset();
-  resetErrorOnReOpen(formPlace);
-  disableSubmitBtnOnOpen(btnSubmitPlace);
+  resetErrorOnReOpen(formPlace, validationConfig);
+  disableSubmitBtnOnOpen(btnSubmitPlace, validationConfig);
   openPopup(popupNewCard);
 });
