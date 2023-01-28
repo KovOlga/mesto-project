@@ -27,33 +27,24 @@ import {
   disableSubmitBtnOnOpen,
 } from "./validate.js";
 
+const closeButtons = document.querySelectorAll(".popup__btn-close");
+
 //аватар
 const avatar = document.querySelector(".profile__avatar");
 const btnAvatarEdit = document.querySelector(".profile__avatar-container");
 const popupEditAvatar = document.querySelector(".popup_edit-avatar");
-const btnClosePopupAvatarEdit = document.querySelector(
-  ".popup__btn-close_avatar"
-);
 const formAvatar = document.forms.avatar;
 const inputAvatar = formAvatar.elements.avatar;
 const btnSubmitAvatar = formAvatar.elements.submitAvatar;
 //профайл
 const btnEditProfile = document.querySelector(".profile__edit-button");
-const btnClosePopupProfile = document.querySelector(
-  ".popup__btn-close_profile"
-);
 const btnSubmitProfile = formProfile.elements.submitProfile;
 //новая карточка
 const btnAddCard = document.querySelector(".profile__add-button");
 const popupNewCard = document.querySelector(".popup_new-place");
-const btnClosePopupNewCard = document.querySelector(".popup__btn-close_place");
 const inputPlace = formPlace.place;
 const inputImage = formPlace.link;
 const btnSubmitPlace = formPlace.elements.submitPlace;
-//попап фото
-const btnClosePopupImage = document.querySelector(".popup__btn-close_image");
-//попап согласия на удаление
-const btnClosePopupAgree = document.querySelector(".popup__btn-close_agree");
 
 document.addEventListener("DOMContentLoaded", () => {
   popupProfile.classList.add("popupTransitions");
@@ -167,6 +158,11 @@ formAvatar.addEventListener("submit", submitNewAvatar);
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
+closeButtons.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});
+
 //аватар
 btnAvatarEdit.addEventListener("click", () => {
   formAvatar.reset();
@@ -174,9 +170,6 @@ btnAvatarEdit.addEventListener("click", () => {
   disableSubmitBtnOnOpen(btnSubmitAvatar);
   openPopup(popupEditAvatar);
 });
-btnClosePopupAvatarEdit.addEventListener("click", () =>
-  closePopup(popupEditAvatar)
-);
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
@@ -184,18 +177,11 @@ btnEditProfile.addEventListener("click", () => {
   disableSubmitBtnOnOpen(btnSubmitProfile);
   openProfilePopup();
 });
-btnClosePopupProfile.addEventListener("click", () => closePopup(popupProfile));
+
 //новая карточка
 btnAddCard.addEventListener("click", () => {
   formPlace.reset();
   resetErrorOnReOpen(formPlace);
   disableSubmitBtnOnOpen(btnSubmitPlace);
   openPopup(popupNewCard);
-});
-btnClosePopupNewCard.addEventListener("click", () => closePopup(popupNewCard));
-//попап фото
-btnClosePopupImage.addEventListener("click", () => closePopup(popupImage));
-//попап согласия на удаление
-btnClosePopupAgree.addEventListener("click", () => {
-  closePopup(popupAgreeDelete);
 });
