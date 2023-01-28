@@ -89,7 +89,7 @@ function loadInitialUserData(userData) {
 }
 
 function loadCards(cardsArr) {
-  cardsArr.forEach((cardElement) => {
+  cardsArr.reverse().forEach((cardElement) => {
     renderCard(cardElement);
   });
 }
