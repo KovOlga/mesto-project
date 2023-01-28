@@ -159,9 +159,9 @@ formAvatar.addEventListener("submit", submitNewAvatar);
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
+closeButtons.forEach((closeButtonElement) => {
+  const popupOpened = closeButtonElement.closest(".popup");
+  closeButtonElement.addEventListener("click", () => closePopup(popupOpened));
 });
 
 //аватар
