@@ -1,5 +1,5 @@
 import "../pages/index.css";
-
+import Api from "./Api1.js";
 import {
   getCards,
   getUserData,
@@ -52,6 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
   popupImage.classList.add("popupTransitions");
   popupEditAvatar.classList.add("popupTransitions");
   popupAgreeDelete.classList.add("popupTransitions");
+});
+
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-19",
+  headers: {
+    authorization: "858c7cb6-e0c3-4a29-bdeb-66efeccdb118",
+    "Content-Type": "application/json",
+  },
 });
 
 const validationConfig = {
