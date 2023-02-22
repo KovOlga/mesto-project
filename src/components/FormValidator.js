@@ -5,12 +5,6 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    // const formList = Array.from(
-    //   document.querySelectorAll(classSettings.formSelector)
-    // );
-    // formList.forEach((formElement) => {
-    //   this.setEventListeners(formElement, classSettings);
-    // });
     this._setEventListeners();
   }
 
@@ -82,18 +76,18 @@ export default class FormValidator {
     errorElement.textContent = "";
   }
 
-  //   resetErrorOnReOpen(formElement, classSettings) {
-  //     const inputList = Array.from(
-  //       formElement.querySelectorAll(classSettings.inputSelector)
-  //     );
+  resetErrorOnReOpen() {
+    const inputList = Array.from(
+      this.formElement.querySelectorAll(this.classSettings.inputSelector)
+    );
 
-  //     inputList.forEach((inputElement) => {
-  //       this.hideInputError(formElement, inputElement, classSettings);
-  //     });
-  //   }
+    inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
 
-  //   disableSubmitBtnOnOpen(btnElement, classSettings) {
-  //     btnElement.setAttribute("disabled", true);
-  //     btnElement.classList.add(classSettings.inactiveButtonClass);
-  //   }
+  disableSubmitBtnOnOpen(btnElement) {
+    btnElement.setAttribute("disabled", true);
+    btnElement.classList.add(this.classSettings.inactiveButtonClass);
+  }
 }

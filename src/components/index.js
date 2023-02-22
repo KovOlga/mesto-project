@@ -15,11 +15,6 @@ import {
 } from "./data.js";
 import { openPopup, openProfilePopup, closePopup } from "./modal.js";
 import { renderCard, setCurrentUserId } from "./card.js";
-// import {
-//   enableValidation,
-//   resetErrorOnReOpen,
-//   disableSubmitBtnOnOpen,
-// } from "./validate.js";
 
 const closeButtons = document.querySelectorAll(".popup__btn-close");
 
@@ -65,19 +60,15 @@ const validationConfig = {
   errorClass: "form__input-error-message",
   errorVisibleClass: "form__input-error-message_active",
 };
-// enableValidation(validationConfig);
-const formList = Array.from(
-  document.querySelectorAll(validationConfig.formSelector)
-);
 
-const oneForm = document.querySelector(".form_profile");
-const newValid = new FormValidator(validationConfig, oneForm);
-newValid.enableValidation();
+const formProfileValidator = new FormValidator(validationConfig, formProfile);
+formProfileValidator.enableValidation();
 
-// formList.forEach((formElement, index) => {
-//   const newForm = new FormValidator(validationConfig, formElement);
-//   newForm.enableValidation();
-// });
+const formPlaceValidator = new FormValidator(validationConfig, formPlace);
+formPlaceValidator.enableValidation();
+
+const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
+formAvatarValidator.enableValidation();
 
 function updateUserData(userData) {
   profileName.textContent = userData.name;
@@ -184,22 +175,22 @@ closeButtons.forEach((closeButtonElement) => {
 //аватар
 btnAvatarEdit.addEventListener("click", () => {
   formAvatar.reset();
-  // resetErrorOnReOpen(formAvatar, validationConfig);
-  // disableSubmitBtnOnOpen(btnSubmitAvatar, validationConfig);
+  formAvatarValidator.resetErrorOnReOpen();
+  formAvatarValidator.disableSubmitBtnOnOpen(btnSubmitAvatar);
   openPopup(popupEditAvatar);
 });
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
-  // resetErrorOnReOpen(formProfile, validationConfig);
-  // disableSubmitBtnOnOpen(btnSubmitProfile, validationConfig);
+  formProfileValidator.resetErrorOnReOpen();
+  formProfileValidator.disableSubmitBtnOnOpen(btnSubmitProfile);
   openProfilePopup();
 });
 
 //новая карточка
 btnAddCard.addEventListener("click", () => {
   formPlace.reset();
-  // resetErrorOnReOpen(formPlace, validationConfig);
-  // disableSubmitBtnOnOpen(btnSubmitPlace, validationConfig);
+  formPlaceValidator.resetErrorOnReOpen();
+  formPlaceValidator.disableSubmitBtnOnOpen(btnSubmitPlace);
   openPopup(popupNewCard);
 });
