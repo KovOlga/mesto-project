@@ -1,12 +1,5 @@
 import "../pages/index.css";
-
-import {
-  getCards,
-  getUserData,
-  patchAvatar,
-  patchProfile,
-  postCard,
-} from "./api.js";
+import Api from "./Api.js";
 import { showPreloader, hidePreloader } from "./utils.js";
 import {
   popupImage,
@@ -54,6 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
   popupAgreeDelete.classList.add("popupTransitions");
 });
 
+const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-19",
+  headers: {
+    authorization: "858c7cb6-e0c3-4a29-bdeb-66efeccdb118",
+    "Content-Type": "application/json",
+  },
+});
+
 const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
@@ -87,7 +88,7 @@ function loadCards(cardsArr) {
 }
 
 const renderInitialData = () => {
-  Promise.all([getUserData(), getCards()])
+  Promise.all([api.getUserData(), api.getCards()])
     .then(([userData, cardsArr]) => {
       loadInitialUserData(userData);
       loadCards(cardsArr);
@@ -104,7 +105,8 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitProfile);
 
-  patchProfile(nameInput.value, jobInput.value)
+  api
+    .patchProfile(nameInput.value, jobInput.value)
     .then((newUserData) => {
       updateUserData(newUserData);
       closePopup(popupProfile);
@@ -123,7 +125,8 @@ function submitNewCard(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitPlace);
 
-  postCard(inputPlace.value, inputImage.value)
+  api
+    .postCard(inputPlace.value, inputImage.value)
     .then((newCardData) => {
       closePopup(popupNewCard);
       renderCard(newCardData);
@@ -141,7 +144,8 @@ function submitNewAvatar(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitAvatar);
 
-  patchAvatar(inputAvatar.value)
+  api
+    .patchAvatar(inputAvatar.value)
     .then((newAvatarURL) => {
       updateAvatar(newAvatarURL);
       closePopup(popupEditAvatar);
