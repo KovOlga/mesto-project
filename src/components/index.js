@@ -1,6 +1,6 @@
 import "../pages/index.css";
-import Api from "./Api.js";
 import FormValidator from "./FormValidator.js";
+import Api from "./Api.js";
 import { showPreloader, hidePreloader } from "./utils.js";
 import {
   popupImage,
