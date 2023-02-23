@@ -114,12 +114,6 @@ function submitProfileForm(evt) {
     .then(() => {
       closePopup(popupProfile);
     })
-    // api
-    //   .patchProfile(nameInput.value, jobInput.value)
-    //   .then((newUserData) => {
-    //     updateUserData(newUserData);
-    //     closePopup(popupProfile);
-    //   })
     .catch((err) => {
       console.log(
         `Ошибка при отправке обновленных данных пользователя: ${err.message}`
