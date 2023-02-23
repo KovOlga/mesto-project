@@ -1,4 +1,5 @@
 import "../pages/index.css";
+import UserInfo from "./UserInfo.js";
 import FormValidator from "./FormValidator.js";
 import Api from "./Api.js";
 import { showPreloader, hidePreloader } from "./utils.js";
@@ -70,20 +71,40 @@ formPlaceValidator.enableValidation();
 const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
-function updateUserData(userData) {
-  profileName.textContent = userData.name;
-  profileJob.textContent = userData.about;
-}
+const userInfo = new UserInfo(api, profileName, profileJob, avatar);
 
-function updateAvatar(userData) {
-  avatar.src = userData.avatar;
-}
+// function updateUserData(userData) {
+//   profileName.textContent = userData.name;
+//   profileJob.textContent = userData.about;
+// }
 
-function loadInitialUserData(userData) {
-  updateUserData(userData);
-  updateAvatar(userData);
-  setCurrentUserId(userData._id);
-}
+// function updateAvatar(userData) {
+//   avatar.src = userData.avatar;
+// }
+
+// function loadInitialUserData(userData) {
+//   updateUserData(userData);
+//   updateAvatar(userData);
+//   setCurrentUserId(userData._id);
+// }
+
+const renderInitialUserData = () => {
+  Promise.all([userInfo.getUserInfo()])
+    .then(([userData]) => {
+      profileName.textContent = userData.name;
+      profileJob.textContent = userData.about;
+      avatar.src = userData.avatar;
+      setCurrentUserId(userData._id);
+    })
+    .catch((err) => {
+      console.log(
+        `Ошибка при загрузке данных пользователя с сервера: ${err.message}`
+      );
+    });
+};
+renderInitialUserData();
+
+//////////////////////---------------
 
 function loadCards(cardsArr) {
   cardsArr.reverse().forEach((cardElement) => {
@@ -91,10 +112,9 @@ function loadCards(cardsArr) {
   });
 }
 
-const renderInitialData = () => {
-  Promise.all([api.getUserData(), api.getCards()])
-    .then(([userData, cardsArr]) => {
-      loadInitialUserData(userData);
+const renderInitialCards = () => {
+  Promise.all([api.getCards()])
+    .then(([cardsArr]) => {
       loadCards(cardsArr);
     })
     .catch((err) => {
@@ -103,26 +123,32 @@ const renderInitialData = () => {
       );
     });
 };
-renderInitialData();
+renderInitialCards();
 
 function submitProfileForm(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitProfile);
 
-  api
-    .patchProfile(nameInput.value, jobInput.value)
-    .then((newUserData) => {
-      updateUserData(newUserData);
-      closePopup(popupProfile);
-    })
-    .catch((err) => {
-      console.log(
-        `Ошибка при отправке обновленных данных пользователя: ${err.message}`
-      );
-    })
-    .finally(() => {
-      hidePreloader(btnSubmitProfile);
-    });
+  userInfo.setUserInfo(nameInput.value, jobInput.value);
+  // .then((newUserData) => {
+  // updateUserData(newUserData);
+  closePopup(popupProfile);
+  // })
+
+  // api
+  //   .patchProfile(nameInput.value, jobInput.value)
+  //   .then((newUserData) => {
+  //     updateUserData(newUserData);
+  //     closePopup(popupProfile);
+  //   })
+  // .catch((err) => {
+  //   console.log(
+  //     `Ошибка при отправке обновленных данных пользователя: ${err.message}`
+  //   );
+  // })
+  // .finally(() => {
+  hidePreloader(btnSubmitProfile);
+  // });
 }
 
 function submitNewCard(evt) {
