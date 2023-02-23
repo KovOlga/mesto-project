@@ -71,7 +71,7 @@ formPlaceValidator.enableValidation();
 const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
-const userInfo = new UserInfo(api, profileName, profileJob, avatar);
+const userInfo = new UserInfo({ api, profileName, profileJob, avatar });
 
 // function updateUserData(userData) {
 //   profileName.textContent = userData.name;
@@ -129,26 +129,28 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitProfile);
 
-  userInfo.setUserInfo(nameInput.value, jobInput.value);
-  // .then((newUserData) => {
-  // updateUserData(newUserData);
-  closePopup(popupProfile);
-  // })
+  Promise.all([userInfo.setUserInfo(nameInput.value, jobInput.value)])
+    // userInfo.setUserInfo(nameInput.value, jobInput.value)
+    .then(([newUserData]) => {
+      profileName.textContent = newUserData.name;
+      profileJob.textContent = newUserData.about;
+      closePopup(popupProfile);
+    })
 
-  // api
-  //   .patchProfile(nameInput.value, jobInput.value)
-  //   .then((newUserData) => {
-  //     updateUserData(newUserData);
-  //     closePopup(popupProfile);
-  //   })
-  // .catch((err) => {
-  //   console.log(
-  //     `Ошибка при отправке обновленных данных пользователя: ${err.message}`
-  //   );
-  // })
-  // .finally(() => {
-  hidePreloader(btnSubmitProfile);
-  // });
+    // api
+    //   .patchProfile(nameInput.value, jobInput.value)
+    //   .then((newUserData) => {
+    //     updateUserData(newUserData);
+    //     closePopup(popupProfile);
+    //   })
+    .catch((err) => {
+      console.log(
+        `Ошибка при отправке обновленных данных пользователя: ${err.message}`
+      );
+    })
+    .finally(() => {
+      hidePreloader(btnSubmitProfile);
+    });
 }
 
 function submitNewCard(evt) {
