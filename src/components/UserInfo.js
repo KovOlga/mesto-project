@@ -1,9 +1,16 @@
 export default class UserInfo {
-  constructor({ nameSelector, jobSelector, avatarSelector, getUserData }) {
+  constructor({
+    nameSelector,
+    jobSelector,
+    avatarSelector,
+    getUserData,
+    setUserData,
+  }) {
     this.name = nameSelector;
     this.job = jobSelector;
     this.avatar = avatarSelector;
     this.getUserData = getUserData;
+    this.setUserData = setUserData;
   }
 
   getUserInfo() {
@@ -20,7 +27,7 @@ export default class UserInfo {
   }
 
   setUserInfo(name, job) {
-    this.api.patchProfile(name, job).then((newUserData) => {
+    return this.setUserData(name, job).then((newUserData) => {
       this._updateUserInfo(newUserData);
     });
   }

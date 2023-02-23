@@ -78,27 +78,14 @@ const userInfo = new UserInfo({
   getUserData: () => {
     return api.getUserData();
   },
+  setUserData: (name, job) => {
+    return api.patchProfile(name, job);
+  },
 });
-
-// function updateUserData(userData) {
-//   profileName.textContent = userData.name;
-//   profileJob.textContent = userData.about;
-// }
-
-// function updateAvatar(userData) {
-//   avatar.src = userData.avatar;
-// }
-
-// function loadInitialUserData(userData) {
-//   updateUserData(userData);
-//   updateAvatar(userData);
-//   setCurrentUserId(userData._id);
-// }
 
 const renderInitialUserData = () => {
   Promise.all([userInfo.getUserInfo()])
     .then(([userData]) => {
-      console.log(userData);
       profileName.textContent = userData.name;
       profileJob.textContent = userData.about;
       avatar.src = userData.avatar;
@@ -141,7 +128,6 @@ function submitProfileForm(evt) {
     .then(() => {
       closePopup(popupProfile);
     })
-
     // api
     //   .patchProfile(nameInput.value, jobInput.value)
     //   .then((newUserData) => {
