@@ -72,10 +72,12 @@ const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
 const userInfo = new UserInfo({
-  api: api,
   nameSelector: profileName,
   jobSelector: profileJob,
   avatarSelector: avatar,
+  getUserData: () => {
+    return api.getUserData();
+  },
 });
 
 // function updateUserData(userData) {
@@ -96,6 +98,7 @@ const userInfo = new UserInfo({
 const renderInitialUserData = () => {
   Promise.all([userInfo.getUserInfo()])
     .then(([userData]) => {
+      console.log(userData);
       profileName.textContent = userData.name;
       profileJob.textContent = userData.about;
       avatar.src = userData.avatar;

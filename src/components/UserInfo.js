@@ -1,13 +1,13 @@
 export default class UserInfo {
-  constructor({ api, nameSelector, jobSelector, avatarSelector }) {
-    this.api = api;
+  constructor({ nameSelector, jobSelector, avatarSelector, getUserData }) {
     this.name = nameSelector;
     this.job = jobSelector;
     this.avatar = avatarSelector;
+    this.getUserData = getUserData;
   }
 
   getUserInfo() {
-    return this.api.getUserData();
+    return this.getUserData();
   }
 
   _updateAvatar(newUserData) {
