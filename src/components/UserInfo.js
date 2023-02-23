@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor(api, nameSelector, jobSelector, avatarSelector) {
+  constructor({ api, nameSelector, jobSelector, avatarSelector }) {
     this.api = api;
     this.name = nameSelector;
     this.job = jobSelector;
