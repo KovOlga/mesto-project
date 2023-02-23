@@ -81,6 +81,9 @@ const userInfo = new UserInfo({
   setUserData: (name, job) => {
     return api.patchProfile(name, job);
   },
+  setNewAvatar: (newAvatarUrl) => {
+    return api.patchAvatar(newAvatarUrl);
+  },
 });
 
 function loadCards(cardsArr) {
@@ -147,10 +150,8 @@ function submitNewAvatar(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitAvatar);
 
-  api
-    .patchAvatar(inputAvatar.value)
-    .then((newAvatarURL) => {
-      updateAvatar(newAvatarURL);
+  Promise.all([userInfo.setAvatar(inputAvatar.value)])
+    .then(() => {
       closePopup(popupEditAvatar);
       formAvatar.reset();
     })

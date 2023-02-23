@@ -5,12 +5,14 @@ export default class UserInfo {
     avatarSelector,
     getUserData,
     setUserData,
+    setNewAvatar,
   }) {
     this.name = nameSelector;
     this.job = jobSelector;
     this.avatar = avatarSelector;
     this.getUserData = getUserData;
     this.setUserData = setUserData;
+    this.setNewAvatar = setNewAvatar;
   }
 
   getUserInfo() {
@@ -18,7 +20,7 @@ export default class UserInfo {
   }
 
   _updateAvatar(newUserData) {
-    this.avatar = newUserData.avatar;
+    this.avatar.src = newUserData.avatar;
   }
 
   _updateUserInfo(newUserData) {
@@ -29,6 +31,12 @@ export default class UserInfo {
   setUserInfo(name, job) {
     return this.setUserData(name, job).then((newUserData) => {
       this._updateUserInfo(newUserData);
+    });
+  }
+
+  setAvatar(url) {
+    return this.setNewAvatar(url).then((newUserData) => {
+      this._updateAvatar(newUserData);
     });
   }
 }
