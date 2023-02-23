@@ -83,33 +83,19 @@ const userInfo = new UserInfo({
   },
 });
 
-const renderInitialUserData = () => {
-  Promise.all([userInfo.getUserInfo()])
-    .then(([userData]) => {
-      profileName.textContent = userData.name;
-      profileJob.textContent = userData.about;
-      avatar.src = userData.avatar;
-      setCurrentUserId(userData._id);
-    })
-    .catch((err) => {
-      console.log(
-        `Ошибка при загрузке данных пользователя с сервера: ${err.message}`
-      );
-    });
-};
-renderInitialUserData();
-
-//////////////////////---------------
-
 function loadCards(cardsArr) {
   cardsArr.reverse().forEach((cardElement) => {
     renderCard(cardElement);
   });
 }
 
-const renderInitialCards = () => {
-  Promise.all([api.getCards()])
-    .then(([cardsArr]) => {
+const renderInitialData = () => {
+  Promise.all([userInfo.getUserInfo(), api.getCards()])
+    .then(([userData, cardsArr]) => {
+      profileName.textContent = userData.name;
+      profileJob.textContent = userData.about;
+      avatar.src = userData.avatar;
+      setCurrentUserId(userData._id);
       loadCards(cardsArr);
     })
     .catch((err) => {
@@ -118,7 +104,7 @@ const renderInitialCards = () => {
       );
     });
 };
-renderInitialCards();
+renderInitialData();
 
 function submitProfileForm(evt) {
   evt.preventDefault();
