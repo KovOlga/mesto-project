@@ -71,7 +71,7 @@ formPlaceValidator.enableValidation();
 const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
-const userInfo = new UserInfo({ api, profileName, profileJob, avatar });
+const userInfo = new UserInfo(api, profileName, profileJob, avatar);
 
 // function updateUserData(userData) {
 //   profileName.textContent = userData.name;
@@ -130,10 +130,7 @@ function submitProfileForm(evt) {
   showPreloader(btnSubmitProfile);
 
   Promise.all([userInfo.setUserInfo(nameInput.value, jobInput.value)])
-    // userInfo.setUserInfo(nameInput.value, jobInput.value)
-    .then(([newUserData]) => {
-      profileName.textContent = newUserData.name;
-      profileJob.textContent = newUserData.about;
+    .then(() => {
       closePopup(popupProfile);
     })
 
