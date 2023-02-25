@@ -93,9 +93,6 @@ const userInfo = new UserInfo({
 });
 
 function renderInitialCards(cardsArr) {
-  // cardsArr.reverse().forEach((cardElement) => {
-  //   renderCard(cardElement);
-  // });
   const cardList = new Section(
     {
       items: cardsArr,
