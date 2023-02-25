@@ -1,4 +1,5 @@
 import "../pages/index.css";
+import UserInfo from "./UserInfo.js";
 import FormValidator from "./FormValidator.js";
 import Api from "./Api.js";
 import { showPreloader, hidePreloader } from "./utils.js";
@@ -70,20 +71,20 @@ formPlaceValidator.enableValidation();
 const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
-function updateUserData(userData) {
-  profileName.textContent = userData.name;
-  profileJob.textContent = userData.about;
-}
-
-function updateAvatar(userData) {
-  avatar.src = userData.avatar;
-}
-
-function loadInitialUserData(userData) {
-  updateUserData(userData);
-  updateAvatar(userData);
-  setCurrentUserId(userData._id);
-}
+const userInfo = new UserInfo({
+  nameSelector: profileName,
+  jobSelector: profileJob,
+  avatarSelector: avatar,
+  getUserData: () => {
+    return api.getUserData();
+  },
+  setUserData: (name, job) => {
+    return api.patchProfile(name, job);
+  },
+  setNewAvatar: (newAvatarUrl) => {
+    return api.patchAvatar(newAvatarUrl);
+  },
+});
 
 function loadCards(cardsArr) {
   cardsArr.reverse().forEach((cardElement) => {
@@ -92,9 +93,12 @@ function loadCards(cardsArr) {
 }
 
 const renderInitialData = () => {
-  Promise.all([api.getUserData(), api.getCards()])
+  Promise.all([userInfo.getUserInfo(), api.getCards()])
     .then(([userData, cardsArr]) => {
-      loadInitialUserData(userData);
+      profileName.textContent = userData.name;
+      profileJob.textContent = userData.about;
+      avatar.src = userData.avatar;
+      setCurrentUserId(userData._id);
       loadCards(cardsArr);
     })
     .catch((err) => {
@@ -109,10 +113,8 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitProfile);
 
-  api
-    .patchProfile(nameInput.value, jobInput.value)
-    .then((newUserData) => {
-      updateUserData(newUserData);
+  Promise.all([userInfo.setUserInfo(nameInput.value, jobInput.value)])
+    .then(() => {
       closePopup(popupProfile);
     })
     .catch((err) => {
@@ -148,10 +150,8 @@ function submitNewAvatar(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitAvatar);
 
-  api
-    .patchAvatar(inputAvatar.value)
-    .then((newAvatarURL) => {
-      updateAvatar(newAvatarURL);
+  Promise.all([userInfo.setAvatar(inputAvatar.value)])
+    .then(() => {
       closePopup(popupEditAvatar);
       formAvatar.reset();
     })
