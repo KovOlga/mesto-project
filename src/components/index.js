@@ -16,7 +16,12 @@ import {
   jobInput,
 } from "./data.js";
 import { openPopup, openProfilePopup, closePopup } from "./modal.js";
-import { renderCard, setCurrentUserId, createCardElement } from "./card.js";
+import {
+  renderCard,
+  setCurrentUserId,
+  createCardElement,
+  photoElementsGallery,
+} from "./card.js";
 
 const closeButtons = document.querySelectorAll(".popup__btn-close");
 
@@ -86,8 +91,6 @@ const userInfo = new UserInfo({
     return api.patchAvatar(newAvatarUrl);
   },
 });
-
-const photoElementsGallery = document.querySelector(".photo-elements__list");
 
 function renderInitialCards(cardsArr) {
   // cardsArr.reverse().forEach((cardElement) => {
