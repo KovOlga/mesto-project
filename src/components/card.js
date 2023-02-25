@@ -148,4 +148,4 @@ function createCardElement(cardData) {
   return photoCardElement;
 }
 
-export { renderCard, setCurrentUserId };
+export { renderCard, setCurrentUserId, createCardElement };

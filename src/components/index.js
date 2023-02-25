@@ -1,4 +1,5 @@
 import "../pages/index.css";
+import Section from "./Section.js";
 import UserInfo from "./UserInfo.js";
 import FormValidator from "./FormValidator.js";
 import Api from "./Api.js";
@@ -15,7 +16,7 @@ import {
   jobInput,
 } from "./data.js";
 import { openPopup, openProfilePopup, closePopup } from "./modal.js";
-import { renderCard, setCurrentUserId } from "./card.js";
+import { renderCard, setCurrentUserId, createCardElement } from "./card.js";
 
 const closeButtons = document.querySelectorAll(".popup__btn-close");
 
@@ -86,10 +87,23 @@ const userInfo = new UserInfo({
   },
 });
 
-function loadCards(cardsArr) {
-  cardsArr.reverse().forEach((cardElement) => {
-    renderCard(cardElement);
-  });
+const photoElementsGallery = document.querySelector(".photo-elements__list");
+
+function renderInitialCards(cardsArr) {
+  // cardsArr.reverse().forEach((cardElement) => {
+  //   renderCard(cardElement);
+  // });
+  const cardList = new Section(
+    {
+      items: cardsArr,
+      renderer: (item) => {
+        const cardElement = createCardElement(item);
+        cardList.addItem(cardElement);
+      },
+    },
+    photoElementsGallery
+  );
+  cardList.renderItems();
 }
 
 const renderInitialData = () => {
@@ -99,7 +113,7 @@ const renderInitialData = () => {
       profileJob.textContent = userData.about;
       avatar.src = userData.avatar;
       setCurrentUserId(userData._id);
-      loadCards(cardsArr);
+      renderInitialCards(cardsArr);
     })
     .catch((err) => {
       console.log(
