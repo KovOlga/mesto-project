@@ -3,9 +3,10 @@ import Popup from "./Popup.js";
 export default class PopupWithForm extends Popup {
   /*Пока не разобрался, как следует добавить колбэк в конструктор
   Наверное, говорится про метод Api.getUserData()*/
-  constructor(popupElement) {
+  constructor(popupElement, {handleSubmit}) {
     super(popupElement);
     this._form = this._popup.querySelector('.form');
+    this._handleSubmit = handleSubmit;
   }
 
   _getInputValues() {
@@ -17,14 +18,17 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
-    /*this._form.addEventListener("submit", /*Пока не придумал, 
-    как сделать общую логику сабмита для всех попапов с формами
-    Их у нас 3: редактирование аватара, профиля и добавления новой карточки
-    как класс должен понимать, какие именно данные надо редактировать?)*/
+    this._form.addEventListener("submit", this._submitHandler);
   }  
+
+  _submitHandler(evt) {
+    evt.preventDefault();
+    
+  }
 
   close() {
     super.close();
+    this._form.removeEventListener("submit", this._submitHandler);
     this._form.reset();
   }
 }

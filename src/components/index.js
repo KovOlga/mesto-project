@@ -20,6 +20,11 @@ import PopupWithForm from "./PopupWithForm";
 
 export const imagePopup = new PopupWithImage(popupImage);
 
+const avatarPopup = new PopupWithForm(popupEditAvatar, 
+  {handleSubmit: () => {
+    return user
+}});
+
 const closeButtons = document.querySelectorAll(".popup__btn-close");
 
 //аватар
@@ -148,26 +153,26 @@ function submitNewCard(evt) {
     });
 }
 
-function submitNewAvatar(evt) {
-  evt.preventDefault();
-  showPreloader(btnSubmitAvatar);
+// function submitNewAvatar(evt) {
+//   evt.preventDefault();
+//   showPreloader(btnSubmitAvatar);
 
-  api
-    .patchAvatar(inputAvatar.value)
-    .then((newAvatarURL) => {
-      updateAvatar(newAvatarURL);
-      //closePopup(popupEditAvatar);
-      formAvatar.reset();
-    })
-    .catch((err) => {
-      console.log(`Ошибка при отправке URL аватара на сервер: ${err.message}`);
-    })
-    .finally(() => {
-      hidePreloader(btnSubmitAvatar);
-    });
-}
+//   api
+//     .patchAvatar(inputAvatar.value)
+//     .then((newAvatarURL) => {
+//       updateAvatar(newAvatarURL);
+//       //closePopup(popupEditAvatar);
+//       formAvatar.reset();
+//     })
+//     .catch((err) => {
+//       console.log(`Ошибка при отправке URL аватара на сервер: ${err.message}`);
+//     })
+//     .finally(() => {
+//       hidePreloader(btnSubmitAvatar);
+//     });
+// }
 
-formAvatar.addEventListener("submit", submitNewAvatar);
+// formAvatar.addEventListener("submit", submitNewAvatar);
 formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
 
@@ -178,10 +183,9 @@ closeButtons.forEach((closeButtonElement) => {
 
 //аватар
 btnAvatarEdit.addEventListener("click", () => {
-  formAvatar.reset();
   formAvatarValidator.resetErrorOnReOpen();
   formAvatarValidator.disableSubmitBtnOnOpen(btnSubmitAvatar);
-  //openPopup(popupEditAvatar);
+  avatarPopup.open();
 });
 
 //профайл
