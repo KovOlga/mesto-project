@@ -13,8 +13,12 @@ import {
   nameInput,
   jobInput,
 } from "./data.js";
-import { openPopup, openProfilePopup, closePopup } from "./modal.js";
 import { renderCard, setCurrentUserId } from "./card.js";
+
+import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm";
+
+export const imagePopup = new PopupWithImage(popupImage);
 
 const closeButtons = document.querySelectorAll(".popup__btn-close");
 
@@ -113,7 +117,7 @@ function submitProfileForm(evt) {
     .patchProfile(nameInput.value, jobInput.value)
     .then((newUserData) => {
       updateUserData(newUserData);
-      closePopup(popupProfile);
+      //closePopup(popupProfile);
     })
     .catch((err) => {
       console.log(
@@ -132,7 +136,7 @@ function submitNewCard(evt) {
   api
     .postCard(inputPlace.value, inputImage.value)
     .then((newCardData) => {
-      closePopup(popupNewCard);
+      //closePopup(popupNewCard);
       renderCard(newCardData);
       formPlace.reset();
     })
@@ -152,7 +156,7 @@ function submitNewAvatar(evt) {
     .patchAvatar(inputAvatar.value)
     .then((newAvatarURL) => {
       updateAvatar(newAvatarURL);
-      closePopup(popupEditAvatar);
+      //closePopup(popupEditAvatar);
       formAvatar.reset();
     })
     .catch((err) => {
@@ -169,7 +173,7 @@ formPlace.addEventListener("submit", submitNewCard);
 
 closeButtons.forEach((closeButtonElement) => {
   const popupOpened = closeButtonElement.closest(".popup");
-  closeButtonElement.addEventListener("click", () => closePopup(popupOpened));
+  //closeButtonElement.addEventListener("click", () => closePopup(popupOpened));
 });
 
 //аватар
@@ -177,7 +181,7 @@ btnAvatarEdit.addEventListener("click", () => {
   formAvatar.reset();
   formAvatarValidator.resetErrorOnReOpen();
   formAvatarValidator.disableSubmitBtnOnOpen(btnSubmitAvatar);
-  openPopup(popupEditAvatar);
+  //openPopup(popupEditAvatar);
 });
 
 //профайл
@@ -192,5 +196,5 @@ btnAddCard.addEventListener("click", () => {
   formPlace.reset();
   formPlaceValidator.resetErrorOnReOpen();
   formPlaceValidator.disableSubmitBtnOnOpen(btnSubmitPlace);
-  openPopup(popupNewCard);
+  //openPopup(popupNewCard);
 });

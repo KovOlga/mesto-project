@@ -1,6 +1,7 @@
 import { popupImage, popupAgreeDelete } from "./data.js";
-import { openPopup, closePopup } from "./modal.js";
 import { deleteCard, putLike, deleteLike } from "./api-old.js";
+
+import { imagePopup } from "./index.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
@@ -20,7 +21,7 @@ let binBtnTarget;
 function agreeDelete() {
   deleteCard(cardId)
     .then(() => {
-      closePopup(popupAgreeDelete);
+      // closePopup(popupAgreeDelete);
       binBtnTarget.closest(".photo-elements__item").remove();
     })
     .catch((err) => {
@@ -131,18 +132,14 @@ function createCardElement(cardData) {
     btnDeletePhotoElement.addEventListener("click", (evt) => {
       cardId = cardData._id;
       binBtnTarget = evt.target;
-      openPopup(popupAgreeDelete);
+      // openPopup(popupAgreeDelete);
     });
   } else {
     btnDeletePhotoElement.remove();
   }
 
   photoElementImage.addEventListener("click", () => {
-    popupImagePicture.src = photoElementImage.src;
-    popupImagePicture.alt = photoElementImage.alt;
-    popupImageCaption.textContent = photoElementTitle.textContent;
-
-    openPopup(popupImage);
+      imagePopup.open(cardData.link, cardData.name);
   });
 
   return photoCardElement;
