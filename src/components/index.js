@@ -12,25 +12,21 @@ import {
   profileName,
   popupAgreeDelete,
   profileJob,
-  nameInput,
-  jobInput,
 } from "./data.js";
-import { openPopup, openProfilePopup, closePopup } from "./modal.js";
-import {
-  renderCard,
+
+import {   renderCard,
   setCurrentUserId,
   createCardElement,
-  photoElementsGallery,
-} from "./card.js";
+  photoElementsGallery, } from "./card";
 
-const closeButtons = document.querySelectorAll(".popup__btn-close");
+import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm";
 
 //аватар
 const avatar = document.querySelector(".profile__avatar");
 const btnAvatarEdit = document.querySelector(".profile__avatar-container");
 const popupEditAvatar = document.querySelector(".popup_edit-avatar");
 const formAvatar = document.forms.avatar;
-const inputAvatar = formAvatar.elements.avatar;
 const btnSubmitAvatar = formAvatar.elements.submitAvatar;
 //профайл
 const btnEditProfile = document.querySelector(".profile__edit-button");
@@ -92,6 +88,18 @@ const userInfo = new UserInfo({
   },
 });
 
+export const imagePopup = new PopupWithImage(popupImage);
+
+const avatarPopup = new PopupWithForm(popupEditAvatar, 
+  {handleSubmit: ({avatar}) => {
+    return userInfo.setAvatar(avatar);
+}});
+
+const profilePopup = new PopupWithForm(popupProfile, {
+  handleSubmit: ({name, job}) => {
+    return userInfo.setUserInfo(name, job);
+}});
+
 function renderInitialCards(cardsArr) {
   const cardList = new Section(
     {
@@ -123,24 +131,6 @@ const renderInitialData = () => {
 };
 renderInitialData();
 
-function submitProfileForm(evt) {
-  evt.preventDefault();
-  showPreloader(btnSubmitProfile);
-
-  Promise.all([userInfo.setUserInfo(nameInput.value, jobInput.value)])
-    .then(() => {
-      closePopup(popupProfile);
-    })
-    .catch((err) => {
-      console.log(
-        `Ошибка при отправке обновленных данных пользователя: ${err.message}`
-      );
-    })
-    .finally(() => {
-      hidePreloader(btnSubmitProfile);
-    });
-}
-
 function submitNewCard(evt) {
   evt.preventDefault();
   showPreloader(btnSubmitPlace);
@@ -148,7 +138,7 @@ function submitNewCard(evt) {
   api
     .postCard(inputPlace.value, inputImage.value)
     .then((newCardData) => {
-      closePopup(popupNewCard);
+      //closePopup(popupNewCard);
       renderCard(newCardData);
       formPlace.reset();
     })
@@ -160,45 +150,20 @@ function submitNewCard(evt) {
     });
 }
 
-function submitNewAvatar(evt) {
-  evt.preventDefault();
-  showPreloader(btnSubmitAvatar);
-
-  Promise.all([userInfo.setAvatar(inputAvatar.value)])
-    .then(() => {
-      closePopup(popupEditAvatar);
-      formAvatar.reset();
-    })
-    .catch((err) => {
-      console.log(`Ошибка при отправке URL аватара на сервер: ${err.message}`);
-    })
-    .finally(() => {
-      hidePreloader(btnSubmitAvatar);
-    });
-}
-
-formAvatar.addEventListener("submit", submitNewAvatar);
-formProfile.addEventListener("submit", submitProfileForm);
 formPlace.addEventListener("submit", submitNewCard);
-
-closeButtons.forEach((closeButtonElement) => {
-  const popupOpened = closeButtonElement.closest(".popup");
-  closeButtonElement.addEventListener("click", () => closePopup(popupOpened));
-});
 
 //аватар
 btnAvatarEdit.addEventListener("click", () => {
-  formAvatar.reset();
   formAvatarValidator.resetErrorOnReOpen();
   formAvatarValidator.disableSubmitBtnOnOpen(btnSubmitAvatar);
-  openPopup(popupEditAvatar);
+  avatarPopup.open();
 });
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
   formProfileValidator.resetErrorOnReOpen();
   formProfileValidator.disableSubmitBtnOnOpen(btnSubmitProfile);
-  openProfilePopup();
+  profilePopup.open();
 });
 
 //новая карточка
@@ -206,5 +171,5 @@ btnAddCard.addEventListener("click", () => {
   formPlace.reset();
   formPlaceValidator.resetErrorOnReOpen();
   formPlaceValidator.disableSubmitBtnOnOpen(btnSubmitPlace);
-  openPopup(popupNewCard);
+  //openPopup(popupNewCard);
 });

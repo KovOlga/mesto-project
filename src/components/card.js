@@ -1,6 +1,7 @@
 import { popupImage, popupAgreeDelete } from "./data.js";
-import { openPopup, closePopup } from "./modal.js";
 import { deleteCard, putLike, deleteLike } from "./api-old.js";
+
+import { imagePopup } from "./index.js";
 
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
@@ -138,11 +139,7 @@ function createCardElement(cardData) {
   }
 
   photoElementImage.addEventListener("click", () => {
-    popupImagePicture.src = photoElementImage.src;
-    popupImagePicture.alt = photoElementImage.alt;
-    popupImageCaption.textContent = photoElementTitle.textContent;
-
-    openPopup(popupImage);
+      imagePopup.open(cardData.link, cardData.name);
   });
 
   return photoCardElement;
