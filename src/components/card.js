@@ -21,7 +21,7 @@ let binBtnTarget;
 function agreeDelete() {
   deleteCard(cardId)
     .then(() => {
-      // closePopup(popupAgreeDelete);
+      closePopup(popupAgreeDelete);
       binBtnTarget.closest(".photo-elements__item").remove();
     })
     .catch((err) => {
@@ -132,7 +132,7 @@ function createCardElement(cardData) {
     btnDeletePhotoElement.addEventListener("click", (evt) => {
       cardId = cardData._id;
       binBtnTarget = evt.target;
-      // openPopup(popupAgreeDelete);
+      openPopup(popupAgreeDelete);
     });
   } else {
     btnDeletePhotoElement.remove();

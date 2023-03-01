@@ -1,8 +1,7 @@
 export default class Popup {
 
   constructor(popupElement) {
-    this._popup = popupElement;
-    this._closeButton = this._popup.querySelector('.popup__btn-close');
+    this.popupElement = popupElement;
     
     this.close = this.close.bind(this);
     this._handleEscClose = this._handleEscClose.bind(this);
@@ -11,27 +10,26 @@ export default class Popup {
   }
 
   open() {
-    this._popup.classList.add('popup_opened');
+    this.popupElement.classList.add('popup_opened');
     this.setEventListeners();
   }
 
   close() {
-    this._popup.classList.remove('popup_opened');
+    this.popupElement.classList.remove('popup_opened');
     
     document.removeEventListener("keydown", this._handleEscClose);
     
-    this._closeButton.removeEventListener("click", this.close);
+    this.popupElement.querySelector('.popup__btn-close').removeEventListener("click", this.close);
 
-    this._popup.removeEventListener("mousedown", this._handleOverlayClose);
+    this.popupElement.removeEventListener("mousedown", this._handleOverlayClose);
   }
 
   setEventListeners() {
-    
     document.addEventListener("keydown", this._handleEscClose);
 
-    this._closeButton.addEventListener("click", this.close);
+    this.popupElement.querySelector('.popup__btn-close').addEventListener("click", this.close);
 
-    this._popup.addEventListener("mousedown", this._handleOverlayClose);
+    this.popupElement.addEventListener("mousedown", this._handleOverlayClose);
   }
 
   _handleOverlayClose = (evt) => {
