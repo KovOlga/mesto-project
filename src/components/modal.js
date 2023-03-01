@@ -11,21 +11,29 @@ export class Popup {
 
   constructor(popupElement) {
     this._popup = document.querySelector(popupElement);
-    this._closeButton = this._popup.querySelector('.popup__close-button');
+    this._closeButton = this._popup.querySelector('.popup__btn-close');
   }
 
   open() {
     this._popup.classList.add('popup_opened');
-    document.addEventListener("keydown", this._handleEscClose);
+    this.setEventListeners();
   }
 
   close() {
     this._popup.classList.remove('popup_opened');
     document.removeEventListener("keydown", this._handleEscClose);
+    
+    this._closeButton.removeEventListener("click", () => {
+      this.close();
+    });
+
+    this._popup.removeEventListener("mousedown", this._handleOverlayClose);
   }
 
   setEventListeners() {
     
+    document.addEventListener("keydown", this._handleEscClose);
+
     this._closeButton.addEventListener("click", () => {
       this.close();
     });
@@ -49,8 +57,8 @@ export class Popup {
 export class PopupWithImage extends Popup {
   constructor (popupElement) {
     super(popupElement);
-    this._image = document.querySelector(".image-popup__image");
-    this._caption = document.querySelector(".image-popup__title");
+    this._image = document.querySelector(".popup__image");
+    this._caption = document.querySelector(".popup__caption");
   }
   
   open(link, name) {
@@ -63,74 +71,37 @@ export class PopupWithImage extends Popup {
   }
 }
 
+
+
 export class PopupWithForm extends Popup {
   /*Пока не разобрался, как следует добавить колбэк в конструктор
   Наверное, говорится про метод Api.getUserData()*/
   constructor(popupElement) {
     super(popupElement);
+    this._form = this._popup.querySelector('.form');
   }
 
   _getInputValues() {
+    console.log(this._form);
     /*Не понял, что значит "собирает данные всех полей формы"
     Записывает их в объект или что?*/
   }
 
   setEventListeners() {
     super.setEventListeners();
-    
-    this._popup.addEventListener("mousedown", function (evt) {
-      if (evt.target === evt.currentTarget) {
-        this.close();
-      }
-    });
 
-    document.addEventListener("keydown", function () {
-      this._handleEscClose(evt);
-    });
-
-    formProfile.addEventListener("submit", /*Пока не придумал, 
+    /*this._form.addEventListener("submit", /*Пока не придумал, 
     как сделать общую логику сабмита для всех попапов с формами
     Их у нас 3: редактирование аватара, профиля и добавления новой карточки
-    как класс должен понимать, какие именно данные надо редактировать?*/)
+    как класс должен понимать, какие именно данные надо редактировать?)*/
   }  
 
   close() {
-    this._popup.classList.remove("popup_opened");
-    formProfile.reset();
+    super.close();
+    this._form.reset();
   }
 }
 
 
-
-function openPopup(popupElement) {
-  document.addEventListener("keydown", closePopupOnEsc);
-  popupElement.addEventListener("mousedown", closePopupOnOverlayClick);
-  popupElement.classList.add("popup_opened");
-}
-
-function openProfilePopup() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  openPopup(popupProfile);
-}
-
-function closePopup(popupElement) {
-  popupElement.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupOnEsc);
-  popupElement.removeEventListener("mousedown", closePopupOnOverlayClick);
-}
-
-function closePopupOnOverlayClick(evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.target);
-  }
-}
-
-function closePopupOnEsc(evt) {
-  if (evt.key === "Escape") {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
-  }
-}
 
 export { openPopup, openProfilePopup, closePopup };
