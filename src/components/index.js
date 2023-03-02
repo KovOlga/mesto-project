@@ -14,11 +14,6 @@ import {
   profileJob,
 } from "./data.js";
 
-import {   renderCard,
-  setCurrentUserId,
-  createCardElement,
-  photoElementsGallery, } from "./cardold";
-
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm";
 
@@ -92,26 +87,32 @@ const userInfo = new UserInfo({
 
 export const imagePopup = new PopupWithImage(popupImage);
 
-const newCard = new Card(item, curentUserId, '#photo-cards-template', {
-  putlike: (cardId) => {return api.putLike(cardId)},
-  deleteLike: (cardId) => {return api.deleteLike(cardId)},
+const newCard = new Card(item, curentUserId, "#photo-cards-template", {
+  putlike: (cardId) => {
+    return api.putLike(cardId);
+  },
+  deleteLike: (cardId) => {
+    return api.deleteLike(cardId);
+  },
   handleCardDelete: (binBtn, cardId) => {
     console.log(binBtn, cardId);
   },
   handleImageClick: (name, link) => {
-    imagePopup.open(name, link)
-  }
-})
+    imagePopup.open(name, link);
+  },
+});
 
-const avatarPopup = new PopupWithForm(popupEditAvatar, 
-  {handleSubmit: ({avatar}) => {
+const avatarPopup = new PopupWithForm(popupEditAvatar, {
+  handleSubmit: ({ avatar }) => {
     return userInfo.setAvatar(avatar);
-}});
+  },
+});
 
 const profilePopup = new PopupWithForm(popupProfile, {
-  handleSubmit: ({name, job}) => {
+  handleSubmit: ({ name, job }) => {
     return userInfo.setUserInfo(name, job);
-}});
+  },
+});
 
 function renderInitialCards(cardsArr) {
   const cardList = new Section(
