@@ -36,11 +36,11 @@ export default class Card {
     this._card.querySelector(".photo-elements__title").textContent = this._name;
     // this._renderLikes();
     // this._deleteButton();
-    // this._setEventListeners();
+    this._setEventListeners();
     return this._card;
   }
   _renderLikes() {
-    if (this._likes === 0) {
+    if (this._likes.length === 0) {
       this._card
         .querySelector(".photo-elements__like-container")
         .classList.add(this._likeContainerDisableClass);
@@ -55,11 +55,12 @@ export default class Card {
         .querySelector(".photo-elements__like-counter")
         .classList.remove(this._likeCounterDisableClass);
       this._card.querySelector(".photo-elements__like-counter").textContent =
-        this._likes;
+        this._likes.length;
     }
   }
   _toggleLike() {
     if (!this._isLiked) {
+      console.log(this._isLiked);
       return this._putLike(this._cardId).then((newCardData) => {
         this._likes = newCardData.length;
         this._renderLikes();
@@ -77,22 +78,31 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._like.addEventListener("click", this._toggleLike());
     this._card
-      .querySelector("photo-elements__image")
-      .addEventListener(
-        "click",
-        this._handleImageClick(this._name, this._image)
-      );
-
-    if (!this._isMine) {
-      this._element.querySelector(".photo-elements__bin-button").remove();
-    } else {
-      this._element
-        .querySelector(".photo-elements__bin-button")
-        .addEventListener("click", (evt) => {
-          handleCardDelete(evt.target, this._cardId);
-        });
-    }
+      .querySelector(".photo-elements__like-button")
+      .addEventListener("click", () => {
+        this._toggleLike();
+      });
+    // this._card
+    //   .querySelector(".photo-elements__like-button")
+    //   .addEventListener("click", (evt) => {
+    //     console.log(evt);
+    //     // this._toggleLike();
+    //   });
+    // this._card
+    //   .querySelector("photo-elements__image")
+    //   .addEventListener(
+    //     "click",
+    //     this._handleImageClick(this._name, this._image)
+    //   );
+    // if (!this._isMine) {
+    //   this._element.querySelector(".photo-elements__bin-button").remove();
+    // } else {
+    //   this._element
+    //     .querySelector(".photo-elements__bin-button")
+    //     .addEventListener("click", (evt) => {
+    //       this._deleteCard(evt.target, this._cardId);
+    //     });
+    // }
   }
 }
