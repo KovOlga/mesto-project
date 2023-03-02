@@ -36,10 +36,13 @@ export default class Card {
       .addEventListener("click", (evt) => {
         this._handleLikeClick(evt);
       });
-  }
 
-  _processBinBtn() {
-    //отрисовываем иконку корзины и вешаем слушатель открытия попапа, если айди юзера совпадает
+    this.element
+      .querySelector(".photo-elements__image")
+      .addEventListener("click", () => {
+        this.handleImageClick(this.name, this.link);
+      });
+
     if (this.userId === this.cardOwnerId) {
       this.element
         .querySelector(".photo-elements__bin-button")
@@ -130,13 +133,7 @@ export default class Card {
       this.name;
     this.element.querySelector(".photo-elements__image").src = this.link;
     this.element.querySelector(".photo-elements__image").alt = this.name;
-    this.element
-      .querySelector(".photo-elements__image")
-      .addEventListener("click", () =>
-        this.handleImageClick(this.name, this.link)
-      );
 
-    this._processBinBtn();
     this._renderLikes();
     this._showUserLike();
     this._setEventListeners();
