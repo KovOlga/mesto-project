@@ -97,7 +97,7 @@ const userInfo = new UserInfo({
 });
 
 const avatarPopup = new PopupWithForm(popupEditAvatar, {
-  handleSubmit: ({ avatar }) => {
+  handleSubmitForm: ({ avatar }) => {
     return userInfo.setAvatar(avatar);
   },
   showLoader: () => {
@@ -109,7 +109,7 @@ const avatarPopup = new PopupWithForm(popupEditAvatar, {
 });
 
 const profilePopup = new PopupWithForm(popupProfile, {
-  handleSubmit: ({ name, job }) => {
+  handleSubmitForm: ({ name, job }) => {
     return userInfo.setUserInfo(name, job);
   },
   showLoader: () => {
@@ -121,7 +121,7 @@ const profilePopup = new PopupWithForm(popupProfile, {
 });
 
 const cardPopup = new PopupWithForm(popupNewCard, {
-  handleSubmit: ({ place, link }) => {
+  handleSubmitForm: ({ place, link }) => {
     return api.postCard(place, link).then((newCardData) => {
       cardList.renderNewItem(newCardData);
     });
@@ -163,8 +163,8 @@ function setUserId(userId) {
 const cardList = new Section(
   {
     items: [],
-    renderer: (card) => {
-      const newCard = new Card(card, currentUserId, "#photo-cards-template", {
+    renderer: (item) => {
+      const newCard = new Card(item, "#photo-cards-template", currentUserId, {
         putLike: (cardId) => {
           return api.putLike(cardId);
         },
@@ -178,7 +178,7 @@ const cardList = new Section(
           imagePopup.open(name, link);
         },
       });
-      const cardElement = newCard.generateCard();
+      const cardElement = newCard.generate();
       cardList.addItem(cardElement);
     },
   },

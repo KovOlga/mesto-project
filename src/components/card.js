@@ -1,8 +1,8 @@
 export default class Card {
   constructor(
     cardData,
-    currentUserId,
     templateSelector,
+    currentUserId,
     { putLike, deleteLike, handleCardDelete, handleImageClick }
   ) {
     this.putLike = putLike;
@@ -65,7 +65,7 @@ export default class Card {
   }
 
   _renderLikes() {
-    //  отрисовывает количество лайков
+    //  отрисовывает количество лайков
     if (this.likes.length === 0) {
       this.element
         .querySelector(".photo-elements__like-container")
@@ -123,7 +123,7 @@ export default class Card {
     }
   }
 
-  generateCard() {
+  generate() {
     this.element = this._getElement();
 
     this.element.querySelector(".photo-elements__title").textContent =
