@@ -34,13 +34,6 @@ const btnAddCard = document.querySelector(".profile__add-button");
 const popupNewCard = document.querySelector(".popup_new-place");
 const btnSubmitPlace = formPlace.elements.submitPlace;
 
-// попап с картинкой
-const popupImagePicture = popupImage.querySelector(".popup__image");
-const popupImageCaption = popupImage.querySelector(".popup__caption");
-
-// попап с подтверждением удаления
-const btnAgreeDelete = document.querySelector(".popup__btn-agree");
-
 let currentUserId;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -129,16 +122,16 @@ const cardPopup = new PopupWithForm(popupNewCard, {
 });
 cardPopup.setEventListeners();
 
-const imagePopup = new PopupWithImage(
-  popupImage,
-  popupImagePicture,
-  popupImageCaption
-);
+const imagePopup = new PopupWithImage({
+  popup: popupImage,
+  popupImagePictureSelector: ".popup__image",
+  popupImageCaptionSelector: ".popup__caption",
+});
 imagePopup.setEventListeners();
 
 const agreementPopup = new PopupAgreement({
   popup: popupAgreeDelete,
-  btnAgreeDelete: btnAgreeDelete,
+  btnAgreeDeleteSelector: ".popup__btn-agree",
   handleCardDelete: (binBtnTarget, cardId) => {
     return api
       .deleteCard(cardId)
@@ -223,3 +216,5 @@ btnAddCard.addEventListener("click", () => {
   formPlaceValidator.disableSubmitBtnOnOpen(btnSubmitPlace);
   cardPopup.open();
 });
+
+// console.log("jjbjb");

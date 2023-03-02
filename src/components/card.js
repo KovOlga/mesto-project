@@ -7,7 +7,7 @@ export default class Card {
   ) {
     this.putLike = putLike;
     this.deleteLike = deleteLike;
-    this.selector = templateSelector;
+    this.templateSelector = templateSelector;
     this.name = cardData.name;
     this.link = cardData.link;
     this.likes = cardData.likes;
@@ -24,33 +24,31 @@ export default class Card {
 
   _getElement() {
     const cardElement = document
-      .querySelector(this.selector)
+      .querySelector(this.templateSelector)
       .content.querySelector(".photo-elements__item")
       .cloneNode(true);
     return cardElement;
   }
 
   _setEventListeners() {
-    this.element
-      .querySelector(".photo-elements__like-button")
-      .addEventListener("click", (evt) => {
-        this._handleLikeClick(evt);
-      });
+    this.btnLike.addEventListener("click", (evt) => {
+      this._handleLikeClick(evt);
+    });
 
-    this.element
-      .querySelector(".photo-elements__image")
-      .addEventListener("click", () => {
-        this.handleImageClick(this.name, this.link);
-      });
+    this.image.addEventListener("click", () => {
+      this.handleImageClick(this.name, this.link);
+    });
+
+    this.binBtnElement = this.element.querySelector(
+      ".photo-elements__bin-button"
+    );
 
     if (this.userId === this.cardOwnerId) {
-      this.element
-        .querySelector(".photo-elements__bin-button")
-        .addEventListener("click", (evt) => {
-          this.handleCardDelete(evt.target, this.cardId);
-        });
+      this.binBtnElement.addEventListener("click", (evt) => {
+        this.handleCardDelete(evt.target, this.cardId);
+      });
     } else {
-      this.element.querySelector(".photo-elements__bin-button").remove();
+      this.binBtnElement.remove();
     }
   }
 
@@ -59,9 +57,7 @@ export default class Card {
     if (this.likes) {
       this.likes.forEach((likeElementOwner) => {
         if (likeElementOwner._id === this.userId) {
-          this.element
-            .querySelector(".photo-elements__like-button")
-            .classList.add(this.btnLikeActiveClass);
+          this.btnLike.classList.add(this.btnLikeActiveClass);
         }
       });
     }
@@ -69,24 +65,20 @@ export default class Card {
 
   _renderLikes() {
     //  отрисовывает количество лайков
+    this.likeContainer = this.element.querySelector(
+      ".photo-elements__like-container"
+    );
+    this.likeCounter = this.element.querySelector(
+      ".photo-elements__like-counter"
+    );
     if (this.likes.length === 0) {
-      this.element
-        .querySelector(".photo-elements__like-container")
-        .classList.add(this.likeContainerDisabledClass);
-      this.element
-        .querySelector(".photo-elements__like-counter")
-        .classList.add(this.likeCounterDisabledClass);
-      this.element.querySelector(".photo-elements__like-counter").textContent =
-        this.likes.length.toString();
+      this.likeContainer.classList.add(this.likeContainerDisabledClass);
+      this.likeCounter.classList.add(this.likeCounterDisabledClass);
+      this.likeCounter.textContent = this.likes.length.toString();
     } else {
-      this.element
-        .querySelector(".photo-elements__like-container")
-        .classList.remove(this.likeContainerDisabledClass);
-      this.element
-        .querySelector(".photo-elements__like-counter")
-        .classList.remove(this.likeCounterDisabledClass);
-      this.element.querySelector(".photo-elements__like-counter").textContent =
-        this.likes.length.toString();
+      this.likeContainer.classList.remove(this.likeContainerDisabledClass);
+      this.likeCounter.classList.remove(this.likeCounterDisabledClass);
+      this.likeCounter.textContent = this.likes.length.toString();
     }
   }
 
@@ -129,10 +121,13 @@ export default class Card {
   generate() {
     this.element = this._getElement();
 
+    this.image = this.element.querySelector(".photo-elements__image");
+    this.btnLike = this.element.querySelector(".photo-elements__like-button");
+
     this.element.querySelector(".photo-elements__title").textContent =
       this.name;
-    this.element.querySelector(".photo-elements__image").src = this.link;
-    this.element.querySelector(".photo-elements__image").alt = this.name;
+    this.image.src = this.link;
+    this.image.alt = this.name;
 
     this._renderLikes();
     this._showUserLike();
