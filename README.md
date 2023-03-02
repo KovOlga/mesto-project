@@ -2,11 +2,18 @@
 
 ### Обзор
 
+- Участники
 - Интро
 - GitHub Pages
 - Технологии
 - Секции
 - Figma
+
+**Участники**
+
+- switch.to.olga@yandex.ru, [Гитхаб](https://github.com/KovOlga)
+- cu7e.8oy@yandex.ru, [Гитхаб](https://github.com/Danbka-Taranbka)
+- didenkogeorge@yandex.ru, [Гитхаб](https://github.com/george172311)
 
 **Интро**
 
