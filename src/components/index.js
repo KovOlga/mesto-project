@@ -3,7 +3,7 @@ import Section from "./Section.js";
 import UserInfo from "./UserInfo.js";
 import FormValidator from "./FormValidator.js";
 import Api from "./Api.js";
-import { showPreloader, hidePreloader } from "./utils.js";
+import { showPreloader, hidePreloader } from "../utils/utils.js";
 import {
   popupImage,
   formProfile,
@@ -12,7 +12,7 @@ import {
   profileName,
   popupAgreeDelete,
   profileJob,
-} from "./data.js";
+} from "../utils/data.js";
 
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm";
