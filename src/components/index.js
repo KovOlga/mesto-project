@@ -17,10 +17,12 @@ import {
 import {   renderCard,
   setCurrentUserId,
   createCardElement,
-  photoElementsGallery, } from "./card";
+  photoElementsGallery, } from "./cardold";
 
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm";
+
+import Card from "./Card.js";
 
 //аватар
 const avatar = document.querySelector(".profile__avatar");
@@ -89,6 +91,17 @@ const userInfo = new UserInfo({
 });
 
 export const imagePopup = new PopupWithImage(popupImage);
+
+const newCard = new Card(item, curentUserId, '#photo-cards-template', {
+  putlike: (cardId) => {return api.putLike(cardId)},
+  deleteLike: (cardId) => {return api.deleteLike(cardId)},
+  handleCardDelete: (binBtn, cardId) => {
+    console.log(binBtn, cardId);
+  },
+  handleImageClick: (name, link) => {
+    imagePopup.open(name, link)
+  }
+})
 
 const avatarPopup = new PopupWithForm(popupEditAvatar, 
   {handleSubmit: ({avatar}) => {
