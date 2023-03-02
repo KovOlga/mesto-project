@@ -159,6 +159,7 @@ const agreementPopup = new PopupAgreement({
       });
   },
 });
+agreementPopup.setEventListeners();
 
 function setUserId(userId) {
   currentUserId = userId;

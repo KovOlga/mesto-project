@@ -26,7 +26,6 @@ export default class Popup {
   }
 
   setEventListeners() {
-    console.log("set");
     this.popupSelector
       .querySelector(".popup__btn-close")
       .addEventListener("click", this.close());
