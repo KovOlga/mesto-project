@@ -1,42 +1,35 @@
 export default class UserInfo {
-  constructor({
-    profileName,
-    profileJob,
-    avatar,
-    getUserData,
-    setUserData,
-    setNewAvatar,
-  }) {
-    this.name = profileName;
-    this.job = profileJob;
-    this.avatar = avatar;
-    this.getUserData = getUserData;
-    this.setUserData = setUserData;
-    this.setNewAvatar = setNewAvatar;
+  constructor({ profileName, profileJob, avatar }) {
+    this.nameElement = profileName;
+    this.aboutElement = profileJob;
+    this.avatarElement = avatar;
   }
 
   getUserInfo() {
-    return this.getUserData();
+    return {
+      name: this._name,
+      about: this._about,
+      avatar: this._avatar,
+      _id: this._id,
+    };
   }
 
-  _updateAvatar(newUserData) {
-    this.avatar.src = newUserData.avatar;
+  _updateAvatar() {
+    this.avatarElement.src = this._avatar;
   }
 
-  _updateUserInfo(newUserData) {
-    this.name.textContent = newUserData.name;
-    this.job.textContent = newUserData.about;
+  _updateUserInfo() {
+    this.nameElement.textContent = this._name;
+    this.aboutElement.textContent = this._about;
   }
 
-  setUserInfo(name, job) {
-    return this.setUserData(name, job).then((newUserData) => {
-      this._updateUserInfo(newUserData);
-    });
-  }
+  setUserInfo({ name, about, avatar, _id }) {
+    this._name = name;
+    this._about = about;
+    this._avatar = avatar;
+    this._userId = _id;
 
-  setAvatar(url) {
-    return this.setNewAvatar(url).then((newUserData) => {
-      this._updateAvatar(newUserData);
-    });
+    this._updateUserInfo();
+    this._updateAvatar();
   }
 }

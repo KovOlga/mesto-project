@@ -78,24 +78,17 @@ formPlaceValidator.enableValidation();
 const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
-const userInfo = new UserInfo({
+const user = new UserInfo({
   profileName: profileName,
   profileJob: profileJob,
   avatar: avatar,
-  getUserData: () => {
-    return api.getUserData();
-  },
-  setUserData: (name, job) => {
-    return api.patchProfile(name, job);
-  },
-  setNewAvatar: (newAvatarUrl) => {
-    return api.patchAvatar(newAvatarUrl);
-  },
 });
 
 const avatarPopup = new PopupWithForm(popupEditAvatar, {
   handleSubmitForm: ({ avatar }) => {
-    return userInfo.setAvatar(avatar);
+    return api.patchAvatar(avatar).then((res) => {
+      user.setUserInfo(res);
+    });
   },
   showLoader: () => {
     showPreloader(btnSubmitAvatar);
@@ -108,7 +101,9 @@ avatarPopup.setEventListeners();
 
 const profilePopup = new PopupWithForm(popupProfile, {
   handleSubmitForm: ({ name, job }) => {
-    return userInfo.setUserInfo(name, job);
+    return api.patchProfile(name, job).then((res) => {
+      user.setUserInfo(res);
+    });
   },
   showLoader: () => {
     showPreloader(btnSubmitProfile);
@@ -186,12 +181,13 @@ const cardList = new Section({
 });
 
 const renderInitialData = () => {
-  Promise.all([userInfo.getUserInfo(), api.getCards()])
+  Promise.all([api.getUserData(), api.getCards()])
     .then(([userData, cardsArr]) => {
       profileName.textContent = userData.name;
       profileJob.textContent = userData.about;
       avatar.src = userData.avatar;
       setUserId(userData._id);
+      user.setUserInfo(userData);
       cardList.renderItems(cardsArr);
     })
     .catch((err) => {
@@ -212,8 +208,9 @@ btnAvatarEdit.addEventListener("click", () => {
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  const { name, about } = user.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = about;
   formProfileValidator.resetErrorOnReOpen();
   formProfileValidator.disableSubmitBtnOnOpen(btnSubmitProfile);
   profilePopup.open();
