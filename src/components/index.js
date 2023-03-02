@@ -160,30 +160,30 @@ function setUserId(userId) {
   currentUserId = userId;
 }
 
-// const cardList = new Section(
-//   {
-//     items: [],
-//     renderer: (card) => {
-//       const newCard = new Card(card, currentUserId, "#photo-cards-template", {
-//         putLike: (cardId) => {
-//           return api.putLike(cardId);
-//         },
-//         deleteLike: (cardId) => {
-//           return api.deleteLike(cardId);
-//         },
-//         handleCardDelete: (binBtnTarget, cardId) => {
-//           agreementPopup.open(binBtnTarget, cardId);
-//         },
-//         handleImageClick: (name, link) => {
-//           imagePopup.open(name, link);
-//         },
-//       });
-//       const cardElement = newCard.generateCard();
-//       cardList.addItem(cardElement);
-//     },
-//   },
-//   photoElementsGallery
-// );
+const cardList = new Section(
+  {
+    items: [],
+    renderer: (card) => {
+      const newCard = new Card(card, currentUserId, "#photo-cards-template", {
+        putLike: (cardId) => {
+          return api.putLike(cardId);
+        },
+        deleteLike: (cardId) => {
+          return api.deleteLike(cardId);
+        },
+        handleCardDelete: (binBtnTarget, cardId) => {
+          agreementPopup.open(binBtnTarget, cardId);
+        },
+        handleImageClick: (name, link) => {
+          imagePopup.open(name, link);
+        },
+      });
+      const cardElement = newCard.generateCard();
+      cardList.addItem(cardElement);
+    },
+  },
+  photoElementsGallery
+);
 
 const renderInitialData = () => {
   Promise.all([userInfo.getUserInfo(), api.getCards()])

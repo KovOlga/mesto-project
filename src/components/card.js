@@ -31,7 +31,6 @@ export default class Card {
   }
   generateCard() {
     this._card = this._getElement();
-    console.log(this._card);
     this._card.querySelector(".photo-elements__image").src = this._image;
     this._card.querySelector(".photo-elements__image").alt = this._name;
     this._card.querySelector(".photo-elements__title").textContent = this._name;
