@@ -1,82 +1,146 @@
 export default class Card {
-    constructor(card, user, template, { putLike, deleteLike, handleCardDelete, handleImageClick }) {
-        this._image = card.link;
-        this._likes = card.likes;
-        this._name = card.name;
-        this._cardOwner = card.owner._id;
-        this._cardId = card._id;
-        this._userId = user._id;
-        this._isLiked = card.likes.find(item => item._id === this._userId);
-        this._isMine = this._cardOwner === this._userId;
-        this._putLike = putLike;
-        this._deleteLike = deleteLike;
-        this._deleteCard = handleCardDelete;
-        this._handleImageClick = handleImageClick;
-        this.template = template;
-        this._likeContainerDisableClass = 'photo-elements__like-container_disabled';
-        this._likeCounterDisableClass = 'photo-elements__like-counter_disabled';
-        this._likeActiveBtn = 'photo-elements__like-button_active';
+  constructor(
+    cardData,
+    currentUserId,
+    templateSelector,
+    { putLike, deleteLike, handleCardDelete, handleImageClick }
+  ) {
+    this.putLike = putLike;
+    this.deleteLike = deleteLike;
+    this.selector = templateSelector;
+    this.name = cardData.name;
+    this.link = cardData.link;
+    this.likes = cardData.likes;
+    this.cardId = cardData._id;
+    this.userId = currentUserId;
+    this.cardOwnerId = cardData.owner._id;
+    this.isLike = null;
+    this.btnLikeActiveClass = "photo-elements__like-button_active";
+    this.likeCounterDisabledClass = "photo-elements__like-counter_disabled";
+    this.likeContainerDisabledClass = "photo-elements__like-container_disabled";
+    this.handleCardDelete = handleCardDelete;
+    this.handleImageClick = handleImageClick;
+  }
+
+  _getElement() {
+    const cardElement = document
+      .querySelector(this.selector)
+      .content.querySelector(".photo-elements__item")
+      .cloneNode(true);
+    return cardElement;
+  }
+
+  _setEventListeners() {
+    this.element
+      .querySelector(".photo-elements__like-button")
+      .addEventListener("click", (evt) => {
+        this._handleLikeClick(evt);
+      });
+  }
+
+  _processBinBtn() {
+    //отрисовываем иконку корзины и вешаем слушатель открытия попапа, если айди юзера совпадает
+    if (this.userId === this.cardOwnerId) {
+      this.element
+        .querySelector(".photo-elements__bin-button")
+        .addEventListener("click", (evt) => {
+          this.handleCardDelete(evt.target, this.cardId);
+        });
+    } else {
+      this.element.querySelector(".photo-elements__bin-button").remove();
     }
-    _getElement() {
-        const newCard = document.querySelector(this.template).content.querySelector('.photo-elements__item').cloneNode(true);
-        return newCard;
-    }
-    generateCard() {
-        this._card = this._getElement();
-        this._card.querySelector('.photo-elements__image').src = this._image;
-        this._card.querySelector('.photo-elements__image').alt = this._name;
-        this._card.querySelector('.photo-elements__title').textContent = this._name;
-        // this._card.querySelector('.photo-elements__like-counter').textContent = this._likes;
-        // this._like = this._card.querySelector('.photo-elements__like-button');
-        this._renderLikes();
-        this._deleteButton();
-        this._setEventListeners();
-        return this._card;
-    }
-    _renderLikes() {
-        if (this._likes === 0) {
-            this._card.querySelector('.photo-elements__like-container').classList.add(this._likeContainerDisableClass);
-            this._card.querySelector('.photo-elements__like-counter').classList.add(this._likeCounterDisableClass);
-        } else {
-            this._card.querySelector('.photo-elements__like-container').classList.remove(this._likeContainerDisableClass);
-            this._card.querySelector('.photo-elements__like-counter').classList.remove(this._likeCounterDisableClass);
-            this._card.querySelector('.photo-elements__like-counter').textContent = this._likes;
+  }
+
+  _showUserLike() {
+    //закрасили, если уже есть лайк юзера
+    if (this.likes) {
+      this.likes.forEach((likeElementOwner) => {
+        if (likeElementOwner._id === this.userId) {
+          this.element
+            .querySelector(".photo-elements__like-button")
+            .classList.add(this.btnLikeActiveClass);
         }
+      });
     }
-    _toggleLike() {
-        if (!this._isLiked) {
-            return this._putLike(this._cardId)
-                .then((newCardData) => {
-                    this._likes = newCardData.length;
-                    this._renderLikes();
-                    this._isLiked = true;
-                    this._like.classList.add(this._likeActiveBtn);
-                })
+  }
 
-        } else {
-            return this._deleteLike(this._cardId)
-                .then((newCardData) => {
-                    this._likes = newCardData.length;
-                    this._renderLikes();
-                    this._isLiked = false;
-                    this._like.classList.remove(this._likeActiveBtn);
-                });
-        }
+  _renderLikes() {
+    //  отрисовывает количество лайков
+    if (this.likes.length === 0) {
+      this.element
+        .querySelector(".photo-elements__like-container")
+        .classList.add(this.likeContainerDisabledClass);
+      this.element
+        .querySelector(".photo-elements__like-counter")
+        .classList.add(this.likeCounterDisabledClass);
+      this.element.querySelector(".photo-elements__like-counter").textContent =
+        this.likes.length.toString();
+    } else {
+      this.element
+        .querySelector(".photo-elements__like-container")
+        .classList.remove(this.likeContainerDisabledClass);
+      this.element
+        .querySelector(".photo-elements__like-counter")
+        .classList.remove(this.likeCounterDisabledClass);
+      this.element.querySelector(".photo-elements__like-counter").textContent =
+        this.likes.length.toString();
     }
+  }
 
-    
+  _processLike() {
+    const likeState = this.likes.some((likeData) => {
+      return likeData._id === this.userId;
+    });
+    this.isLike = likeState;
+  }
 
-    _setEventListeners() {
-        this._like.addEventListener('click', this._toggleLike());
-        this._card.querySelector('photo-elements__image').addEventListener('click', this._handleImageClick(this._name, this._image));
-
-        if (!this._isMine) {
-            this._element.querySelector('.photo-elements__bin-button').remove();
-        } else {
-            this._element.querySelector('.photo-elements__bin-button').addEventListener('click', (evt) => {
-                handleCardDelete(evt.target, this._cardId)
-            });
-        }
-        
+  _handleLikeClick(evt) {
+    this._processLike();
+    if (this.isLike) {
+      return this.deleteLike(this.cardId)
+        .then((newCardData) => {
+          evt.target.classList.toggle(this.btnLikeActiveClass);
+          this.likes = newCardData.likes;
+          this._renderLikes();
+        })
+        .catch((err) => {
+          console.log(
+            `Ошибка при отправке данных о лайке на сервер: ${err.message}`
+          );
+        });
+    } else {
+      return this.putLike(this.cardId)
+        .then((newCardData) => {
+          evt.target.classList.toggle(this.btnLikeActiveClass);
+          this.likes = newCardData.likes;
+          this._renderLikes();
+        })
+        .catch((err) => {
+          console.log(
+            `Ошибка при отправке данных о лайке на сервер: ${err.message}`
+          );
+        });
     }
+  }
+
+  generateCard() {
+    this.element = this._getElement();
+
+    this.element.querySelector(".photo-elements__title").textContent =
+      this.name;
+    this.element.querySelector(".photo-elements__image").src = this.link;
+    this.element.querySelector(".photo-elements__image").alt = this.name;
+    this.element
+      .querySelector(".photo-elements__image")
+      .addEventListener("click", () =>
+        this.handleImageClick(this.name, this.link)
+      );
+
+    this._processBinBtn();
+    this._renderLikes();
+    this._showUserLike();
+    this._setEventListeners();
+
+    return this.element;
+  }
 }
