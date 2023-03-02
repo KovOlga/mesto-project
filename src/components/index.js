@@ -107,6 +107,7 @@ const avatarPopup = new PopupWithForm(popupEditAvatar, {
     hidePreloader(btnSubmitAvatar);
   },
 });
+avatarPopup.setEventListeners();
 
 const profilePopup = new PopupWithForm(popupProfile, {
   handleSubmitForm: ({ name, job }) => {
@@ -119,6 +120,7 @@ const profilePopup = new PopupWithForm(popupProfile, {
     hidePreloader(btnSubmitProfile);
   },
 });
+profilePopup.setEventListeners();
 
 const cardPopup = new PopupWithForm(popupNewCard, {
   handleSubmitForm: ({ place, link }) => {
@@ -133,12 +135,14 @@ const cardPopup = new PopupWithForm(popupNewCard, {
     hidePreloader(btnSubmitPlace);
   },
 });
+cardPopup.setEventListeners();
 
 const imagePopup = new PopupWithImage(
   popupImage,
   popupImagePicture,
   popupImageCaption
 );
+imagePopup.setEventListeners();
 
 const agreementPopup = new PopupAgreement({
   popupSelector: popupAgreeDelete,

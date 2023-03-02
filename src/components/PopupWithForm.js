@@ -10,10 +10,6 @@ export default class PopupWithForm extends Popup {
     this.hideLoader = hideLoader;
   }
 
-  open() {
-    super.open();
-  }
-
   _getInputValues() {
     this._inputList = this._form.querySelectorAll(".form__input");
 
