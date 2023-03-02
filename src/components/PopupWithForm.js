@@ -26,7 +26,6 @@ export default class PopupWithForm extends Popup {
     this.showLoader();
     this.handleSubmitForm(this._getInputValues())
       .then(this.close())
-      .then(this._form.reset())
       .catch((err) => {
         console.log(
           `Ошибка при отправке обновленных данных пользователя: ${err.message}`
@@ -45,5 +44,6 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.removeEventListener("submit", this._submitHandler);
+    this._form.reset();
   }
 }
