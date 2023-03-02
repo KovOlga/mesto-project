@@ -97,7 +97,7 @@ const userInfo = new UserInfo({
 });
 
 const avatarPopup = new PopupWithForm(popupEditAvatar, {
-  handleSubmitForm: ({ avatar }) => {
+  handleSubmit: ({ avatar }) => {
     return userInfo.setAvatar(avatar);
   },
   showLoader: () => {
@@ -109,7 +109,7 @@ const avatarPopup = new PopupWithForm(popupEditAvatar, {
 });
 
 const profilePopup = new PopupWithForm(popupProfile, {
-  handleSubmitForm: ({ name, job }) => {
+  handleSubmit: ({ name, job }) => {
     return userInfo.setUserInfo(name, job);
   },
   showLoader: () => {
@@ -121,7 +121,7 @@ const profilePopup = new PopupWithForm(popupProfile, {
 });
 
 const cardPopup = new PopupWithForm(popupNewCard, {
-  handleSubmitForm: ({ place, link }) => {
+  handleSubmit: ({ place, link }) => {
     return api.postCard(place, link).then((newCardData) => {
       cardList.renderNewItem(newCardData);
     });

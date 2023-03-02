@@ -1,12 +1,13 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupElement, { handleSubmit }) {
+  constructor(popupElement, { handleSubmit, showLoader, hideLoader }) {
     super(popupElement);
     this._form = this.popupElement.querySelector(".form");
     this._handleSubmit = handleSubmit;
-
     this._submitHandler = this._submitHandler.bind(this);
+    this.showLoader = showLoader;
+    this.hideLoader = hideLoader;
   }
 
   _getInputValues() {
@@ -27,12 +28,22 @@ export default class PopupWithForm extends Popup {
 
   _submitHandler(evt) {
     evt.preventDefault();
-    this._handleSubmit(this._getInputValues()).then(this.close());
+    this.showLoader();
+    this._handleSubmit(this._getInputValues())
+      .then(this.close())
+      .then(this._form.reset())
+      .catch((err) => {
+        console.log(
+          `Ошибка при отправке обновленных данных пользователя: ${err.message}`
+        );
+      })
+      .finally(() => {
+        this.hideLoader();
+      });
   }
 
   close() {
     super.close();
     this._form.removeEventListener("submit", this._submitHandler);
-    this._form.reset();
   }
 }
