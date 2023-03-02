@@ -1,8 +1,8 @@
 import Popup from "./Popup.js";
 
 export default class PopupAgreement extends Popup {
-  constructor({ popupSelector, btnAgreeDelete, handleCardDelete }) {
-    super(popupSelector);
+  constructor({ popup, btnAgreeDelete, handleCardDelete }) {
+    super(popup);
     this.btnAgreeDelete = btnAgreeDelete;
     this.setAgreeBtnEventListener = this.setAgreeBtnEventListener.bind(this);
     this.handleCardDelete = handleCardDelete;

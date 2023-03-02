@@ -34,9 +34,6 @@ const btnAddCard = document.querySelector(".profile__add-button");
 const popupNewCard = document.querySelector(".popup_new-place");
 const btnSubmitPlace = formPlace.elements.submitPlace;
 
-// галерея
-const photoElementsGallery = document.querySelector(".photo-elements__list");
-
 // попап с картинкой
 const popupImagePicture = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__caption");
@@ -82,9 +79,9 @@ const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
 const userInfo = new UserInfo({
-  nameSelector: profileName,
-  jobSelector: profileJob,
-  avatarSelector: avatar,
+  profileName: profileName,
+  profileJob: profileJob,
+  avatar: avatar,
   getUserData: () => {
     return api.getUserData();
   },
@@ -145,7 +142,7 @@ const imagePopup = new PopupWithImage(
 imagePopup.setEventListeners();
 
 const agreementPopup = new PopupAgreement({
-  popupSelector: popupAgreeDelete,
+  popup: popupAgreeDelete,
   btnAgreeDelete: btnAgreeDelete,
   handleCardDelete: (binBtnTarget, cardId) => {
     return api
@@ -165,30 +162,28 @@ function setUserId(userId) {
   currentUserId = userId;
 }
 
-const cardList = new Section(
-  {
-    items: [],
-    renderer: (item) => {
-      const newCard = new Card(item, "#photo-cards-template", currentUserId, {
-        putLike: (cardId) => {
-          return api.putLike(cardId);
-        },
-        deleteLike: (cardId) => {
-          return api.deleteLike(cardId);
-        },
-        handleCardDelete: (binBtnTarget, cardId) => {
-          agreementPopup.open(binBtnTarget, cardId);
-        },
-        handleImageClick: (name, link) => {
-          imagePopup.open(name, link);
-        },
-      });
-      const cardElement = newCard.generate();
-      cardList.addItem(cardElement);
-    },
+const cardList = new Section({
+  items: [],
+  renderer: (item) => {
+    const newCard = new Card(item, "#photo-cards-template", currentUserId, {
+      putLike: (cardId) => {
+        return api.putLike(cardId);
+      },
+      deleteLike: (cardId) => {
+        return api.deleteLike(cardId);
+      },
+      handleCardDelete: (binBtnTarget, cardId) => {
+        agreementPopup.open(binBtnTarget, cardId);
+      },
+      handleImageClick: (name, link) => {
+        imagePopup.open(name, link);
+      },
+    });
+    const cardElement = newCard.generate();
+    cardList.addItem(cardElement);
   },
-  photoElementsGallery
-);
+  containerSelector: ".photo-elements__list",
+});
 
 const renderInitialData = () => {
   Promise.all([userInfo.getUserInfo(), api.getCards()])
