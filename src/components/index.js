@@ -34,16 +34,6 @@ const btnAddCard = document.querySelector(".profile__add-button");
 const popupNewCard = document.querySelector(".popup_new-place");
 const btnSubmitPlace = formPlace.elements.submitPlace;
 
-// галерея
-const photoElementsGallery = document.querySelector(".photo-elements__list");
-
-// попап с картинкой
-const popupImagePicture = popupImage.querySelector(".popup__image");
-const popupImageCaption = popupImage.querySelector(".popup__caption");
-
-// попап с подтверждением удаления
-const btnAgreeDelete = document.querySelector(".popup__btn-agree");
-
 let currentUserId;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -81,24 +71,17 @@ formPlaceValidator.enableValidation();
 const formAvatarValidator = new FormValidator(validationConfig, formAvatar);
 formAvatarValidator.enableValidation();
 
-const userInfo = new UserInfo({
-  nameSelector: profileName,
-  jobSelector: profileJob,
-  avatarSelector: avatar,
-  getUserData: () => {
-    return api.getUserData();
-  },
-  setUserData: (name, job) => {
-    return api.patchProfile(name, job);
-  },
-  setNewAvatar: (newAvatarUrl) => {
-    return api.patchAvatar(newAvatarUrl);
-  },
+const user = new UserInfo({
+  profileName: profileName,
+  profileJob: profileJob,
+  avatar: avatar,
 });
 
 const avatarPopup = new PopupWithForm(popupEditAvatar, {
   handleSubmitForm: ({ avatar }) => {
-    return userInfo.setAvatar(avatar);
+    return api.patchAvatar(avatar).then((res) => {
+      user.setUserInfo(res);
+    });
   },
   showLoader: () => {
     showPreloader(btnSubmitAvatar);
@@ -107,10 +90,13 @@ const avatarPopup = new PopupWithForm(popupEditAvatar, {
     hidePreloader(btnSubmitAvatar);
   },
 });
+avatarPopup.setEventListeners();
 
 const profilePopup = new PopupWithForm(popupProfile, {
   handleSubmitForm: ({ name, job }) => {
-    return userInfo.setUserInfo(name, job);
+    return api.patchProfile(name, job).then((res) => {
+      user.setUserInfo(res);
+    });
   },
   showLoader: () => {
     showPreloader(btnSubmitProfile);
@@ -119,6 +105,7 @@ const profilePopup = new PopupWithForm(popupProfile, {
     hidePreloader(btnSubmitProfile);
   },
 });
+profilePopup.setEventListeners();
 
 const cardPopup = new PopupWithForm(popupNewCard, {
   handleSubmitForm: ({ place, link }) => {
@@ -133,16 +120,18 @@ const cardPopup = new PopupWithForm(popupNewCard, {
     hidePreloader(btnSubmitPlace);
   },
 });
+cardPopup.setEventListeners();
 
-const imagePopup = new PopupWithImage(
-  popupImage,
-  popupImagePicture,
-  popupImageCaption
-);
+const imagePopup = new PopupWithImage({
+  popup: popupImage,
+  popupImagePictureSelector: ".popup__image",
+  popupImageCaptionSelector: ".popup__caption",
+});
+imagePopup.setEventListeners();
 
 const agreementPopup = new PopupAgreement({
-  popupSelector: popupAgreeDelete,
-  btnAgreeDelete: btnAgreeDelete,
+  popup: popupAgreeDelete,
+  btnAgreeDeleteSelector: ".popup__btn-agree",
   handleCardDelete: (binBtnTarget, cardId) => {
     return api
       .deleteCard(cardId)
@@ -155,43 +144,43 @@ const agreementPopup = new PopupAgreement({
       });
   },
 });
+agreementPopup.setEventListeners();
 
 function setUserId(userId) {
   currentUserId = userId;
 }
 
-const cardList = new Section(
-  {
-    items: [],
-    renderer: (item) => {
-      const newCard = new Card(item, "#photo-cards-template", currentUserId, {
-        putLike: (cardId) => {
-          return api.putLike(cardId);
-        },
-        deleteLike: (cardId) => {
-          return api.deleteLike(cardId);
-        },
-        handleCardDelete: (binBtnTarget, cardId) => {
-          agreementPopup.open(binBtnTarget, cardId);
-        },
-        handleImageClick: (name, link) => {
-          imagePopup.open(name, link);
-        },
-      });
-      const cardElement = newCard.generate();
-      cardList.addItem(cardElement);
-    },
+const cardList = new Section({
+  items: [],
+  renderer: (item) => {
+    const newCard = new Card(item, "#photo-cards-template", currentUserId, {
+      putLike: (cardId) => {
+        return api.putLike(cardId);
+      },
+      deleteLike: (cardId) => {
+        return api.deleteLike(cardId);
+      },
+      handleCardDelete: (binBtnTarget, cardId) => {
+        agreementPopup.open(binBtnTarget, cardId);
+      },
+      handleImageClick: (name, link) => {
+        imagePopup.open(name, link);
+      },
+    });
+    const cardElement = newCard.generate();
+    cardList.addItem(cardElement);
   },
-  photoElementsGallery
-);
+  containerSelector: ".photo-elements__list",
+});
 
 const renderInitialData = () => {
-  Promise.all([userInfo.getUserInfo(), api.getCards()])
+  Promise.all([api.getUserData(), api.getCards()])
     .then(([userData, cardsArr]) => {
       profileName.textContent = userData.name;
       profileJob.textContent = userData.about;
       avatar.src = userData.avatar;
       setUserId(userData._id);
+      user.setUserInfo(userData);
       cardList.renderItems(cardsArr);
     })
     .catch((err) => {
@@ -212,8 +201,9 @@ btnAvatarEdit.addEventListener("click", () => {
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  const { name, about } = user.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = about;
   formProfileValidator.resetErrorOnReOpen();
   formProfileValidator.disableSubmitBtnOnOpen(btnSubmitProfile);
   profilePopup.open();
@@ -226,3 +216,5 @@ btnAddCard.addEventListener("click", () => {
   formPlaceValidator.disableSubmitBtnOnOpen(btnSubmitPlace);
   cardPopup.open();
 });
+
+// console.log("jjbjb");
