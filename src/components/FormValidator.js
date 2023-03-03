@@ -60,23 +60,23 @@ export default class FormValidator {
   }
 
   _showInputError(inputElement, errorMessage) {
-    const errorElement = this.formElement.querySelector(
+    this.errorElement = this.formElement.querySelector(
       `.${inputElement.id}-error`
     );
 
     inputElement.classList.add(this.classSettings.inputErrorClass);
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add(this.classSettings.errorVisibleClass);
+    this.errorElement.textContent = errorMessage;
+    this.errorElement.classList.add(this.classSettings.errorVisibleClass);
   }
 
   _hideInputError(inputElement) {
-    const errorElement = this.formElement.querySelector(
+    this.errorElement = this.formElement.querySelector(
       `.${inputElement.id}-error`
     );
 
     inputElement.classList.remove(this.classSettings.inputErrorClass);
-    errorElement.classList.remove(this.classSettings.errorVisibleClass);
-    errorElement.textContent = "";
+    this.errorElement.classList.remove(this.classSettings.errorVisibleClass);
+    this.errorElement.textContent = "";
   }
 
   resetErrorOnReOpen() {
