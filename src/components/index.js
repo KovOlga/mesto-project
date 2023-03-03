@@ -15,9 +15,9 @@ import {
   popupProfile,
   profileName,
   popupAgreeDelete,
-  profileJob,
+  profileAbout,
   nameInput,
-  jobInput,
+  aboutInput,
 } from "../utils/data.js";
 
 //аватар
@@ -74,7 +74,7 @@ formAvatarValidator.enableValidation();
 
 const user = new UserInfo({
   profileName: profileName,
-  profileJob: profileJob,
+  profileAbout: profileAbout,
   avatar: avatar,
 });
 
@@ -94,8 +94,8 @@ const avatarPopup = new PopupWithForm(".popup_edit-avatar", {
 avatarPopup.setEventListeners();
 
 const profilePopup = new PopupWithForm(".popup_profile", {
-  handleSubmitForm: ({ name, job }) => {
-    return api.patchProfile(name, job).then((res) => {
+  handleSubmitForm: ({ name, about }) => {
+    return api.patchProfile(name, about).then((res) => {
       user.setUserInfo(res);
     });
   },
@@ -177,9 +177,6 @@ const cardList = new Section({
 const renderInitialData = () => {
   Promise.all([api.getUserData(), api.getCards()])
     .then(([userData, cardsArr]) => {
-      profileName.textContent = userData.name;
-      profileJob.textContent = userData.about;
-      avatar.src = userData.avatar;
       setUserId(userData._id);
       user.setUserInfo(userData);
       cardList.renderItems(cardsArr);
@@ -202,11 +199,9 @@ btnAvatarEdit.addEventListener("click", () => {
 
 //профайл
 btnEditProfile.addEventListener("click", () => {
-  const { name, about } = user.getUserInfo();
-  nameInput.value = name;
-  jobInput.value = about;
   formProfileValidator.resetErrorOnReOpen();
   formProfileValidator.disableSubmitBtnOnOpen();
+  profilePopup.setInputValues(user.getUserInfo());
   profilePopup.open();
 });
 
@@ -217,5 +212,3 @@ btnAddCard.addEventListener("click", () => {
   formPlaceValidator.disableSubmitBtnOnOpen();
   cardPopup.open();
 });
-
-// console.log("jjbjb");
