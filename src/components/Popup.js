@@ -1,16 +1,18 @@
 export default class Popup {
-  constructor(popup) {
-    this.popup = popup;
+  constructor(popupSelector) {
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleOverlayClose = this._handleOverlayClose.bind(this);
+    this.popup = document.querySelector(popupSelector);
   }
 
   open() {
     this.popup.classList.add("popup_opened");
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
     this.popup.classList.remove("popup_opened");
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
   _handleEscClose(evt) {
@@ -26,11 +28,9 @@ export default class Popup {
   }
 
   setEventListeners() {
+    this.popup.addEventListener("mousedown", this._handleOverlayClose);
     this.popup
       .querySelector(".popup__btn-close")
       .addEventListener("click", this.close());
-
-    document.addEventListener("keydown", this._handleEscClose);
-    this.popup.addEventListener("mousedown", this._handleOverlayClose);
   }
 }
