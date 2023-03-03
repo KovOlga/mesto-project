@@ -16,8 +16,6 @@ import {
   profileName,
   popupAgreeDelete,
   profileAbout,
-  nameInput,
-  aboutInput,
 } from "../utils/data.js";
 
 //аватар

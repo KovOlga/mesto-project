@@ -4,9 +4,6 @@ const profileAbout = document.querySelector(".profile__about");
 const formProfile = document.forms.profile;
 const formPlace = document.forms.card;
 
-const nameInput = formProfile.name;
-const aboutInput = formProfile.about;
-
 const popupProfile = document.querySelector(".popup_profile");
 
 const popupImage = document.querySelector(".popup_image-window");
@@ -18,8 +15,6 @@ export {
   profileAbout,
   formProfile,
   formPlace,
-  nameInput,
-  aboutInput,
   popupProfile,
   popupImage,
   popupAgreeDelete,
