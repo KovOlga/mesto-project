@@ -31,11 +31,11 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this.btnLike.addEventListener("click", (evt) => {
+    this._btnLike.addEventListener("click", (evt) => {
       this._handleLikeClick(evt);
     });
 
-    this.image.addEventListener("click", () => {
+    this._cardImage.addEventListener("click", () => {
       this.handleImageClick(this.name, this.link);
     });
 
@@ -57,7 +57,7 @@ export default class Card {
     if (this.likes) {
       this.likes.forEach((likeElementOwner) => {
         if (likeElementOwner._id === this.userId) {
-          this.btnLike.classList.add(this.btnLikeActiveClass);
+          this._btnLike.classList.add(this.btnLikeActiveClass);
         }
       });
     }
@@ -65,20 +65,14 @@ export default class Card {
 
   _renderLikes() {
     //  отрисовывает количество лайков
-    this.likeContainer = this.element.querySelector(
-      ".photo-elements__like-container"
-    );
-    this.likeCounter = this.element.querySelector(
-      ".photo-elements__like-counter"
-    );
     if (this.likes.length === 0) {
-      this.likeContainer.classList.add(this.likeContainerDisabledClass);
-      this.likeCounter.classList.add(this.likeCounterDisabledClass);
-      this.likeCounter.textContent = this.likes.length.toString();
+      this._likeContainer.classList.add(this.likeContainerDisabledClass);
+      this._likeCounter.classList.add(this.likeCounterDisabledClass);
+      this._likeCounter.textContent = this.likes.length.toString();
     } else {
-      this.likeContainer.classList.remove(this.likeContainerDisabledClass);
-      this.likeCounter.classList.remove(this.likeCounterDisabledClass);
-      this.likeCounter.textContent = this.likes.length.toString();
+      this._likeContainer.classList.remove(this.likeContainerDisabledClass);
+      this._likeCounter.classList.remove(this.likeCounterDisabledClass);
+      this._likeCounter.textContent = this.likes.length.toString();
     }
   }
 
@@ -121,13 +115,19 @@ export default class Card {
   generate() {
     this.element = this._getElement();
 
-    this.image = this.element.querySelector(".photo-elements__image");
-    this.btnLike = this.element.querySelector(".photo-elements__like-button");
+    this._cardImage = this.element.querySelector(".photo-elements__image");
+    this._btnLike = this.element.querySelector(".photo-elements__like-button");
+    this._likeContainer = this.element.querySelector(
+      ".photo-elements__like-container"
+    );
+    this._likeCounter = this.element.querySelector(
+      ".photo-elements__like-counter"
+    );
 
     this.element.querySelector(".photo-elements__title").textContent =
       this.name;
-    this.image.src = this.link;
-    this.image.alt = this.name;
+    this._cardImage.src = this.link;
+    this._cardImage.alt = this.name;
 
     this._renderLikes();
     this._showUserLike();
