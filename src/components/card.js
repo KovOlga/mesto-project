@@ -39,16 +39,12 @@ export default class Card {
       this.handleImageClick(this.name, this.link);
     });
 
-    this.binBtnElement = this.element.querySelector(
-      ".photo-elements__bin-button"
-    );
-
     if (this.userId === this.cardOwnerId) {
-      this.binBtnElement.addEventListener("click", (evt) => {
+      this._binBtnElement.addEventListener("click", (evt) => {
         this.handleCardDelete(evt.target, this.cardId);
       });
     } else {
-      this.binBtnElement.remove();
+      this._binBtnElement.remove();
     }
   }
 
@@ -122,6 +118,9 @@ export default class Card {
     );
     this._likeCounter = this.element.querySelector(
       ".photo-elements__like-counter"
+    );
+    this._binBtnElement = this.element.querySelector(
+      ".photo-elements__bin-button"
     );
 
     this.element.querySelector(".photo-elements__title").textContent =
