@@ -77,7 +77,7 @@ const user = new UserInfo({
   avatar: avatar,
 });
 
-const avatarPopup = new PopupWithForm(popupEditAvatar, {
+const avatarPopup = new PopupWithForm(".popup_edit-avatar", {
   handleSubmitForm: ({ avatar }) => {
     return api.patchAvatar(avatar).then((res) => {
       user.setUserInfo(res);
@@ -92,7 +92,7 @@ const avatarPopup = new PopupWithForm(popupEditAvatar, {
 });
 avatarPopup.setEventListeners();
 
-const profilePopup = new PopupWithForm(popupProfile, {
+const profilePopup = new PopupWithForm(".popup_profile", {
   handleSubmitForm: ({ name, job }) => {
     return api.patchProfile(name, job).then((res) => {
       user.setUserInfo(res);
@@ -107,7 +107,7 @@ const profilePopup = new PopupWithForm(popupProfile, {
 });
 profilePopup.setEventListeners();
 
-const cardPopup = new PopupWithForm(popupNewCard, {
+const cardPopup = new PopupWithForm(".popup_new-place", {
   handleSubmitForm: ({ place, link }) => {
     return api.postCard(place, link).then((newCardData) => {
       cardList.renderNewItem(newCardData);
@@ -123,14 +123,14 @@ const cardPopup = new PopupWithForm(popupNewCard, {
 cardPopup.setEventListeners();
 
 const imagePopup = new PopupWithImage({
-  popup: popupImage,
+  popupSelector: ".popup_image-window",
   popupImagePictureSelector: ".popup__image",
   popupImageCaptionSelector: ".popup__caption",
 });
 imagePopup.setEventListeners();
 
 const agreementPopup = new PopupAgreement({
-  popup: popupAgreeDelete,
+  popupSelector: ".popup_agree-delete",
   btnAgreeDeleteSelector: ".popup__btn-agree",
   handleCardDelete: (binBtnTarget, cardId) => {
     return api
@@ -195,7 +195,7 @@ renderInitialData();
 btnAvatarEdit.addEventListener("click", () => {
   formAvatar.reset();
   formAvatarValidator.resetErrorOnReOpen();
-  formAvatarValidator.disableSubmitBtnOnOpen(btnSubmitAvatar);
+  formAvatarValidator.disableSubmitBtnOnOpen();
   avatarPopup.open();
 });
 
@@ -205,7 +205,7 @@ btnEditProfile.addEventListener("click", () => {
   nameInput.value = name;
   jobInput.value = about;
   formProfileValidator.resetErrorOnReOpen();
-  formProfileValidator.disableSubmitBtnOnOpen(btnSubmitProfile);
+  formProfileValidator.disableSubmitBtnOnOpen();
   profilePopup.open();
 });
 
@@ -213,7 +213,7 @@ btnEditProfile.addEventListener("click", () => {
 btnAddCard.addEventListener("click", () => {
   formPlace.reset();
   formPlaceValidator.resetErrorOnReOpen();
-  formPlaceValidator.disableSubmitBtnOnOpen(btnSubmitPlace);
+  formPlaceValidator.disableSubmitBtnOnOpen();
   cardPopup.open();
 });
 
