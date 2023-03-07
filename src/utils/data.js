@@ -1,11 +1,8 @@
 const profileName = document.querySelector(".profile__name");
-const profileJob = document.querySelector(".profile__job");
+const profileAbout = document.querySelector(".profile__about");
 
 const formProfile = document.forms.profile;
 const formPlace = document.forms.card;
-
-const nameInput = formProfile.name;
-const jobInput = formProfile.job;
 
 const popupProfile = document.querySelector(".popup_profile");
 
@@ -15,11 +12,9 @@ const popupAgreeDelete = document.querySelector(".popup_agree-delete");
 
 export {
   profileName,
-  profileJob,
+  profileAbout,
   formProfile,
   formPlace,
-  nameInput,
-  jobInput,
   popupProfile,
   popupImage,
   popupAgreeDelete,
