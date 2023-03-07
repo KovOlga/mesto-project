@@ -135,10 +135,3 @@ export default class Card {
     return this.element;
   }
 }
-
-export {
-  renderCard,
-  setCurrentUserId,
-  createCardElement,
-  photoElementsGallery,
-};
