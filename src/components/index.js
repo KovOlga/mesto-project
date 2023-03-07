@@ -23,7 +23,6 @@ const avatar = document.querySelector(".profile__avatar");
 const btnAvatarEdit = document.querySelector(".profile__avatar-container");
 const popupEditAvatar = document.querySelector(".popup_edit-avatar");
 const formAvatar = document.forms.avatar;
-const inputAvatar = formAvatar.elements.avatar;
 const btnSubmitAvatar = formAvatar.elements.submitAvatar;
 //профайл
 const btnEditProfile = document.querySelector(".profile__edit-button");
