@@ -6,7 +6,7 @@ import PopupAgreement from "./PopupAgreement.js";
 import Section from "./Section.js";
 import UserInfo from "./UserInfo.js";
 import FormValidator from "./FormValidator.js";
-import Api from "./Api.js";
+import Api from "./api.js";
 import { showPreloader, hidePreloader } from "../utils/utils.js";
 import {
   popupImage,
